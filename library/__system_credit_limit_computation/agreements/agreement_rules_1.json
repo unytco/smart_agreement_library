@@ -1,0 +1,9 @@
+{
+  "input_rules": [
+    {
+      "name": "claiming_agent_pubkey",
+      "instruction": { "ExecutorProvided": null }
+    }
+  ],
+  "execution_rules": { "Any": null }
+}

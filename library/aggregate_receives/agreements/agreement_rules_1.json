@@ -1,0 +1,11 @@
+{
+  "input_rules": [
+    {
+      "name": "promised_data",
+      "instruction": {
+        "Custom": "GetExecutorsParkedPromise"
+      }
+    }
+  ],
+  "execution_rules": { "Any": null }
+}

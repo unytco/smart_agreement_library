@@ -1,0 +1,7 @@
+{
+  "type": "object",
+  "properties": {
+    "promised_data": { "type": "any" }
+  },
+  "required": ["promised_data"]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "agent": { "type": "string" },
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["amount", "agent", "proof"]
+      }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "total_amount": { "type": "string" }
+      },
+      "required": ["total_amount"]
+    }
+  },
+  "required": ["unyt_allocation", "computed_values"]
+}

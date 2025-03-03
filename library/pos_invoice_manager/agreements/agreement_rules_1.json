@@ -1,0 +1,9 @@
+{
+  "input_rules": [
+    {
+      "name": "unyt_allocation",
+      "instruction": { "RaveFixed": null }
+    }
+  ],
+  "execution_rules": { "Any": null }
+}
