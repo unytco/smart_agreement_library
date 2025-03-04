@@ -8,10 +8,10 @@
 /// 
 /// We will return the credit limit for the agent
 /// 
-/// The credit limit is 1000
+/// The credit limit is 10000
 return  #{
     "credit_limit":  #{
-            "agent": claiming_agent_pubkey,
-            "amount": "1000"
-        }
+        "agent": claiming_agent_pubkey,
+        "amount": "10000"
+    }
 };  
