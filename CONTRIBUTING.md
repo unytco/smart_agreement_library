@@ -1,4 +1,4 @@
-# Contributing to RAVE Library
+ntributing to RAVE Library
 
 Thank you for your interest in contributing to the RAVE Library! This document provides guidelines for submitting new RAVEs.
 
@@ -130,3 +130,4 @@ Your PR will be reviewed for:
 If you have questions about contributing, please open an issue in the repository.
 
 Thank you for helping grow the RAVE Library!
+
