@@ -1,5 +1,8 @@
 # Rules when writing a RAVE Code Template in Rhai
 
+[![hackmd-github-sync-badge](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg/badge)](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg)
+
+
 ## Overview
 
 - the current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
