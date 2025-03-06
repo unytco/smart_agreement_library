@@ -1,4 +1,4 @@
-ntributing to RAVE Library
+# Contributing to RAVE Library
 
 Thank you for your interest in contributing to the RAVE Library! This document provides guidelines for submitting new RAVEs.
 
@@ -42,8 +42,8 @@ Your Rhai code should:
   /// Detailed explanation of the RAVE's functionality...
   ```
 
-- Return an object with one or more of these properties: [RaveOutput](todo)
-- Use only the registered helper functions [Helper Functions](todo)
+- Return an object with one or more of these properties: [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html)
+- Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
 
@@ -130,4 +130,3 @@ Your PR will be reviewed for:
 If you have questions about contributing, please open an issue in the repository.
 
 Thank you for helping grow the RAVE Library!
-

@@ -2,11 +2,10 @@
 
 [![hackmd-github-sync-badge](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg/badge)](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg)
 
-
 ## Overview
 
 - the current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
-- The key to writing a RAVe is understanding the [RaveOutput](todo) struct. this is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
+- The key to writing a RAVe is understanding the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct. this is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
 
 ## RAVE Code Template
 
@@ -26,37 +25,11 @@ A RAVE code template is a combination of 3 parts:
 ### Output Signature
 
 - The output signature is a JSON Schema that defines the expected output structure from your code.
-- Look at the [RaveOutput](todo) struct to understand the expected output.
+- Look at the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct to understand the expected output.
 
 ### Execution Code
 
 The code template is the Rhai code that implements the logic of your RAVE.
-
-#### RaveOutput struct
-
-Look at the Rave output ([link](todo))
-
-```rust
-pub struct RaveOutput {
-    // This is an optional field that is used to specify the UNYT that would authorized to transfer to the receiver
-    pub unyt_allocation: Option<UnytAllocation>,
-    // This is an optional field that is used to specify the credit limit that is authorized for the receiver
-    pub credit_limit: Option<CreditLimit>,
-    // This is an optional field that is used to specify the computed values that need to be returned by the code template
-    pub computed_values: Option<Value>,
-}
-
-pub type UnytAllocation = Vec<UnytType>;
-
-pub struct UnytType {
-    pub agent: AgentPubKeyB64,
-    pub amount: Pieces,
-    pub proof: ActionHashB64,
-}
-
-pub type Pieces = Vec<ZFuel>;
-
-```
 
 ## Executable Agreement
 
