@@ -6,7 +6,7 @@
 ## Overview
 
 - the current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
-- The key to writing a RAVe is understanding the [RaveOutput](todo) struct. this is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
+- The key to writing a RAVE is understanding the [RaveOutput](todo) struct. This is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
 
 ## RAVE Code Template
 
@@ -69,7 +69,7 @@ An executable agreement is a combination of input rules and execution rules.
 
 ### Execution Rules
 
-- For evecution rules we have to options
+- For execution rules we have two options
   - `Any` - this will allow anyone to execute the agreement
     - you would pass `{ "Any": null }`
   - `AuthorizedExecutors` - this will require a list of authorized executors to execute the agreement
@@ -79,7 +79,7 @@ An executable agreement is a combination of input rules and execution rules.
 
 ### when using RAVEs to transfer funds
 
-- The code template much have a output signature that contains `unyt_allocation` field, This unyt_allocation will be a json object
+- The code template must have a output signature that contains `unyt_allocation` field, This unyt_allocation will be a json object
 
   ```json
   {
@@ -97,7 +97,7 @@ An executable agreement is a combination of input rules and execution rules.
 
 ### when using RAVEs to set a credit limit
 
-- The code template much have a output signature that contains `credit_limit` field, This credit_limit will be a json object
+- The code template must have a output signature that contains `credit_limit` field, This credit_limit will be a json object
 
   ```json
   {
@@ -110,7 +110,7 @@ An executable agreement is a combination of input rules and execution rules.
 
 ### when using RAVEs to compute values
 
-- for anything else that the rave needs to return, the code template much have a output signature that contains `computed_values` field, This computed_values will be a json object
+- for anything else that the rave needs to return, the code template must have a output signature that contains `computed_values` field, This computed_values will be a json object
 
 ```json
 {

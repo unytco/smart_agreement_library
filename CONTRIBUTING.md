@@ -1,4 +1,4 @@
-ntributing to RAVE Library
+Contributing to RAVE Library
 
 Thank you for your interest in contributing to the RAVE Library! This document provides guidelines for submitting new RAVEs.
 
