@@ -1,7 +1,5 @@
 # Rules when writing a RAVE Code Template in Rhai
 
-[![hackmd-github-sync-badge](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg/badge)](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg)
-
 ## Overview
 
 - the current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
@@ -19,7 +17,7 @@ A RAVE code template is a combination of 3 parts:
 
 - The input signature is a JSON Schema that defines the expected inputs into your code.
 - For this you also should think through how you expect to pass the input when the RAVE is run.
-- Here are the ways you can pass the input to the RAVE [Instructions](todo)
+- Here are the ways you can pass the input to the RAVE [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/executable_agreement/enum.Instruction.html)
   - note: this instructions is what you will have to set in the agreements that are created for each code template
 
 ### Output Signature
@@ -38,7 +36,7 @@ An executable agreement is a combination of input rules and execution rules.
 ### Input Rules
 
 - The input rules are a JSON Schema that defines the how will the executor fetch the inputs when running the RAVE
-- Here are the ways you can pass the input to the RAVE [Instructions](todo)
+- Here are the ways you can pass the input to the RAVE [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/executable_agreement/enum.Instruction.html)
 
 ### Execution Rules
 
