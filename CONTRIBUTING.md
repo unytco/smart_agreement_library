@@ -21,8 +21,10 @@ rave_library/
         ├── execution_code.rhai      # The RAVE code in Rhai format
         ├── input_signature.json     # JSON schema for input validation
         ├── output_signature.json    # JSON schema for output validation
-        └── agreement/              # Optional folder for agreement examples
-            └── [agreement_examples]
+        └── agreement/              # Folder for agreement examples
+            └── example_agreement_rules.json # File for agreement examples
+            └── agreement_rules_1.json # Optional a default agreement rules file
+            └── agreement_rules_n.json # Optional a default agreement rules file
 ```
 
 ### execution_code.rhai Requirements
