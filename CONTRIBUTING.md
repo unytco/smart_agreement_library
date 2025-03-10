@@ -1,4 +1,4 @@
-Contributing to RAVE Library
+# Contributing to RAVE Library
 
 Thank you for your interest in contributing to the RAVE Library! This document provides guidelines for submitting new RAVEs.
 
@@ -21,8 +21,10 @@ rave_library/
         ├── execution_code.rhai      # The RAVE code in Rhai format
         ├── input_signature.json     # JSON schema for input validation
         ├── output_signature.json    # JSON schema for output validation
-        └── agreement/              # Optional folder for agreement examples
-            └── [agreement_examples]
+        └── agreements/              # Folder for agreement examples
+            └── example_agreement_rules.json # File for agreement examples
+            └── agreement_rules_1.json # Optional a default agreement rules file
+            └── agreement_rules_n.json # Optional a default agreement rules file
 ```
 
 ### execution_code.rhai Requirements
@@ -42,8 +44,8 @@ Your Rhai code should:
   /// Detailed explanation of the RAVE's functionality...
   ```
 
-- Return an object with one or more of these properties: [RaveOutput](todo)
-- Use only the registered helper functions [Helper Functions](todo)
+- Return an object with one or more of these properties: [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html)
+- Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
 
@@ -130,4 +132,3 @@ Your PR will be reviewed for:
 If you have questions about contributing, please open an issue in the repository.
 
 Thank you for helping grow the RAVE Library!
-

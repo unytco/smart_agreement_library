@@ -1,12 +1,10 @@
 # Rules when writing a RAVE Code Template in Rhai
 
-[![hackmd-github-sync-badge](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg/badge)](https://hackmd.io/SkZ7oej0SqqP3NSl4fzQQg)
-
-
 ## Overview
 
-- the current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
-- The key to writing a RAVE is understanding the [RaveOutput](todo) struct. This is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
+- The current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
+- The key to writing a RAVe is understanding the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct. this is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
+
 
 ## RAVE Code Template
 
@@ -20,43 +18,17 @@ A RAVE code template is a combination of 3 parts:
 
 - The input signature is a JSON Schema that defines the expected inputs into your code.
 - For this you also should think through how you expect to pass the input when the RAVE is run.
-- Here are the ways you can pass the input to the RAVE [Instructions](todo)
+- Here are the ways you can pass the input to the RAVE [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/executable_agreement/enum.Instruction.html)
   - note: this instructions is what you will have to set in the agreements that are created for each code template
 
 ### Output Signature
 
 - The output signature is a JSON Schema that defines the expected output structure from your code.
-- Look at the [RaveOutput](todo) struct to understand the expected output.
+- Look at the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct to understand the expected output.
 
 ### Execution Code
 
 The code template is the Rhai code that implements the logic of your RAVE.
-
-#### RaveOutput struct
-
-Look at the Rave output ([link](todo))
-
-```rust
-pub struct RaveOutput {
-    // This is an optional field that is used to specify the UNYT that would authorized to transfer to the receiver
-    pub unyt_allocation: Option<UnytAllocation>,
-    // This is an optional field that is used to specify the credit limit that is authorized for the receiver
-    pub credit_limit: Option<CreditLimit>,
-    // This is an optional field that is used to specify the computed values that need to be returned by the code template
-    pub computed_values: Option<Value>,
-}
-
-pub type UnytAllocation = Vec<UnytType>;
-
-pub struct UnytType {
-    pub agent: AgentPubKeyB64,
-    pub amount: Pieces,
-    pub proof: ActionHashB64,
-}
-
-pub type Pieces = Vec<ZFuel>;
-
-```
 
 ## Executable Agreement
 
@@ -65,7 +37,7 @@ An executable agreement is a combination of input rules and execution rules.
 ### Input Rules
 
 - The input rules are a JSON Schema that defines the how will the executor fetch the inputs when running the RAVE
-- Here are the ways you can pass the input to the RAVE [Instructions](todo)
+- Here are the ways you can pass the input to the RAVE [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/executable_agreement/enum.Instruction.html)
 
 ### Execution Rules
 
