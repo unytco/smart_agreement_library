@@ -4,7 +4,7 @@
 A RAVE is a Recorded Agreement, Verifiably Executed. It is similar to a Blockchain Smart Contract, but designed to take advantage of the Agent-Centric Holochain Application Architecture.
 
 ## RAVEs
-See the [library directory](./tree/main/library) for the RAVEs.
+See the [library directory](./library) for the RAVEs.
 
 Each RAVE has its own directory in that library directory. Each RAVE should have some contextual information and a summary in comments at the top of its execution_code.rhai file.
 
