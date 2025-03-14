@@ -1,4 +1,5 @@
 {
+  "title": "v0.1.0",
   "input_rules": [
     {
       "name": "claiming_agent_pubkey",
