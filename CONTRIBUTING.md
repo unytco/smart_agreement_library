@@ -1,6 +1,6 @@
-# Contributing to RAVE Library
+# Contributing to RAVE Code Library
 
-Thank you for your interest in contributing to the RAVE Library! This document provides guidelines for submitting new RAVEs.
+Thank you for your interest in contributing to the RAVE Code Library! This document provides guidelines for submitting new RAVEs.
 
 ## How to Contribute
 
@@ -131,4 +131,4 @@ Your PR will be reviewed for:
 
 If you have questions about contributing, please open an issue in the repository.
 
-Thank you for helping grow the RAVE Library!
+Thank you for helping grow the RAVE Code Library!
