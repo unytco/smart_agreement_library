@@ -17,7 +17,7 @@ for piece in unyt_allocation {
   let service_unit_1_value = parse_int(piece.amount[1]) * base_value_per_service_unit_1;
   let service_unit_2_value = parse_int(piece.amount[2]) * base_value_per_service_unit_2;
 
-  // promises have a negative value for the service units 
+  // spends have a negative value for the service units 
   // so remember to handle that when verifying value
   service_unit_1_value = service_unit_1_value * -1;
   service_unit_2_value = service_unit_2_value * -1;

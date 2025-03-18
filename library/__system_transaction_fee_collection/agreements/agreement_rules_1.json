@@ -2,9 +2,9 @@
   "title": "v0.1.0",
   "input_rules": [
     {
-      "name": "promised_data",
+      "name": "spendd_data",
       "instruction": {
-        "Custom": "GetExecutorsParkedPromise"
+        "Custom": "GetExecutorsParkedSpend"
       }
     }
   ],

@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "promised_data": { "type": "any" }
+    "spendd_data": { "type": "any" }
   },
-  "required": ["promised_data"]
+  "required": ["spendd_data"]
 }
