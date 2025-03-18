@@ -1,0 +1,18 @@
+{
+  "title": "unyt-provided v0.1.0",
+  "input_rules": [
+    {
+      "name": "unyt_allocation",
+      "instruction": { "RaveFixed": null }
+    },
+    {
+      "name": "spender",
+      "instruction": { "RaveFixed": null }
+    },
+    {
+      "name": "condition",
+      "instruction": { "ExecutorProvided": null }
+    }
+  ],
+  "execution_rules": { "Any": null }
+}

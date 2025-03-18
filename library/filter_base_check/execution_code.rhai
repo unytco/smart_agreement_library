@@ -1,4 +1,4 @@
-/// Subject: Example of a conditional forward
+/// Subject: Example of a filter for base value check
 /// 
 /// Inputs:
 /// unyt_allocation: the unyt_allocation to be checked
