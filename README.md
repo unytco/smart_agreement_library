@@ -17,4 +17,4 @@ Each RAVE has its own directory in that library directory. Each RAVE should have
 
 ## More Info and Where to Run Raves
 
-RAVEs are designed to be run in a Peer-to-Peer Piecework Accounting application. Downloads and Documentation are available at https://github.com/unytco/hfvz-releases.
+RAVEs are designed to be run in a Peer-to-Peer Piecework Accounting application. Downloads and Documentation are available at https://github.com/unytco/piecework-releases.
