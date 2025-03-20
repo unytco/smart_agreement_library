@@ -5,7 +5,6 @@
 - The current executable code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
 - The key to writing a RAVe is understanding the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct. this is the structure of output the RAVE-rhai engine is looking for expecting for the code to return. Read the Rules for the output section to understand how to return the correct output.
 
-
 ## RAVE Code Template
 
 A RAVE code template is a combination of 3 parts:
@@ -44,8 +43,8 @@ An executable agreement is a combination of input rules and execution rules.
 - For execution rules we have two options
   - `Any` - this will allow anyone to execute the agreement
     - you would pass `{ "Any": null }`
-  - `AuthorizedExecutors` - this will require a list of authorized executors to execute the agreement
-    - you would pass `{ "AuthorizedExecutors": ["executor_pubkey_1", "executor_pubkey_2"] }`
+  - `AuthorizedExecutor` - this will require a list of authorized executors to execute the agreement
+    - you would pass `{ "AuthorizedExecutor": "executor_pubkey" }`
 
 ## Rules for the output
 
