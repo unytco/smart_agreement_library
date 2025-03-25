@@ -1,7 +1,7 @@
 /// Subject: Example of a POS invoice manager
 /// 
 /// Inputs:
-/// allocations: the allocations to be checked
+/// unyt_allocation: the unyt_allocation to be checked
 /// pos: the pos to be checked
 /// 
 /// Summary:
@@ -11,7 +11,7 @@
 let a = pos;
 
 return #{
-  "unyt_allocations": allocations,
+  "unyt_allocation": unyt_allocation,
   "computed_values": #{
     "pos": pos
   }

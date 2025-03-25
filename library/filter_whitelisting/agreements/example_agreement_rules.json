@@ -3,7 +3,7 @@
   "input_rules": [
     {
       "name": "unyt_allocation",
-      "instruction": { "RoleProvided": "spender" }
+      "instruction": { "ProvidedByRole": "spender" }
     },
     {
       "name": "whitelisted_receiver",
@@ -11,7 +11,7 @@
     },
     {
       "name": "return_address",
-      "instruction": { "RoleProvided": "spender" }
+      "instruction": { "ProvidedByRole": "spender" }
     }
   ],
   "execution_rules": { "Any": null },

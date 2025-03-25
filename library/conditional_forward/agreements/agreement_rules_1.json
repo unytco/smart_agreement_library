@@ -3,11 +3,11 @@
   "input_rules": [
     {
       "name": "unyt_allocation",
-      "instruction": { "RoleProvided": "spender" }
+      "instruction": { "ProvidedByRole": "spender" }
     },
     {
       "name": "return_address",
-      "instruction": { "RoleProvided": "spender" }
+      "instruction": { "ProvidedByRole": "spender" }
     },
     {
       "name": "condition",
