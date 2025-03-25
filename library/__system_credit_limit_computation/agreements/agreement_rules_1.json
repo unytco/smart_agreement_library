@@ -6,5 +6,8 @@
       "instruction": { "ExecutorProvided": null }
     }
   ],
-  "execution_rules": { "Any": null }
+  "execution_rules": { "Any": null },
+  "roles": [],
+  "one_time_run": false,
+  "aggregate_execution": false
 }

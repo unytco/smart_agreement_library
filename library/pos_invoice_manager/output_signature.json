@@ -12,7 +12,13 @@
         },
         "required": ["agent", "amount", "proof"]
       }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "pos": { "type": "string" }
+      }
     }
   },
-  "required": ["unyt_allocation"]
+  "required": ["unyt_allocation", "computed_values"]
 }

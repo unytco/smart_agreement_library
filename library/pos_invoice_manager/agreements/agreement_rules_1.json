@@ -2,9 +2,27 @@
   "title": "unyt-provided v0.1.0",
   "input_rules": [
     {
-      "name": "unyt_allocation",
-      "instruction": { "RaveFixed": null }
+      "name": "allocations",
+      "instruction": { "RoleProvided": "spender" }
+    },
+    {
+      "name": "pos",
+      "instruction": { "RoleProvided": "invoice_gateway" }
     }
   ],
-  "execution_rules": { "Any": null }
+  "execution_rules": { "Any": null },
+  "roles": [
+    {
+      "name": "spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    },
+    {
+      "name": "invoice_gateway",
+      "description": "The invoice gateway role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "one_time_run": false,
+  "aggregate_execution": false
 }

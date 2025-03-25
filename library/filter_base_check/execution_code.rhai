@@ -28,9 +28,9 @@ for piece in unyt_allocation {
     // value verified so we forward the amount to the original receiver
     checked_unyt_allocation.push(piece);
   } else {
-    // forwarding the amount back to the spender
+    // forwarding the amount back to the return_address
     let updated_piece = piece;
-    updated_piece.agent = spender;
+    updated_piece.agent = return_address;
     checked_unyt_allocation.push(updated_piece);
   }
 }

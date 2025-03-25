@@ -3,12 +3,21 @@
   "input_rules": [
     {
       "name": "unyt_allocation",
-      "instruction": { "RaveFixed": null }
+      "instruction": { "RoleProvided": "spender" }
     },
     {
-      "name": "spender",
-      "instruction": { "RaveFixed": null }
+      "name": "return_address",
+      "instruction": { "RoleProvided": "spender" }
     }
   ],
-  "execution_rules": { "Any": null }
+  "execution_rules": { "Any": null },
+  "roles": [
+    {
+      "name": "spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "one_time_run": false,
+  "aggregate_execution": false
 }

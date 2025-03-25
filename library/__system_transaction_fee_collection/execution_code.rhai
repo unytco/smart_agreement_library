@@ -1,7 +1,7 @@
 /// Subject: Example of an aggregate receive
 /// 
 /// Inputs:
-/// spendd_data: a list of parked_spend links
+/// spend_data: a list of parked_spend links
 /// 
 /// Summary:
 /// Here the input expected is a list of parked_spend links
@@ -19,7 +19,7 @@
 let total_amount = 0;
 let merged_allocations = [];
 let error_message = "unset";
-for record in spendd_data {
+for record in spend_data {
     try {
         let allocations = parse_record_to_parked_spend_allocations(record);
         

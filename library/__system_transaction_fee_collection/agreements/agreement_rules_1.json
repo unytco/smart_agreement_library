@@ -2,11 +2,14 @@
   "title": "v0.1.0",
   "input_rules": [
     {
-      "name": "spendd_data",
+      "name": "spend_data",
       "instruction": {
         "Custom": "GetExecutorsParkedSpend"
       }
     }
   ],
-  "execution_rules": { "Any": null }
+  "execution_rules": { "Any": null },
+  "roles": [],
+  "one_time_run": false,
+  "aggregate_execution": false
 }

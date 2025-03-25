@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "unyt_allocation": {
+    "allocations": {
       "type": "array",
       "items": {
         "type": "object",
@@ -12,7 +12,13 @@
         },
         "required": ["agent", "amount", "proof"]
       }
+    },
+    "pos": {
+      "type": "object",
+      "properties": {
+        "pos": { "type": "string" }
+      }
     }
   },
-  "required": ["unyt_allocation"]
+  "required": ["allocations", "pos"]
 }
