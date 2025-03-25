@@ -10,15 +10,15 @@
           "amount": { "type": "array", "items": { "type": "string" } },
           "proof": { "type": "string" }
         },
-        "required": ["receiver", "amount", "proof"]
+        "required": ["amount", "receiver", "proof"]
       }
     },
     "computed_values": {
       "type": "object",
       "properties": {
-        "pos": { "type": "string" }
+        "signature_valid": { "type": "boolean" },
+        "error": { "type": "string" }
       }
     }
-  },
-  "required": ["unyt_allocation", "computed_values"]
+  }
 }

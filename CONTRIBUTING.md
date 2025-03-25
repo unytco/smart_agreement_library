@@ -86,7 +86,7 @@ Provide a JSON Schema that defines the expected output structure:
       "items": {
         "type": "object",
         "properties": {
-          "agent": { "type": "string" },
+          "receiver": { "type": "string" },
           "amount": {
             "type": "array",
             "items": { "type": "string" }

@@ -1,17 +1,9 @@
 {
-  "title": "v0.1.0",
+  "title": "unyt-provided v0.1.0",
   "input_rules": [
     {
       "name": "spend_data",
-      "instruction": {
-        "Custom": "GetExecutorsParkedSpend"
-      }
-    },
-    {
-      "name": "receiver",
-      "instruction": {
-        "ExecutorProvided": null
-      }
+      "instruction": { "Custom": "GetExecutorsParkedSpend" }
     }
   ],
   "execution_rules": { "Any": null },

@@ -1,0 +1,7 @@
+{
+  "type": "object",
+  "properties": {
+    "spend_data": { "type": "array" }
+  },
+  "required": ["spend_data"]
+}

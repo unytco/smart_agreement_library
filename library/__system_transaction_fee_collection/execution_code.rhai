@@ -18,13 +18,21 @@
 /// This total amount is passed back as the computed_values
 let total_amount = 0;
 let merged_allocations = [];
-let error_message = "unset";
+let error_message = "none";
 for record in spend_data {
     try {
         let allocations = parse_record_to_parked_spend_allocations(record);
         
         for allocation in allocations {
-            merged_allocations.push(allocation);
+            if !allocation.contains("receiver") {
+                merged_allocations.push(#{
+                    "receiver": receiver,
+                    "amount": allocation.amount,
+                    "proof": allocation.proof
+                });
+            } else {
+                merged_allocations.push(allocation);
+            }
             total_amount += parse_int(allocation.amount[0]);
         }
     } catch(error) {
@@ -36,6 +44,7 @@ for record in spend_data {
 return #{
   "unyt_allocation": merged_allocations,
   "computed_values": #{
-      "total_amount": total_amount
+      "total_amount": total_amount,
+      "error": error_message
   }
 };

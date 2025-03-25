@@ -6,11 +6,11 @@
       "items": {
         "type": "object",
         "properties": {
-          "agent": { "type": "string" },
+          "receiver": { "type": "string" },
           "amount": { "type": "array", "items": { "type": "string" } },
           "proof": { "type": "string" }
         },
-        "required": ["agent", "amount", "proof"]
+        "required": ["receiver", "amount", "proof"]
       }
     },
     "spender": { "type": "string" },
