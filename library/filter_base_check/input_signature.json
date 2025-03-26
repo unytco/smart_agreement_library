@@ -13,7 +13,7 @@
         "required": ["receiver", "amount", "proof"]
       }
     },
-    "spender": { "type": "string" }
+    "return_address": { "type": "string" }
   },
-  "required": ["unyt_allocation", "spender"]
+  "required": ["unyt_allocation", "return_address"]
 }

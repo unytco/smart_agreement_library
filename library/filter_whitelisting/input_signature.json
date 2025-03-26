@@ -17,7 +17,7 @@
       "type": "array",
       "items": { "type": "string" }
     },
-    "spender": { "type": "string" }
+    "return_address": { "type": "string" }
   },
-  "required": ["unyt_allocation", "whitelisted_receiver", "spender"]
+  "required": ["unyt_allocation", "whitelisted_receiver", "return_address"]
 }
