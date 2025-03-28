@@ -4,17 +4,23 @@
     "unyt_allocation": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "receiver": { "type": "string" },
-          "amount": { "type": "array", "items": { "type": "string" } },
-          "proof": { "type": "string" }
-        },
-        "required": ["receiver", "amount", "proof"]
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "receiver": { "type": "string" },
+            "amount": { "type": "array", "items": { "type": "string" } },
+            "proof": { "type": "string" }
+          },
+          "required": ["receiver", "amount", "proof"]
+        }
       }
     },
     "pos": {
-      "type": "string"
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": ["unyt_allocation", "pos"]
