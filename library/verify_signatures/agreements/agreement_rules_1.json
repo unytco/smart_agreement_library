@@ -6,7 +6,7 @@
       "instruction": { "Custom": "GetExecutorsParkedSpend" }
     }
   ],
-  "execution_rules": { "Any": null },
+  "executor_rules": { "Any": null },
   "roles": [
     {
       "name": "spender",

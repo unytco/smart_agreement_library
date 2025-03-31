@@ -5,8 +5,8 @@
 /// 
 /// Summary:
 /// Here the input expected is a list of parked_spend links
-/// we use the parse_record_to_parked_spend_allocations function to parse the parked_spend links
-/// Note: the parse_record_to_parked_spend_allocations functions is a function that is defined in the rave_library/library/parked_spend_manager/execution_code.rhai file
+/// we use the parse_record_to_parked_amount_and_proof function to parse the parked_spend links
+/// Note: the parse_record_to_parked_amount_and_proof functions is a function that is defined in the rave_library/library/parked_spend_manager/execution_code.rhai file
 /// it is a helper function that is provided by the RHAI Engine that we are using within the dan
 ///
 /// Then we loop through the links and collect the amount allocated in the links
@@ -21,7 +21,7 @@ let merged_allocations = [];
 let error_message = "none";
 for record in spend_data {
     try {
-        let allocations = parse_record_to_parked_spend_allocations(record);
+        let allocations = parse_record_to_parked_amount_and_proof(record);
         
         for allocation in allocations {
             if !allocation.contains("receiver") {

@@ -7,7 +7,7 @@ let is_valid;
 for record in spend_data {
     try {
         is_valid = hdi_verify_record_signature(record);
-        let allocations = parse_record_to_parked_spend_allocations(record);
+        let allocations = parse_record_to_parked_amount_and_proof(record);
         
         for allocation in allocations {
             merged_allocations.push(allocation);
