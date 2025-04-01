@@ -10,18 +10,22 @@
 /// if the receiver is in the whitelisted_receiver, then we forward the transaction
 /// else if the receiver is not in the whitelisted_receiver, then we reject the transaction
 const zero = 0;
-for i in 0..unyt_allocation.len {
-  let found = false;
-  for agent in whitelisted_receiver {
-    if unyt_allocation[i].agent == agent {
-      found = true;
-    }
-  }
-  if !found {
-    unyt_allocation[i].agent = return_address;
+
+let final_receiver = return_address;
+
+for agent in whitelisted_receiver {
+  if receiver == agent {
+    final_receiver = receive;
   }
 }
 
+
 return #{
-  "unyt_allocation": unyt_allocation
+  "unyt_allocation": [
+    #{
+      "receiver": final_receiver,
+      "amount": allocation.amount,
+      "proof": allocation.proof
+    }
+  ]
 }

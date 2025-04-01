@@ -4,6 +4,10 @@
     {
       "name": "spend_data",
       "instruction": { "Custom": "GetExecutorsParkedSpend" }
+    },
+    {
+      "name": "receiver",
+      "instruction": { "ProvidedByRole": "spender" }
     }
   ],
   "executor_rules": { "Any": null },
@@ -14,6 +18,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "one_time_run": false,
+  "one_time_run": true,
   "aggregate_execution": false
 }

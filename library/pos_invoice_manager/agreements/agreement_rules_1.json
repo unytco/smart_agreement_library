@@ -2,8 +2,12 @@
   "title": "unyt-provided v0.1.0",
   "input_rules": [
     {
-      "name": "unyt_allocation",
+      "name": "allocation",
       "instruction": { "ProvidedByRole": "spender" }
+    },
+    {
+      "name": "receiver",
+      "instruction": { "ProvidedByRole": "invoice_gateway" }
     },
     {
       "name": "pos",

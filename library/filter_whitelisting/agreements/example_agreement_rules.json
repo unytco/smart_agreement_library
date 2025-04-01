@@ -2,7 +2,11 @@
   "title": "unyt-provided v0.1.0",
   "input_rules": [
     {
-      "name": "unyt_allocation",
+      "name": "allocation",
+      "instruction": { "ProvidedByRole": "spender" }
+    },
+    {
+      "name": "receiver",
       "instruction": { "ProvidedByRole": "spender" }
     },
     {
@@ -22,6 +26,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "one_time_run": false,
+  "one_time_run": true,
   "aggregate_execution": false
 }

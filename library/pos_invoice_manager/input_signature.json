@@ -1,21 +1,18 @@
 {
   "type": "object",
   "properties": {
-    "unyt_allocation": {
+    "allocation": {
       "type": "array",
       "items": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "receiver": { "type": "string" },
-            "amount": { "type": "array", "items": { "type": "string" } },
-            "proof": { "type": "string" }
-          },
-          "required": ["receiver", "amount", "proof"]
-        }
+        "type": "object",
+        "properties": {
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["amount", "proof"]
       }
     },
+    "receiver": { "type": "array", "items": { "type": "string" } },
     "pos": {
       "type": "array",
       "items": {
@@ -23,5 +20,5 @@
       }
     }
   },
-  "required": ["unyt_allocation", "pos"]
+  "required": ["allocation", "receiver", "pos"]
 }

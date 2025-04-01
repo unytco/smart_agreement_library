@@ -11,23 +11,18 @@
 let a = pos;
 
 // check type of unyt_allocation
-let allocations = [];
-if unyt_allocation.len > 0 {
-  if type_of(unyt_allocation[0]) == "array" {
-      // needs to be flatterened since this agreement is 
-        for allocation in unyt_allocation {
-            for a in allocation {
-                allocations.push(a);
-            }
-        }
-    } else {
-        allocations = unyt_allocation;
-    }
+let unyt_allocation = [];
+for a in allocation {
+  unyt_allocation.push(#{
+    "receiver": receiver[0],
+    "amount": a.amount,
+    "proof": a.proof
+  });
 }
 
 return #{
-  "unyt_allocation": allocations,
+  "unyt_allocation": unyt_allocation,
   "computed_values": #{
-    "pos": pos
+    "pos": pos,
   }
 }

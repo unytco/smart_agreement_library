@@ -1,7 +1,8 @@
 {
   "type": "object",
   "properties": {
-    "spend_data": { "type": "array" }
+    "spend_data": { "type": "array" },
+    "receiver": { "type": "string" }
   },
-  "required": ["spend_data"]
+  "required": ["spend_data", "receiver"]
 }

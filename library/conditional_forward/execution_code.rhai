@@ -7,12 +7,16 @@
 /// Summary:
 ///
 
-for i in 0..unyt_allocation.len {
-  if !condition {
-    unyt_allocation[i].agent = return_address;
-  }
+if !condition {
+  receiver = return_address;
 }
 
 return #{
-  "unyt_allocation": unyt_allocation
+  "unyt_allocation": [
+    #{
+      "receiver": receiver,
+      "amount": allocation.amount,
+      "proof": allocation.proof
+    }
+  ]
 }

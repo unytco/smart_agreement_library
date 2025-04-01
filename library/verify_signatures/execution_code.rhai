@@ -1,20 +1,19 @@
 let total_amount = 0;
 let merged_allocations = [];
 let error_message = "unset";
-let test_allocations = "unset";
-let check = 0;
 let is_valid;
 for record in spend_data {
     try {
         is_valid = hdi_verify_record_signature(record);
-        let allocations = parse_record_to_parked_amount_and_proof(record);
+        let allocation = parse_record_to_parked_amount_and_proof(record);
         
-        for allocation in allocations {
-            merged_allocations.push(allocation);
-            total_amount += parse_int(allocation.amount[0]);
-        }
-        check += 1;
-        test_allocations = allocations;
+        merged_allocations.push(#{
+            "receiver": receiver,
+            "amount": allocation.amount,
+            "proof": allocation.proof
+        });
+        total_amount += parse_int(allocation.amount[0]);
+    
     } catch(error) {
         // print("Error parsing record: " + error);
         error_message = error;
