@@ -1,0 +1,13 @@
+{
+  "title": "credit check v0.1.0",
+  "input_rules": [
+    {
+      "name": "claiming_agent_pubkey",
+      "instruction": { "ExecutorProvided": null }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "one_time_run": false,
+  "aggregate_execution": false
+}
