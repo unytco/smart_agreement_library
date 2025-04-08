@@ -2,9 +2,9 @@
   "title": "collect fee v0.1",
   "input_rules": [
     {
-      "name": "spend_data",
+      "name": "allocation",
       "instruction": {
-        "Custom": "GetExecutorsParkedSpend"
+        "ProvidedByRole": "spender"
       }
     },
     {
@@ -18,10 +18,10 @@
   "roles": [
     {
       "name": "spender",
-      "description": "The spender role",
+      "description": "The fee drop off agent",
       "qualification": { "Any": null }
     }
   ],
   "one_time_run": false,
-  "aggregate_execution": false
+  "aggregate_execution": true
 }
