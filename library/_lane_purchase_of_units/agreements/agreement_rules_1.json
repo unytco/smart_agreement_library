@@ -1,13 +1,23 @@
 {
-  "title": "credit check v0.1.0",
+  "title": "pod v0.1.0",
   "input_rules": [
     {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
+      "name": "proof_of_deposit_hash",
+      "instruction": { "ProvidedByRole": "spender" }
+    },
+    {
+      "name": "allocation",
+      "instruction": { "ProvidedByRole": "spender" }
     }
   ],
   "executor_rules": { "Any": null },
-  "roles": [],
+  "roles": [
+    {
+      "name": "spender",
+      "description": "The sales agent",
+      "qualification": { "Any": null }
+    }
+  ],
   "one_time_run": false,
-  "aggregate_execution": false
+  "aggregate_execution": true
 }

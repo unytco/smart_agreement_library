@@ -1,7 +1,18 @@
 {
   "type": "object",
   "properties": {
-    "claiming_agent_pubkey": { "type": "string" }
+    "proof_of_deposit_hash": { "type": "array", "items": { "type": "string" } },
+    "allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["amount", "proof"]
+      }
+    }
   },
-  "required": ["claiming_agent_pubkey"]
+  "required": ["proof_of_deposit_hash", "allocation"]
 }

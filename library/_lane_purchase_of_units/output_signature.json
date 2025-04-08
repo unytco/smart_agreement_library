@@ -1,14 +1,18 @@
 {
   "type": "object",
   "properties": {
-    "credit_limit": {
-      "type": "object",
-      "properties": {
-        "agent": { "type": "string" },
-        "amount": { "type": "string" }
-      },
-      "required": ["agent", "amount"]
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["receiver", "amount", "proof"]
+      }
     }
   },
-  "required": ["credit_limit"]
+  "required": ["unyt_allocation"]
 }
