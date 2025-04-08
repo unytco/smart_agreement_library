@@ -6,7 +6,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "receiver": { "type": "string" },
+          "receiver": { "type": "array", "items": { "type": "number" } },
           "amount": { "type": "array", "items": { "type": "string" } },
           "proof": { "type": "string" }
         },

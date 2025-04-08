@@ -21,15 +21,19 @@ for (pod, i) in proof_of_deposit_hash {
     let proof_of_deposit = get_data_blob(pod);
     
     // optional: verify
-    let check_1 = hdi_verify_signature(proof_of_deposit.signature, proof_of_deposit.payload, proof_of_deposit.payload.signing_key);
+    let payload = proof_of_deposit.payload;
+    let signature = proof_of_deposit.signature;
+    let signing_key = payload.spender_wallet_address;
+    let check_1 = hdi_verify_signature(signing_key, signature, payload);
 
     // optional: we can validate the price 
     // code to retrieve current price/conversion rate between 
     // the outside capitalization currency and fuel base unit
 
-    if check_1 {
+    let check_2 = allocation[i].amount == payload.amount;
+    if check_1 && check_2 {
         unyt_allocation.push(#{
-            "receiver": proof_of_deposit.payload.receiver,
+            "receiver": payload.receiver_wallet_address,
             "amount": allocation[i].amount,
             "proof": allocation[i].proof
         });            
