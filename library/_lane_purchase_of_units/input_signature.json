@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "proof_of_deposit_hash": { "type": "array", "items": { "type": "string" } },
+    "service_fee_wallet_address": { "type": "string" },
     "allocation": {
       "type": "array",
       "items": {
@@ -14,5 +15,5 @@
       }
     }
   },
-  "required": ["proof_of_deposit_hash", "allocation"]
+  "required": ["proof_of_deposit_hash", "allocation", "service_fee_wallet_address"]
 }

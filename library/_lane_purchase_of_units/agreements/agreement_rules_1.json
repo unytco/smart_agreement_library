@@ -6,6 +6,10 @@
       "instruction": { "ProvidedByRole": "spender" }
     },
     {
+      "name": "service_fee_wallet_address",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
       "name": "allocation",
       "instruction": { "ProvidedByRole": "spender" }
     }

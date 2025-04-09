@@ -2,7 +2,8 @@
 /// 
 /// Inputs:
 /// proof_of_deposit_hash: the hash of the proof of deposit
-///
+/// service_fee_wallet_address: the wallet address of the service fee agent
+/// 
 /// Summary:
 /// The poof_of_deposit is a data blob that contains 
 ///  - payload:
@@ -31,13 +32,24 @@ for (pod, i) in proof_of_deposit_hash {
     // code to retrieve current price/conversion rate between 
     // the outside capitalization currency and fuel base unit
     let conversion_sheet = get_data_blob(payload.conversion_sheet);
-    let expected_conversion_rate = conversion_sheet.hf_per_usd * payload.external_currency_amount;
+    let expected_fuel_base_units = conversion_sheet.hf_per_usd * payload.external_currency_amount;
+  
+    let check_2 = allocation[i].amount[0] == expected_fuel_base_units.to_string();
+  
+    // optional: build in a service fee;
+    let service_fee_percentage = 0.01; // 1%
+    let service_fee = expected_fuel_base_units * service_fee_percentage;
+    let expected_fuel_base_units_after_fee = expected_fuel_base_units - service_fee;
 
-    let check_2 = allocation[i].amount[0] == expected_conversion_rate.to_string();
-    if check_1 && check_2 {
+     if check_1 && check_2 {
         unyt_allocation.push(#{
             "receiver": payload.receiver_wallet_address,
-            "amount": allocation[i].amount,
+            "amount": [expected_fuel_base_units_after_fee.to_string()],
+            "proof": allocation[i].proof
+        });
+        unyt_allocation.push(#{
+            "receiver": service_fee_wallet_address,
+            "amount": [service_fee.to_string()],
             "proof": allocation[i].proof
         });            
     }
