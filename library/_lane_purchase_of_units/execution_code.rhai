@@ -2,18 +2,19 @@
 /// 
 /// Inputs:
 /// proof_of_deposit_hash: the hash of the proof of deposit
-/// 
+///
 /// Summary:
 /// The poof_of_deposit is a data blob that contains 
 ///  - payload:
 ///    - receiver_wallet_address pubkey
-///    - amount of units to purchase
+///    - external_currency_amount of units to purchase
+///    - conversion_sheet: the conversion rate between the outside capitalization currency and fuel base unit
 ///    - spender_wallet_address: the key that signed the payload
 ///  - signature: signature of the payload
-///    
+/// 
+/// Use the conversion_rate from the data blob to convert the external_currency_amount to fuel base unit
 /// 
 /// We will return the unyt_allocation
-/// 
 
 let unyt_allocation = [];
 
@@ -29,8 +30,10 @@ for (pod, i) in proof_of_deposit_hash {
     // optional: we can validate the price 
     // code to retrieve current price/conversion rate between 
     // the outside capitalization currency and fuel base unit
+    let conversion_sheet = get_data_blob(payload.conversion_sheet);
+    let expected_conversion_rate = conversion_sheet.hf_per_usd * payload.external_currency_amount;
 
-    let check_2 = allocation[i].amount == payload.amount;
+    let check_2 = allocation[i].amount[0] == expected_conversion_rate.to_string();
     if check_1 && check_2 {
         unyt_allocation.push(#{
             "receiver": payload.receiver_wallet_address,
