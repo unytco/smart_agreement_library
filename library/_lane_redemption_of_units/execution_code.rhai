@@ -15,6 +15,15 @@
 /// We will return the unyt_allocation
 /// 
 
+// Calculate the total amount that the redeemers would redeem
+let total_amount = 0;
+for (allocation, i) in allocation {
+    total_amount += allocation.amount;
+}
+
+
+
+
 let unyt_allocation = [];
 
 for (pod, i) in proof_of_deposit_hash {

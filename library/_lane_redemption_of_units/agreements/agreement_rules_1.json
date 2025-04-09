@@ -1,5 +1,5 @@
 {
-  "title": "pod v0.1.0",
+  "title": "redemption v0",
   "input_rules": [
     {
       "name": "proof_of_deposit_hash",
@@ -14,7 +14,7 @@
   "roles": [
     {
       "name": "spender",
-      "description": "The sales agent",
+      "description": "The redeemer",
       "qualification": { "Any": null }
     }
   ],

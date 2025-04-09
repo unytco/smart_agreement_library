@@ -1,5 +1,5 @@
 {
-  "title": "pod v0.1.0",
+  "title": "purchase v0",
   "input_rules": [
     {
       "name": "proof_of_deposit_hash",
