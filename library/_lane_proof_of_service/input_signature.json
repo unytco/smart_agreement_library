@@ -1,7 +1,24 @@
 {
   "type": "object",
   "properties": {
-    "claiming_agent_pubkey": { "type": "string" }
+    "allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["amount", "proof"]
+      }
+    },
+    "receiver": { "type": "array", "items": { "type": "string" } },
+    "pos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   },
-  "required": ["claiming_agent_pubkey"]
+  "required": ["allocation", "receiver", "pos"]
 }

@@ -1,17 +1,28 @@
-/// Subject: Execution for __system_credit_limit_computation
+/// Subject: Example of a POS invoice manager
 /// 
 /// Inputs:
-/// claiming_agent_pubkey: the pubkey of the agent that is claiming the credit limit
+/// unyt_allocation: the unyt_allocation to be checked
+/// pos: the pos to be checked
 /// 
 /// Summary:
-/// This is a simple example of a credit limit computation
-/// 
-/// We will return the credit limit for the agent
-/// 
-/// The credit limit is 10000
-return  #{
-    "credit_limit":  #{
-        "agent": claiming_agent_pubkey,
-        "amount": "10000"
-    }
-};  
+/// This is a simple return of the unyt_allocation
+
+// todo: verify pos
+let a = pos;
+
+// check type of unyt_allocation
+let unyt_allocation = [];
+for a in allocation {
+  unyt_allocation.push(#{
+    "receiver": receiver[0],
+    "amount": a.amount,
+    "proof": a.proof
+  });
+}
+
+return #{
+  "unyt_allocation": unyt_allocation,
+  "computed_values": #{
+    "pos": pos,
+  }
+}

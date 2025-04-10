@@ -1,13 +1,32 @@
 {
-  "title": "credit check v0.1.0",
+  "title": "unyt-provided v0.1.0",
   "input_rules": [
     {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
+      "name": "allocation",
+      "instruction": { "ProvidedByRole": "spender" }
+    },
+    {
+      "name": "receiver",
+      "instruction": { "ProvidedByRole": "invoice_gateway" }
+    },
+    {
+      "name": "pos",
+      "instruction": { "ProvidedByRole": "invoice_gateway" }
     }
   ],
   "executor_rules": { "Any": null },
-  "roles": [],
+  "roles": [
+    {
+      "name": "spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    },
+    {
+      "name": "invoice_gateway",
+      "description": "The invoice gateway role",
+      "qualification": { "Any": null }
+    }
+  ],
   "one_time_run": false,
-  "aggregate_execution": false
+  "aggregate_execution": true
 }
