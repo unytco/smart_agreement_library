@@ -2,8 +2,16 @@
   "title": "redemption v0",
   "input_rules": [
     {
-      "name": "proof_of_deposit_hash",
-      "instruction": { "ProvidedByRole": "spender" }
+      "name": "redemption_price",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "sales_agent_pubkey",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "sales_agent_balance",
+      "instruction": { "ExecutorProvided": null }
     },
     {
       "name": "allocation",
@@ -14,7 +22,7 @@
   "roles": [
     {
       "name": "spender",
-      "description": "The redeemer",
+      "description": "The redeeming agent",
       "qualification": { "Any": null }
     }
   ],

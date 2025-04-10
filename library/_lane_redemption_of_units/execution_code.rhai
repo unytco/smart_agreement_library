@@ -1,55 +1,52 @@
 /// Subject: Execution for _lane_purchase_of_units
 /// 
 /// Inputs:
-/// proof_of_deposit_hash: the hash of the proof of deposit
+/// allocation: the allocation of units to redeem
+/// redemption_price: the price of the units in the outside currency
+/// sales_agent_pubkey: the pubkey of the sales agent
 /// 
 /// Summary:
-/// The poof_of_deposit is a data blob that contains 
-///  - payload:
-///    - receiver_wallet_address pubkey
-///    - amount of units to purchase
-///    - spender_wallet_address: the key that signed the payload
-///  - signature: signature of the payload
+/// The allocation is an array of objects that contains 
+///  - amount: the amount of units to redeem
+///  - proof: the proof of the units to redeem
 ///    
 /// 
 /// We will return the unyt_allocation
-/// 
-
-// Calculate the total amount that the redeemers would redeem
-let total_amount = 0;
-for (allocation, i) in allocation {
-    total_amount += allocation.amount;
-}
 
 
-
-
+// sort the allocation based on the timestamp
 let unyt_allocation = [];
+let redemption_report = [];
+let sorted_parked_links = acceding_sort_allocation(allocation);
+let available_ledger_balance = sales_agent_balance;
 
-for (pod, i) in proof_of_deposit_hash {
-    let proof_of_deposit = get_data_blob(pod);
-    
-    // optional: verify
-    let payload = proof_of_deposit.payload;
-    let signature = proof_of_deposit.signature;
-    let signing_key = payload.spender_wallet_address;
-    let check_1 = hdi_verify_signature(signing_key, signature, payload);
+// we can accept to pay only a specific amount based on the sales_agent_balance available
+// move the oldest allocation to the unyt_allocation to be retrived
+// make a log of the spender their fuel_allocation and their expected external currency amount
 
-    // optional: we can validate the price 
-    // code to retrieve current price/conversion rate between 
-    // the outside capitalization currency and fuel base unit
-
-    let check_2 = allocation[i].amount == payload.amount;
-    if check_1 && check_2 {
-        unyt_allocation.push(#{
-            "receiver": payload.receiver_wallet_address,
-            "amount": allocation[i].amount,
-            "proof": allocation[i].proof
-        });            
+for (parked_link, i) in sorted_parked_links {
+    let updated_balance  = sub_pieces(available_ledger_balance , parked_link.amount);
+    if parse_float(updated_balance[0]) > 0 {
+        break;
     }
+    available_ledger_balance = updated_balance;
+    unyt_allocation.push(#{
+        "receiver": sales_agent_pubkey,
+        "amount": parked_link.amount,
+        "proof": parked_link.proof
+    });
+    redemption_report.push(#{
+        "spender": parked_link.spender,
+        "fuel_allocation": parked_link.amount,
+        "expected_external_currency_amount": `${parse_float(parked_link.amount[0]) / redemption_price}`
+    });
 }
 
 
 return  #{
-    "unyt_allocation": unyt_allocation
+    "unyt_allocation": unyt_allocation,
+    "computed_values": #{
+        "redemption_report": redemption_report,
+        "redemption_price": `${redemption_price}`,
+    }
 }; 
