@@ -18,7 +18,7 @@
 /// We will return the unyt_allocation
 
 let unyt_allocation = [];
-
+let computed_values = [];
 for (pod, i) in proof_of_deposit_hash {
     let proof_of_deposit = get_data_blob(pod);
     
@@ -53,9 +53,20 @@ for (pod, i) in proof_of_deposit_hash {
             "proof": allocation[i].proof
         });            
     }
+    // for debugging
+    computed_values.push(#{
+        "check_1": check_1,
+        "check_2": check_2,
+        "conversion_sheet": conversion_sheet,
+        "allocation[i].amount[0]": allocation[i].amount[0],
+        "external_currency_amount": payload.external_currency_amount,
+        "expected_fuel_base_units": expected_fuel_base_units,
+        "service_fee": service_fee
+    });
 }
 
 
 return  #{
-    "unyt_allocation": unyt_allocation
+    "unyt_allocation": unyt_allocation,
+    "computed_values": computed_values
 }; 
