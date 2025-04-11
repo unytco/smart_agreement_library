@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["receiver", "amount", "proof"]
+      }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "pos": { "type": "string" }
+      }
+    }
+  },
+  "required": ["unyt_allocation", "computed_values"]
+}

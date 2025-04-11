@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "array", "items": { "type": "string" } },
+          "proof": { "type": "string" }
+        },
+        "required": ["amount", "proof"]
+      }
+    },
+    "receiver": { "type": "array", "items": { "type": "string" } },
+    "pos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["allocation", "receiver", "pos"]
+}
