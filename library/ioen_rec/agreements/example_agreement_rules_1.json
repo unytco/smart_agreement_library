@@ -1,0 +1,23 @@
+{
+  "title": "unyt-provided v0.1.0",
+  "input_rules": [
+    {
+      "name": "allocation",
+      "instruction": { "ProvidedByRole": "spender" }
+    },
+    {
+      "name": "logs",
+      "instruction": { "ProvidedByRole": "spender" }
+    }
+  ],
+  "executor_rules": { "Authorized": "executors pub key" },
+  "roles": [
+    {
+      "name": "spender",
+      "description": "The log harvester",
+      "qualification": { "Authorized": "spender pub key" }
+    }
+  ],
+  "one_time_run": false,
+  "aggregate_execution": true
+}
