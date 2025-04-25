@@ -1,7 +1,6 @@
 /// Subject: IOEN Renewable Energy Certificate (REC)
 /// 
 /// Inputs:
-/// spender: [{logs, allocation}]
 ///   - logs: data blobs that contain the logs of the IOEN REC
 ///   - allocation: the allocated spends in the spend links to be cross-checked
 /// 
@@ -12,9 +11,8 @@
 let unyt_allocation = [];
 // sum up the values
 let total_rec_amount = "0";
-for s in spender {
-  let logs = s.logs;
-  let allocation = s.allocation;
+for (log, i) in logs {
+  let allocation = allocation[i];
  
   let log_value = get_data_blob(log);
   // Expected log format:
