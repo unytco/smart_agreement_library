@@ -12,6 +12,6 @@
 return  #{
     "credit_limit":  #{
         "agent": claiming_agent_pubkey,
-        "amount": "10000"
+        "amount": credit_limit
     }
 };  

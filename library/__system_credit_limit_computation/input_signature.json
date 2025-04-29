@@ -1,7 +1,8 @@
 {
   "type": "object",
   "properties": {
-    "claiming_agent_pubkey": { "type": "string" }
+    "claiming_agent_pubkey": { "type": "string" },
+    "credit_limit": { "type": "string" }
   },
-  "required": ["claiming_agent_pubkey"]
+  "required": ["claiming_agent_pubkey", "credit_limit"]
 }

@@ -4,6 +4,10 @@
     {
       "name": "claiming_agent_pubkey",
       "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "credit_limit",
+      "instruction": { "Fixed": "10000" }
     }
   ],
   "executor_rules": { "Any": null },

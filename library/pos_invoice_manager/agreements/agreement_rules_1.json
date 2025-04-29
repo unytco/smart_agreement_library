@@ -7,11 +7,11 @@
     },
     {
       "name": "receiver",
-      "instruction": { "ProvidedByRole": "invoice_gateway" }
+      "instruction": { "ProvidedByRole": "spender" }
     },
     {
       "name": "pos",
-      "instruction": { "ProvidedByRole": "invoice_gateway" }
+      "instruction": { "ProvidedByRole": "spender" }
     }
   ],
   "executor_rules": { "Any": null },
@@ -19,11 +19,6 @@
     {
       "name": "spender",
       "description": "The spender role",
-      "qualification": { "Any": null }
-    },
-    {
-      "name": "invoice_gateway",
-      "description": "The invoice gateway role",
       "qualification": { "Any": null }
     }
   ],
