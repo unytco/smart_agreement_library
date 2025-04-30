@@ -12,7 +12,7 @@ for record in spend_data {
             "amount": allocation.amount,
             "proof": allocation.proof
         });
-        total_amount += parse_int(allocation.amount[0]);
+        total_amount += parse_float(allocation.amount[0]);
     
     } catch(error) {
         // print("Error parsing record: " + error);
