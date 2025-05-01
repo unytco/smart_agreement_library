@@ -21,11 +21,10 @@ for (log, i) in logs {
   //    "source": "GRG - Bottling Plant - 1 Jan 2023 - 30 Nov 2024 - Raw Data",
   //    "project": "TBV-R1",
   //    "site": "GRG1-1",
-  //    "owner_address": "uhCA...",
+  //    "owner_address": "uhCAkv1J12FOWUbiIx5Ajaw1RJUDZxBKQmmR7Gu6Oh7l7hJRYSKBS",
   //    "data": [
-  //       { date: "2024-12", value: "0.00" }
-  //       { date: "2024-11", value: "91.62" }
-  //       ...
+  //       { "date": "2024-12", "value": "0.00" },
+  //       { "date": "2024-11", "value": "91.62" }
   //     ]
   //  }
   // ]
@@ -37,8 +36,8 @@ for (log, i) in logs {
     }
     unyt_allocation.push(#{
       "receiver": l.owner_address,
-      "amount": total,
-      "proof": allocated.proof
+      "amount": [total, "0", "0"],
+      "proof": allocation.proof
     });
     total_rec_amount = add_fuel(total_rec_amount, total);
   }
