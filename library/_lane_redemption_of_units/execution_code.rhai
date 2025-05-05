@@ -8,7 +8,7 @@
 /// Summary:
 /// The allocation is an array of objects that contains 
 ///  - amount: the amount of units to redeem
-///  - proof: the proof of the units to redeem
+///  - source: the source of the units to redeem
 ///    
 /// 
 /// We will return the unyt_allocation
@@ -33,7 +33,7 @@ for (parked_link, i) in sorted_parked_links {
     unyt_allocation.push(#{
         "receiver": sales_agent_pubkey,
         "amount": parked_link.amount,
-        "proof": parked_link.proof
+        "source": parked_link.source
     });
     redemption_report.push(#{
         "spender": parked_link.spender,

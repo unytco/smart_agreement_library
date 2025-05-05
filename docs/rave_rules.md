@@ -58,7 +58,7 @@ An executable agreement is a combination of input rules and execution rules.
       {
         "amount": ["100", "0"],
         "agent": "receiver_agent_pubkey",
-        "proof": "proof_hash"
+        "source": "source_hash"
       }
     ]
   }

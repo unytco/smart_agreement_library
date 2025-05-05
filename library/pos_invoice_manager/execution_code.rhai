@@ -16,7 +16,7 @@ for a in allocation {
   unyt_allocation.push(#{
     "receiver": receiver[0],
     "amount": a.amount,
-    "proof": a.proof
+    "source": a.source
   });
 }
 

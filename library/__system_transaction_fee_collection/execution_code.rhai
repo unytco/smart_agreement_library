@@ -15,7 +15,7 @@ for a in allocation {
     merged_allocations.push(#{
         "receiver": receiver,
         "amount": a.amount,
-        "proof": a.proof
+        "source": a.source
     });
     total_amount += parse_float(a.amount[0]);
 }

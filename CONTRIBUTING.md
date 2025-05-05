@@ -91,7 +91,7 @@ Provide a JSON Schema that defines the expected output structure:
             "type": "array",
             "items": { "type": "string" }
           },
-          "proof": { "type": "string" }
+          "source": { "type": "string" }
         }
       }
     },

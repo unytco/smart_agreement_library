@@ -5,9 +5,9 @@
       "type": "object",
       "properties": {
         "amount": { "type": "array", "items": { "type": "string" } },
-        "proof": { "type": "string" }
+        "source": { "type": "string" }
       },
-      "required": ["amount", "proof"]
+      "required": ["amount", "source"]
     },
     "receiver": { "type": "string" },
     "return_address": { "type": "string" },

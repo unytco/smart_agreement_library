@@ -28,14 +28,14 @@ if expected_base_value == parse_float(allocation.amount[0]) {
   checked_allocation.push(#{
     "receiver": receiver,
     "amount": allocation.amount,
-    "proof": allocation.proof
+    "source": allocation.source
   });
 } else {
   // forwarding the amount back to the return_address
   checked_allocation.push(#{
     "receiver": return_address,
     "amount": allocation.amount,
-    "proof": allocation.proof
+    "source": allocation.source
   });
 }
 

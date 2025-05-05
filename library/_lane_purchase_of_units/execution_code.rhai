@@ -45,12 +45,12 @@ for (pod, i) in proof_of_deposit_hash {
         unyt_allocation.push(#{
             "receiver": payload.receiver_wallet_address,
             "amount": [expected_fuel_base_units_after_fee.to_string()],
-            "proof": allocation[i].proof
+            "source": allocation[i].source
         });
         unyt_allocation.push(#{
             "receiver": service_fee_wallet_address,
             "amount": [service_fee.to_string()],
-            "proof": allocation[i].proof
+            "source": allocation[i].source
         });            
     }
     // for debugging

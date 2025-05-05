@@ -5,12 +5,12 @@ let is_valid;
 for record in spend_data {
     try {
         is_valid = hdi_verify_record_signature(record);
-        let allocation = parse_record_to_parked_amount_and_proof(record);
+        let allocation = parse_record_to_parked_amount_and_source(record);
         
         merged_allocations.push(#{
             "receiver": receiver,
             "amount": allocation.amount,
-            "proof": allocation.proof
+            "source": allocation.source
         });
         total_amount += parse_float(allocation.amount[0]);
     

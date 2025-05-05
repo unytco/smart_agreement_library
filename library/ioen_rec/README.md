@@ -55,7 +55,7 @@ This is going to be a hash of the data blob
 Array of objects containing:
 
 - Amount: Array of string values representing energy generation
-- Proof: Verification string for the allocation
+- source: Verification string for the allocation
 
 ## Code Execution Flow
 
@@ -68,18 +68,18 @@ Array of objects containing:
 
    - Iterates through each log entry
    - Calculates total generation for each time period
-   - Validates against allocation proofs
+   - Validates against allocation sources
 
 3. **Allocation**
 
    - Creates unyt_allocation entries for each owner
    - Computes total REC amount
-   - Associates proofs with allocations
+   - Associates sources with allocations
 
 4. **Output Generation**
    - Returns structured allocation data
    - Includes computed totals
-   - Maintains audit trail through proofs
+   - Maintains audit trail through sources
 
 ## Output Structure
 
@@ -91,7 +91,7 @@ Array of objects containing:
 
 - receiver: Agent key of the certificate recipient
 - amount: Array of string values representing allocated RECs
-- proof: Verification string for the allocation
+- source: Verification string for the allocation
 
 ### computed_values
 
@@ -102,6 +102,6 @@ Object containing:
 ## Security Considerations
 
 - Owner addresses must be properly validated
-- Data integrity is maintained through proof verification
+- Data integrity is maintained through source verification
 - System prevents double-counting of generation
 - Audit trail is maintained for all allocations

@@ -25,7 +25,7 @@ return #{
     #{
       "receiver": final_receiver,
       "amount": allocation.amount,
-      "proof": allocation.proof
+      "source": allocation.source
     }
   ]
 }

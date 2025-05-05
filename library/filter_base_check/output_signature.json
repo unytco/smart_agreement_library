@@ -8,9 +8,9 @@
         "properties": {
           "receiver": { "type": "string" },
           "amount": { "type": "array", "items": { "type": "string" } },
-          "proof": { "type": "string" }
+          "source": { "type": "string" }
         },
-        "required": ["receiver", "amount", "proof"]
+        "required": ["receiver", "amount", "source"]
       }
     }
   },
