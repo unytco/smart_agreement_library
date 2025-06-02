@@ -4,7 +4,7 @@
 
 Currently, Smart Agreement Execution Code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
 
-The key to writing Agreement Code Templates and Smart Agreements is understanding the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html) struct. {TODO: Update Link} This is the structure of output the RAVE-rhai engine is expecting for the code to return.
+The key to writing Agreement Code Templates and Smart Agreements is understanding the [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/rave/rave_output/struct.RaveOutput.html) struct. This is the structure of output the RAVE-rhai engine is expecting for the code to return.
 
 Read the Rules for the output section to understand how to return the correct output.
 
