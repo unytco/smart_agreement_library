@@ -8,7 +8,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "amount": { "type": "array", "items": { "type": "string" } },
+          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
           "source": { "type": "string" }
         },
         "required": ["amount", "source"]

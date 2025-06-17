@@ -26,7 +26,7 @@ let available_ledger_balance = sales_agent_balance;
 
 for (parked_link, i) in sorted_parked_links {
     let updated_balance  = sub_pieces(available_ledger_balance , parked_link.amount);
-    if parse_float(updated_balance[0]) > 0 {
+    if parse_float(updated_balance["0"]) > 0 {
         break;
     }
     available_ledger_balance = updated_balance;
@@ -38,7 +38,7 @@ for (parked_link, i) in sorted_parked_links {
     redemption_report.push(#{
         "spender": parked_link.spender,
         "fuel_allocation": parked_link.amount,
-        "expected_external_currency_amount": `${parse_float(parked_link.amount[0]) / redemption_price}`
+        "expected_external_currency_amount": `${parse_float(parked_link.amount["0"]) / redemption_price}`
     });
 }
 

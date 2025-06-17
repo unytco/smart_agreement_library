@@ -34,7 +34,7 @@ for (pod, i) in proof_of_deposit_hash {
     let conversion_sheet = get_data_blob(payload.conversion_sheet);
     let expected_fuel_base_units = conversion_sheet.hf_per_usd * payload.external_currency_amount;
   
-    let check_2 = allocation[i].amount[0] == expected_fuel_base_units.to_string();
+    let check_2 = allocation[i].amount["0"] == expected_fuel_base_units.to_string();
   
     // optional: build in a service fee;
     let service_fee_percentage = 0.01; // 1%
@@ -44,12 +44,16 @@ for (pod, i) in proof_of_deposit_hash {
      if check_1 && check_2 {
         unyt_allocation.push(#{
             "receiver": payload.receiver_wallet_address,
-            "amount": [expected_fuel_base_units_after_fee.to_string()],
+            "amount": #{
+                "0": expected_fuel_base_units_after_fee.to_string()
+            },
             "source": allocation[i].source
         });
         unyt_allocation.push(#{
             "receiver": service_fee_wallet_address,
-            "amount": [service_fee.to_string()],
+            "amount": #{
+                "0": service_fee.to_string()
+            },
             "source": allocation[i].source
         });            
     }
@@ -58,7 +62,7 @@ for (pod, i) in proof_of_deposit_hash {
         "check_1": check_1,
         "check_2": check_2,
         "conversion_sheet": conversion_sheet,
-        "allocation[i].amount[0]": allocation[i].amount[0],
+        "allocation[i].amount[0]": allocation[i].amount["0"],
         "external_currency_amount": payload.external_currency_amount,
         "expected_fuel_base_units": expected_fuel_base_units,
         "service_fee": service_fee
