@@ -17,7 +17,7 @@ for a in allocation {
         "amount": a.amount,
         "source": a.source
     });
-    total_amount += parse_float(a.amount[0]);
+    total_amount += parse_float(a.amount["0"]);
 }
 
 return #{
