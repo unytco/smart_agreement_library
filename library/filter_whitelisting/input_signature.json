@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "allocation": {
+      "type": "object",
+      "properties": {
+        "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+        "source": { "type": "string" }
+      },
+      "required": ["amount", "source"]
+    },
+    "receiver": { "type": "string" },
+    "whitelisted_receiver": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "return_address": { "type": "string" }
+  },
+  "required": ["allocation", "receiver", "whitelisted_receiver", "return_address"]
+}

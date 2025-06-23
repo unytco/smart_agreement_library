@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "allocation": {
+      "type": "object",
+      "properties": {
+        "amount": { "type": "any" },
+        "source": { "type": "string" }
+      },
+      "required": ["amount", "source"]
+    },
+    "receiver": { "type": "string" },
+    "return_address": { "type": "string" },
+    "condition": { "type": "boolean" }
+  },
+  "required": ["allocation", "receiver", "return_address", "condition"]
+}

@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "array", "items": { "type": "number" } },
+          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+          "source": { "type": "string" }
+        },
+        "required": ["receiver", "amount", "source"]
+      }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "redemption_report": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "spender": { "type": "string" },
+              "fuel_allocation": { "type": "object", "additionalProperties": { "type": "string" } },
+              "expected_external_currency_amount": { "type": "number" }
+            },
+            "required": ["spender", "fuel_allocation", "expected_external_currency_amount"]
+          }
+        },
+        "redemption_price": { "type": "string" }
+      },
+      "required": ["redemption_report", "redemption_price"]
+    }
+  },
+  "required": ["unyt_allocation", "computed_values"]
+}

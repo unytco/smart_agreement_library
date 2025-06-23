@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+          "source": { "type": "string" }
+        },
+        "required": ["amount", "receiver", "source"]
+      }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "total_amount": { "type": "string" }
+      },
+      "required": ["total_amount"]
+    }
+  },
+  "required": ["unyt_allocation", "computed_values"]
+}
