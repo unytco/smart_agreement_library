@@ -1,0 +1,29 @@
+{
+  "title": "credit check v0.1.0",
+  "input_rules": [
+    {
+      "name": "claiming_agent_pubkey",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "agent_spend_records",
+      "instruction": {
+        "Query": {
+          "Query": {
+            "sequence_range": "Unbounded",
+            "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
+            "action_type": null,
+            "entry_hashes": null,
+            "action_hashes": null,
+            "include_entries": true,
+            "order_descending": false
+          }
+        }
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "one_time_run": false,
+  "aggregate_execution": false
+}

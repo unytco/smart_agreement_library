@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "object",
+      "properties": {
+        "agent": { "type": "string" },
+        "amount": { "type": "string" }
+      },
+      "required": ["agent", "amount"]
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "spend_count": { "type": "number" },
+        "formula": { "type": "string" }
+      }
+    }
+  },
+  "required": ["credit_limit", "computed_values"]
+}
