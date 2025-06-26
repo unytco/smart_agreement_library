@@ -19,9 +19,13 @@ let spend_count = 0;
 // Iterate through all agent spends to count spends for this specific agent
 for spend in agent_spend_records {
     if (verify_valid_spend_records(spend)) {
-        if (spend.agent_pubkey == claiming_agent_pubkey) {
-            spend_count = spend_count + 1;
-        }
+        spend_count = spend_count + 1;
+    }
+}
+
+for spend in agent_spend_links {
+    if (verify_valid_spend_records(spend)) {
+        spend_count = spend_count + 1;
     }
 }
 

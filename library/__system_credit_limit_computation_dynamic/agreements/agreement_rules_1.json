@@ -11,8 +11,24 @@
         "Query": {
           "Query": {
             "sequence_range": "Unbounded",
-            "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
-            "action_type": null,
+            "entry_type": [{ "App": { "entry_index": 3, "zome_index": 0, "visibility": "Public" } }],
+            "action_type": ["Create"],
+            "entry_hashes": null,
+            "action_hashes": null,
+            "include_entries": true,
+            "order_descending": false
+          }
+        }
+      }
+    },
+    {
+      "name": "agent_spend_links",
+      "instruction": {
+        "Query": {
+          "Query": {
+            "sequence_range": "Unbounded",
+            "entry_type": null,
+            "action_type": ["CreateLink"],
             "entry_hashes": null,
             "action_hashes": null,
             "include_entries": true,
