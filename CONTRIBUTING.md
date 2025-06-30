@@ -14,7 +14,7 @@ Thank you for your interest in contributing to the Smart Agreement Code Library!
 When adding a new Smart Agreement, please follow this directory structure:
 
 ```bash
-saved_library/
+smart_agreement_library/
 └── library/
     └── your_saved_name/
         ├── README.md               # Documentation for your Smart Agreement
