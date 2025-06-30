@@ -1,6 +1,6 @@
 # Renewable Energy Certificate (REC) by IOEN
 
-This RAVE implements the generation and management of Renewable Energy Certificates (RECs) for the IOEN network, specifically designed for solar installations in developing markets like Myanmar.
+This SAVED implements the generation and management of Renewable Energy Certificates (RECs) for the IOEN network, specifically designed for solar installations in developing markets like Myanmar.
 
 ## Roles
 
@@ -27,7 +27,7 @@ This RAVE implements the generation and management of Renewable Energy Certifica
 
 ## Inputs
 
-The RAVE accepts two main input types:
+The SAVED accepts two main input types:
 
 ### Logs
 
@@ -83,7 +83,7 @@ Array of objects containing:
 
 ## Output Structure
 
-The RAVE produces:
+The SAVED produces:
 
 ### unyt_allocation
 

@@ -1,24 +1,24 @@
-# Contributing to RAVE Code Library
+# Contributing to Smart Agreement Code Library
 
-Thank you for your interest in contributing to the RAVE Code Library! This document provides guidelines for submitting new RAVEs.
+Thank you for your interest in contributing to the Smart Agreement Code Library! This document provides guidelines for submitting new SAVEDs.
 
 ## How to Contribute
 
 1. Fork the repository
-2. Create a new branch for your RAVE
-3. Follow the existing RAVE structure (detailed below)
+2. Create a new branch for your Smart Agreement
+3. Follow the existing Smart Agreement structure (detailed below)
 4. Submit a Pull Request
 
-## RAVE Structure
+## Smart Agreement Structure
 
-When adding a new RAVE, please follow this directory structure:
+When adding a new Smart Agreement, please follow this directory structure:
 
 ```bash
-rave_library/
+saved_library/
 └── library/
-    └── your_rave_name/
-        ├── README.md               # Documentation for your RAVE
-        ├── execution_code.rhai      # The RAVE code in Rhai format
+    └── your_saved_name/
+        ├── README.md               # Documentation for your Smart Agreement
+        ├── execution_code.rhai      # The Smart Agreement code in Rhai format
         ├── input_signature.json     # JSON schema for input validation
         ├── output_signature.json    # JSON schema for output validation
         └── agreements/              # Folder for agreement examples
@@ -34,18 +34,18 @@ Your Rhai code should:
 - Begin with comprehensive comments explaining:
 
   ```rhai
-  /// Subject: Brief description of what this RAVE does
+  /// Subject: Brief description of what this Smart Agreement does
   ///
   /// Inputs:
   /// input_param1: Description of first parameter
   /// input_param2: Description of second parameter
   ///
   /// Summary:
-  /// Detailed explanation of the RAVE's functionality...
+  /// Detailed explanation of the Smart Agreement's functionality...
   ```
 
-- Return an object with one or more of these properties: [RaveOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RaveOutput.html)
-- Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
+- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/saved_output/struct.SAVEDOutput.html)
+- Use only the registered helper functions [Helper Functions](https://docs.rs/saved_engine/latest/saved_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
 
@@ -107,13 +107,13 @@ Provide a JSON Schema that defines the expected output structure:
 
 ### Optional Agreement Examples
 
-If your RAVE is designed to work with specific types of agreements, provide example agreement configurations in the `agreement` folder to help users understand how to use your RAVE.
+If your Smart Agreement is designed to work with specific types of agreements, provide example agreement configurations in the `agreement` folder to help users understand how to use your Smart Agreement.
 
 ### README.md Requirements
 
 Your README should include:
 
-- Clear description of what the RAVE does
+- Clear description of what the Smart Agreement does
 - Input parameters and their types
 - Expected output format
 
@@ -131,4 +131,4 @@ Your PR will be reviewed for:
 
 If you have questions about contributing, please open an issue in the repository.
 
-Thank you for helping grow the RAVE Code Library!
+Thank you for helping grow the Smart Agreement Code Library!

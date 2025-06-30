@@ -5,7 +5,7 @@
 /// agent_spend_records: array of spend records for the agent
 /// 
 /// Summary:
-/// This RAVE computes a dynamic credit limit based on an agent's spending history.
+/// This SAVED computes a dynamic credit limit based on an agent's spending history.
 /// The formula is: credit_limit = (spend_count + 1) × 10
 /// 
 /// For each agent, we:

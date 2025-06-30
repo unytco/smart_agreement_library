@@ -25,7 +25,7 @@ let available_ledger_balance = sales_agent_balance;
 // make a log of the spender their fuel_allocation and their expected external currency amount
 
 for (parked_link, i) in sorted_parked_links {
-    let updated_balance  = sub_pieces(available_ledger_balance , parked_link.amount);
+    let updated_balance  = sub_units(available_ledger_balance , parked_link.amount);
     if parse_float(updated_balance["0"]) > 0 {
         break;
     }
