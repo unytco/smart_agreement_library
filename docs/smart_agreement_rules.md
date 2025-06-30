@@ -22,7 +22,7 @@ The input schema is a JSON Schema that defines the expected inputs into your cod
 
 For this, you also should think through how you expect to pass the input when the Smart Agreement is Executed.
 
-Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/saved_engine/latest/saved_engine/types/entries/executable_agreement/rules/enum.Instruction.html)
+Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/saved_engine/latest/saved_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
 
 Note: You won't set the particular input sources in the template. Instead, you will have to set these Input Source instructions when creating a Smart Agreement (which will adhere to this Agreement Code Template).
 
