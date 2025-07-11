@@ -23,12 +23,6 @@ for spend in agent_spend_records {
     }
 }
 
-for spend in agent_spend_links {
-    if (verify_valid_spend_records(spend)) {
-        spend_count = spend_count + 1;
-    }
-}
-
 // Calculate dynamic credit limit using the formula: (spend_count + 1) × 10
 let credit_limit = (spend_count + 1) * 10;
 

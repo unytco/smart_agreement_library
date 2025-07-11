@@ -15,7 +15,12 @@
     },
     {
       "name": "allocation",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": true
+        }
+      }
     }
   ],
   "executor_rules": { "Any": null },

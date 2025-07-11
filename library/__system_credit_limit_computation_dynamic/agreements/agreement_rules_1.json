@@ -9,30 +9,11 @@
       "name": "agent_spend_records",
       "instruction": {
         "Query": {
-          "Query": {
-            "sequence_range": "Unbounded",
-            "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
-            "action_type": ["Create"],
-            "entry_hashes": null,
-            "action_hashes": null,
-            "include_entries": true,
-            "order_descending": false
-          }
-        }
-      }
-    },
-    {
-      "name": "agent_spend_links",
-      "instruction": {
-        "Query": {
-          "Query": {
-            "sequence_range": "Unbounded",
-            "entry_type": null,
-            "action_type": ["CreateLink"],
-            "entry_hashes": null,
-            "action_hashes": null,
-            "include_entries": true,
-            "order_descending": false
+          "MustGetSelfActivity": {
+            "chain_top": null,
+            "filters": "ToGenesis",
+            "include_cached_entries": true,
+            "into_record": true
           }
         }
       }

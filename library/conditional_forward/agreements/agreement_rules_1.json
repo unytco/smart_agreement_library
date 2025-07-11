@@ -3,15 +3,30 @@
   "input_rules": [
     {
       "name": "allocation",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": true
+        }
+      }
     },
     {
       "name": "receiver",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": false
+        }
+      }
     },
     {
       "name": "return_address",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": false
+        }
+      }
     },
     {
       "name": "condition",

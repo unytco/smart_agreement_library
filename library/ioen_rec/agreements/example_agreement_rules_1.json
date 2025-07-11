@@ -3,11 +3,21 @@
   "input_rules": [
     {
       "name": "allocation",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": true
+        }
+      }
     },
     {
       "name": "logs",
-      "instruction": { "ProvidedByRole": "spender" }
+      "instruction": {
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": false
+        }
+      }
     }
   ],
   "executor_rules": { "Authorized": "executors pub key" },

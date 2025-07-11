@@ -4,7 +4,10 @@
     {
       "name": "allocation",
       "instruction": {
-        "ProvidedByRole": "spender"
+        "ProvidedBy": {
+          "role_name": "spender",
+          "consumed_link": true
+        }
       }
     },
     {
