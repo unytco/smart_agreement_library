@@ -17,7 +17,7 @@
 let spend_count = 0;
 
 // Iterate through all agent spends to count spends for this specific agent
-for spend in agent_spend_records {
+for spend in inputs.agent_spend_records.data {
     if (verify_valid_spend_records(spend)) {
         spend_count = spend_count + 1;
     }
@@ -29,7 +29,7 @@ let credit_limit = (spend_count + 1) * 10;
 // Return the computed credit limit for the agent
 return #{
     "credit_limit": #{
-        "agent": claiming_agent_pubkey,
+        "agent": inputs.claiming_agent_pubkey.data,
         "amount": credit_limit.to_string(),
     },
     "computed_values": #{

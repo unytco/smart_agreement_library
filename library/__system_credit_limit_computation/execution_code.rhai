@@ -11,7 +11,7 @@
 /// The credit limit is 10000
 return  #{
     "credit_limit":  #{
-        "agent": claiming_agent_pubkey,
-        "amount": credit_limit
+        "agent": inputs.claiming_agent_pubkey.data,
+        "amount": inputs.credit_limit.data
     }
 };  

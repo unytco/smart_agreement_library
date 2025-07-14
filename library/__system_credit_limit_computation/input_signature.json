@@ -1,8 +1,17 @@
 {
   "type": "object",
   "properties": {
-    "claiming_agent_pubkey": { "type": "string" },
-    "credit_limit": { "type": "string" }
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {}
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "claiming_agent_pubkey": { "type": "string" },
+        "credit_limit": { "type": "string" }
+      }
+    }
   },
-  "required": ["claiming_agent_pubkey", "credit_limit"]
+  "required": ["inputs"]
 }
