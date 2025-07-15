@@ -9,17 +9,17 @@
 
 // check type of unyt_allocation
 let unyt_allocation = [];
-for a in consumed_inputs.allocation.data {
+for a in consumed_inputs.allocation {
   unyt_allocation.push(#{
-    "receiver": inputs.receiver.data,
-    "amount": a.amount,
-    "source": a.source
+    "receiver": inputs.receiver[0].data,
+    "amount": a.data.amount,
+    "source": a.data.source
   });
 }
 
 return #{
   "unyt_allocation": unyt_allocation,
   "computed_values": #{
-    "pos": inputs.pos.data,
+    "pos": inputs.pos[0].data,
   }
 }
