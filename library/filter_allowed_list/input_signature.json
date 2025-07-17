@@ -7,7 +7,7 @@
         "allocation": {
           "type": "object",
           "properties": {
-            "amount": { "type": "any" },
+            "amount": { "type": "object", "additionalProperties": { "type": "string" } },
             "source": { "type": "string" }
           },
           "required": ["amount", "source"]
@@ -15,14 +15,15 @@
         "receiver": { "type": "string" },
         "return_address": { "type": "string" }
       },
+
       "required": ["allocation", "receiver", "return_address"]
     },
     "inputs": {
       "type": "object",
       "properties": {
-        "condition": { "type": "boolean" }
+        "whitelisted_receiver": { "type": "array", "items": { "type": "string" } }
       },
-      "required": ["condition"]
+      "required": ["whitelisted_receiver"]
     }
   },
   "required": ["consumed_inputs", "inputs"]

@@ -11,7 +11,7 @@
 let unyt_allocation = [];
 for a in consumed_inputs.allocation {
   unyt_allocation.push(#{
-    "receiver": inputs.receiver[0].data,
+    "receiver": consumed_inputs.receiver[0].data,
     "amount": a.data.amount,
     "source": a.data.source
   });
@@ -20,6 +20,6 @@ for a in consumed_inputs.allocation {
 return #{
   "unyt_allocation": unyt_allocation,
   "computed_values": #{
-    "pos": inputs.pos[0].data,
+    "pos": consumed_inputs.pos[0].data,
   }
 }

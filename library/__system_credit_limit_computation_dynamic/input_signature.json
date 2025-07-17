@@ -1,10 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "consumed_inputs": {
-      "type": "object",
-      "properties": {}
-    },
     "inputs": {
       "type": "object",
       "properties": {

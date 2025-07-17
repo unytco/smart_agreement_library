@@ -1,0 +1,10 @@
+[
+  {
+    "id": "spender",
+    "consumed_link": true
+  },
+  {
+    "id": "invoice_gateway",
+    "consumed_link": false
+  }
+]

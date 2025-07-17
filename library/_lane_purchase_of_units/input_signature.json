@@ -1,19 +1,31 @@
 {
   "type": "object",
   "properties": {
-    "proof_of_deposit_hash": { "type": "array", "items": { "type": "string" } },
-    "service_fee_wallet_address": { "type": "string" },
-    "allocation": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-          "source": { "type": "string" }
-        },
-        "required": ["amount", "source"]
-      }
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "proof_of_deposit_hash": { "type": "array", "items": { "type": "string" } },
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        }
+      },
+      "required": ["proof_of_deposit_hash", "allocation"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "service_fee_wallet_address": { "type": "string" }
+      },
+      "required": ["service_fee_wallet_address"]
     }
   },
-  "required": ["proof_of_deposit_hash", "allocation", "service_fee_wallet_address"]
+  "required": ["consumed_inputs", "inputs"]
 }

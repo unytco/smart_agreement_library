@@ -1,23 +1,29 @@
 {
   "type": "object",
   "properties": {
-    "allocation": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-          "source": { "type": "string" }
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
         },
-        "required": ["amount", "source"]
-      }
-    },
-    "logs": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["allocation", "logs"]
     }
   },
-  "required": ["allocation", "logs"]
+  "required": ["consumed_inputs"]
 }

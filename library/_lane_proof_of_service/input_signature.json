@@ -1,24 +1,31 @@
 {
   "type": "object",
   "properties": {
-    "allocation": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-          "source": { "type": "string" }
-        },
-        "required": ["amount", "source"]
-      }
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        }
+      },
+      "required": ["allocation"]
     },
-    "receiver": { "type": "array", "items": { "type": "string" } },
-    "pos": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "receiver": { "type": "array", "items": { "type": "string" } },
+        "pos": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["receiver", "pos"]
     }
   },
-  "required": ["allocation", "receiver", "pos"]
+  "required": ["consumed_inputs", "inputs"]
 }

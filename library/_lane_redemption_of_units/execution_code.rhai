@@ -17,8 +17,12 @@
 // sort the allocation based on the timestamp
 let unyt_allocation = [];
 let redemption_report = [];
-let sorted_parked_links = acceding_sort_allocation(allocation);
-let available_ledger_balance = sales_agent_balance;
+let only_allocation = [];
+for allo in consumed_inputs.allocation {
+    only_allocation.push(allo.data);
+}
+let sorted_parked_links = acceding_sort_allocation(only_allocation);
+let available_ledger_balance = inputs.sales_agent_balance.data;
 
 // we can accept to pay only a specific amount based on the sales_agent_balance available
 // move the oldest allocation to the unyt_allocation to be retrived
@@ -31,14 +35,14 @@ for (parked_link, i) in sorted_parked_links {
     }
     available_ledger_balance = updated_balance;
     unyt_allocation.push(#{
-        "receiver": sales_agent_pubkey,
+        "receiver": inputs.sales_agent_pubkey.data,
         "amount": parked_link.amount,
         "source": parked_link.source
     });
     redemption_report.push(#{
         "spender": parked_link.spender,
         "fuel_allocation": parked_link.amount,
-        "expected_external_currency_amount": `${parse_float(parked_link.amount["0"]) / redemption_price}`
+        "expected_external_currency_amount": `${parse_float(parked_link.amount["0"]) / inputs.redemption_price.data}`
     });
 }
 
@@ -47,6 +51,6 @@ return  #{
     "unyt_allocation": unyt_allocation,
     "computed_values": #{
         "redemption_report": redemption_report,
-        "redemption_price": `${redemption_price}`,
+        "redemption_price": `${inputs.redemption_price.data}`,
     }
 }; 

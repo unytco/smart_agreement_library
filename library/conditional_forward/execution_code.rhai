@@ -7,16 +7,16 @@
 /// Summary:
 ///
 
-if !condition {
-  receiver = return_address;
+if !inputs.condition.data {
+  receiver = consumed_inputs.return_address.data;
 }
 
 return #{
   "unyt_allocation": [
     #{
-      "receiver": receiver,
-      "amount": allocation.amount,
-      "source": allocation.source
+      "receiver": consumed_inputs.receiver.data,
+      "amount": consumed_inputs.allocation.data.amount,
+      "source": consumed_inputs.allocation.data.source
     }
   ]
 }

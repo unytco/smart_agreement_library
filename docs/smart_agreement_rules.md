@@ -10,11 +10,12 @@ Read the Rules for the output section to understand how to return the correct ou
 
 ## Agreement Code Template
 
-An Agreement Code template is a combination of 3 parts:
+An Agreement Code template is a combination of 4 parts:
 
 1. The Input Schema
 2. The Execution Code
 3. The Output Schema
+4. The Expected Roles
 
 ### Input Schema
 
@@ -33,7 +34,23 @@ The code template is the Rhai code that implements the logic of your SAVED. It i
 ### Output Schema
 
 - The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
-- Look at the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) {TODO: Update Link} struct to understand the expected output.
+- Look at the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
+
+### Expected Roles
+
+- The expected roles is a JSON file that defines the roles that are expected to be present in the Smart Agreement.
+- It is an array of objects, where each object has an `id` and a `consumed_link` field.
+- The `id` is a string that will be referenced in the Smart Agreement's `roles` array under the `ct_role_id` field.
+- The `consumed_link` is a boolean that indicates whether the link associated with this role should be consumed (deleted) after the SAVED is committed to the chain.
+
+  ```json
+  [
+    {
+      "id": "spender",
+      "consumed_link": true
+    }
+  ]
+  ```
 
 ## Smart Agreement
 
@@ -61,9 +78,9 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
   {
     "unyt_allocation": [
       {
+        "receiver": "receiver_agent_pubkey",
         "amount": ["100", "0"],
-        "agent": "receiver_agent_pubkey",
-        "proof": "proof_hash"
+        "source": "source_hash"
       }
     ]
   }
@@ -71,15 +88,15 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
 
   - This can be used to transfer funds to multiple agents
 
-### Qhen using Smart Agreements to set a credit limit
+### When using Smart Agreements to set a credit limit
 
 - The code template must have a Output Schema that contains a `credit_limit` field, This credit_limit will be a json object
 
   ```json
   {
     "credit_limit": {
-      "amount": ["100", "0"],
-      "agent": "uhCAk0iWcAxNXcgZ7-URnYkTYOBUrgmwmXdQ7rkAzWsVLJz4bd-pa"
+      "agent": "uhCAk0iWcAxNXcgZ7-URnYkTYOBUrgmwmXdQ7rkAzWsVLJz4bd-pa",
+      "amount": "100"
     }
   }
   ```
