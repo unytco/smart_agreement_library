@@ -19,7 +19,7 @@ smart_agreement_library/
     └── your_saved_name/
         ├── README.md               # Documentation for your Smart Agreement
         ├── execution_code.rhai      # The Smart Agreement code in Rhai format
-        ├── input_signature.json     # JSON schema for input validation
+        ├── runtime_input_signature.json     # JSON schema for input validation
         ├── output_signature.json    # JSON schema for output validation
         └── agreements/              # Folder for agreement examples
             └── example_agreement_rules.json # File for agreement examples
@@ -49,7 +49,7 @@ Your Rhai code should:
 - Include error handling
 - Follow Rhai language best practices
 
-### input_signature.json Requirements
+### runtime_input_signature.json Requirements
 
 Provide a JSON Schema that defines the expected input structure to your code:
 

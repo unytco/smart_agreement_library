@@ -20,7 +20,7 @@
     "inputs": {
       "type": "object",
       "properties": {
-        "receiver": { "type": "array", "items": { "type": "string" } }
+        "receiver": { "type": "string" }
       }
     }
   },

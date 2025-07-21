@@ -13,7 +13,7 @@ let merged_allocations = [];
         
 for a in consumed_inputs.allocation {
     merged_allocations.push(#{
-        "receiver": inputs.receiver,
+        "receiver": inputs.receiver.data,
         "amount": a.data.amount,
         "source": a.data.source
     });

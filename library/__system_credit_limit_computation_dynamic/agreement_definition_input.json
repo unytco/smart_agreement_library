@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": [],
+      "minItems": 0,
+      "maxItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "required": ["roles"],
+  "additionalProperties": false
+}

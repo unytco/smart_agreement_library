@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": [
+        {
+          "const": {
+            "id": "spender",
+            "consumed_link": true
+          }
+        }
+      ],
+      "minItems": 1,
+      "maxItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["roles"],
+  "additionalProperties": false
+}
