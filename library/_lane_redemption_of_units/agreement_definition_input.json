@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "roles": {
+    "expected_roles": {
       "type": "array",
       "items": [
         {
@@ -22,6 +22,6 @@
       "uniqueItems": true
     }
   },
-  "required": ["roles"],
+  "required": ["expected_roles"],
   "additionalProperties": false
 }

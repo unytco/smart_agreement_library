@@ -27,7 +27,7 @@ The schema should be a JSON object with a `properties` field.
 
 The standard defines an initial set of properties, but it can be extended by the UI.
 
-### `roles`
+### `expected_roles`
 
 An array of objects, where each object defines a role required by the agreement. This is a mandatory property.
 Each role object must have:
@@ -38,7 +38,7 @@ Each role object must have:
 #### Example:
 
 ```json
- "roles": {
+ "expected_roles": {
    "type": "array",
    "items": [
      { "const": { "id": "admin", "consumed_link": false } },
