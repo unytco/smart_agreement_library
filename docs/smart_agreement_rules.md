@@ -12,14 +12,75 @@ Read the Rules for the output section to understand how to return the correct ou
 
 An Agreement Code template is a combination of 4 parts:
 
-1. The Input Schema
-2. The Execution Code
-3. The Output Schema
-4. The Expected Roles
+1. The Agreement Definition Input
+2. The Runtime Input Schema
+3. The Execution Code
+4. The Output Schema
 
-### Input Schema
+### Agreement Definition Input
 
-The input schema is a JSON Schema that defines the expected inputs into your code.
+The `agreement_definition_input` is a JSON schema that defines the inputs required for creating a smart agreement. UIs can use this to dynamically render forms for creating and configuring agreements. The schema should be a JSON object with a `properties` field.
+
+This struct wraps a JSON schema (`serde_json::Value`) that defines the inputs required for a smart agreement.
+It is intended to be used by UIs to dynamically render forms for creating and configuring agreements.
+The schema should be a JSON object with a `properties` field.
+
+The standard defines an initial set of properties, but it can be extended by the UI.
+
+### `roles`
+
+An array of objects, where each object defines a role required by the agreement. This is a mandatory property.
+Each role object must have:
+
+- `id`: A string identifier for the role.
+- `consumed_link`: A boolean indicating if a link is consumed upon execution for this role.
+
+#### Example:
+
+```json
+ "roles": {
+   "type": "array",
+   "items": [
+     { "const": { "id": "admin", "consumed_link": false } },
+     { "const": { "id": "user", "consumed_link": true } }
+   ]
+ }
+```
+
+### `api_calls` (Optional)
+
+An object that defines external API calls required by the agreement.
+This can be used for services like oracles or timestamping servers.
+Each key represents an API, and its value is a JSON schema for its input (e.g., a URL).
+The UI can use this to prompt the user for URLs or other parameters.
+
+#### Example:
+
+```json
+ "api_calls": {
+   "type": "object",
+   "properties": {
+     "timestamp_server": {
+       "type": "string",
+       "format": "uri",
+       "description": "URL of the trusted timestamping service."
+     },
+     "oracle_service": {
+       "type": "string",
+       "format": "uri",
+       "description": "URL of the data oracle."
+     }
+   },
+   "required": ["timestamp_server"]
+ }
+```
+
+The UI can be designed to allow users to add more properties to this schema,
+so the the UI of creating an agreement can use it to help out users autofilling the inputs or certain fields.
+
+### Runtime Input Schema
+
+The runtime input schema is a JSON Schema that defines the expected inputs into your code.
 
 For this, you also should think through how you expect to pass the input when the Smart Agreement is Executed.
 
@@ -35,22 +96,6 @@ The code template is the Rhai code that implements the logic of your SAVED. It i
 
 - The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
 - Look at the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
-
-### Expected Roles
-
-- The expected roles is a JSON file that defines the roles that are expected to be present in the Smart Agreement.
-- It is an array of objects, where each object has an `id` and a `consumed_link` field.
-- The `id` is a string that will be referenced in the Smart Agreement's `roles` array under the `ct_role_id` field.
-- The `consumed_link` is a boolean that indicates whether the link associated with this role should be consumed (deleted) after the SAVED is committed to the chain.
-
-  ```json
-  [
-    {
-      "id": "spender",
-      "consumed_link": true
-    }
-  ]
-  ```
 
 ## Smart Agreement
 
