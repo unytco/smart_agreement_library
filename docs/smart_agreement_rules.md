@@ -4,7 +4,7 @@
 
 Currently, Smart Agreement Execution Code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
 
-The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED-rhai engine is expecting for the code to return.
+The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED-rhai engine is expecting for the code to return.
 
 Read the Rules for the output section to understand how to return the correct output.
 
@@ -84,7 +84,7 @@ The runtime input schema is a JSON Schema that defines the expected inputs into 
 
 For this, you also should think through how you expect to pass the input when the Smart Agreement is Executed.
 
-Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/saved_engine/latest/saved_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
+Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
 
 Note: You won't set the particular input sources in the template. Instead, you will have to set these Input Source instructions when creating a Smart Agreement (which will adhere to this Agreement Code Template).
 
@@ -95,7 +95,7 @@ The code template is the Rhai code that implements the logic of your SAVED. It i
 ### Output Schema
 
 - The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
-- Look at the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
+- Look at the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
 
 ## Smart Agreement
 

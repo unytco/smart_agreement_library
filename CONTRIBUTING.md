@@ -44,8 +44,8 @@ Your Rhai code should:
   /// Detailed explanation of the Smart Agreement's functionality...
   ```
 
-- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/saved_output/struct.SAVEDOutput.html)
-- Use only the registered helper functions [Helper Functions](https://docs.rs/saved_engine/latest/saved_engine/rhai_engine/rhai_functions/prelude/index.html)
+- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/saved_output/struct.SAVEDOutput.html)
+- Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
 
