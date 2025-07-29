@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "object",
+          "properties": {
+            "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+            "source": { "type": "string" }
+          },
+          "required": ["amount", "source"]
+        },
+        "receiver": { "type": "string" },
+        "return_address": { "type": "string" }
+      },
+      "required": ["allocation", "receiver", "return_address"]
+    }
+  },
+  "required": ["consumed_inputs"]
+}

@@ -2,13 +2,13 @@ let total_amount = 0;
 let merged_allocations = [];
 let error_message = "unset";
 let is_valid;
-for record in spend_data {
+for record in inputs.spend_data.data {
     try {
         is_valid = hdi_verify_record_signature(record);
         let allocation = parse_record_to_parked_amount_and_source(record);
         
         merged_allocations.push(#{
-            "receiver": receiver,
+            "receiver": consumed_inputs.receiver.data,
             "amount": allocation.amount,
             "source": allocation.source
         });
@@ -27,6 +27,6 @@ return #{
       "total_amount": total_amount,
       "signature_valid": is_valid,
       "error": if !is_valid { "Invalid signature" } else { "" },
-      "spend_data": spend_data,
+      "spend_data": inputs.spend_data.data,
   }
 };

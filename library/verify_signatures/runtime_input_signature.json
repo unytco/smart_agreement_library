@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "receiver": { "type": "string" }
+      },
+      "required": ["receiver"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "spend_data": { "type": "array" }
+      },
+      "required": ["spend_data"]
+    }
+  },
+  "required": ["consumed_inputs", "inputs"]
+}

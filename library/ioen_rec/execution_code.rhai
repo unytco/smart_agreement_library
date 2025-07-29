@@ -11,10 +11,10 @@
 let unyt_allocation = [];
 // sum up the values
 let total_rec_amount = "0";
-for (log, i) in logs {
-  let allocation = allocation[i];
- 
-  let log_value = get_data_blob(log);
+for (log, i) in consumed_inputs.logs {
+  let allocation = consumed_inputs.allocation[i].data;
+  
+  let log_value = get_data_blob(log.data);
   // Expected log format:
   // [
   //  {

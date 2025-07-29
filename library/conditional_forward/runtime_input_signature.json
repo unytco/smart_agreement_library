@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "object",
+          "properties": {
+            "amount": { "type": "any" },
+            "source": { "type": "string" }
+          },
+          "required": ["amount", "source"]
+        },
+        "receiver": { "type": "string" },
+        "return_address": { "type": "string" }
+      },
+      "required": ["allocation", "receiver", "return_address"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "condition": { "type": "boolean" }
+      },
+      "required": ["condition"]
+    }
+  },
+  "required": ["consumed_inputs", "inputs"]
+}

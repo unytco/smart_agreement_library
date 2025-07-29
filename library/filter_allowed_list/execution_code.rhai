@@ -1,4 +1,4 @@
-/// Subject: Example of a filter for whitelisting
+/// Subject: Example of a filter for allowed listing
 /// 
 /// Inputs:
 /// unyt_allocation: the unyt_allocation to be checked
@@ -11,11 +11,11 @@
 /// else if the receiver is not in the whitelisted_receiver, then we reject the transaction
 const zero = 0;
 
-let final_receiver = return_address;
+let final_receiver = consumed_inputs.return_address.data;
 
-for agent in whitelisted_receiver {
-  if receiver == agent {
-    final_receiver = receive;
+for agent in inputs.whitelisted_receiver.data {
+  if consumed_inputs.receiver.data == agent {
+    final_receiver = consumed_inputs.receiver.data;
   }
 }
 
@@ -24,8 +24,8 @@ return #{
   "unyt_allocation": [
     #{
       "receiver": final_receiver,
-      "amount": allocation.amount,
-      "source": allocation.source
+      "amount": consumed_inputs.allocation.data.amount,
+      "source": consumed_inputs.allocation.data.source
     }
   ]
 }

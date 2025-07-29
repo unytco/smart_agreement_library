@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        }
+      },
+      "required": ["allocation"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "redemption_price": { "type": "number" },
+        "sales_agent_pubkey": { "type": "string" },
+        "sales_agent_balance": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "required": ["redemption_price", "sales_agent_pubkey", "sales_agent_balance"]
+    }
+  },
+  "required": ["consumed_inputs", "inputs"]
+}

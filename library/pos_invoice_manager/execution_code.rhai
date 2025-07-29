@@ -7,22 +7,19 @@
 /// Summary:
 /// This is a simple return of the unyt_allocation
 
-// todo: verify pos
-let a = pos;
-
 // check type of unyt_allocation
 let unyt_allocation = [];
-for a in allocation {
+for a in consumed_inputs.allocation {
   unyt_allocation.push(#{
-    "receiver": receiver[0],
-    "amount": a.amount,
-    "source": a.source
+    "receiver": consumed_inputs.receiver[0].data,
+    "amount": a.data.amount,
+    "source": a.data.source
   });
 }
 
 return #{
   "unyt_allocation": unyt_allocation,
   "computed_values": #{
-    "pos": pos,
+    "pos": consumed_inputs.pos[0].data,
   }
 }

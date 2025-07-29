@@ -1,8 +1,0 @@
-{
-  "type": "object",
-  "properties": {
-    "claiming_agent_pubkey": { "type": "string" },
-    "agent_spend_records": { "type": "any" }
-  },
-  "required": ["claiming_agent_pubkey", "agent_spend_records"]
-}

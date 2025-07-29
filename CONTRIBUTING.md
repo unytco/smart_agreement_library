@@ -19,7 +19,7 @@ smart_agreement_library/
     └── your_saved_name/
         ├── README.md               # Documentation for your Smart Agreement
         ├── execution_code.rhai      # The Smart Agreement code in Rhai format
-        ├── input_signature.json     # JSON schema for input validation
+        ├── runtime_input_signature.json     # JSON schema for input validation
         ├── output_signature.json    # JSON schema for output validation
         └── agreements/              # Folder for agreement examples
             └── example_agreement_rules.json # File for agreement examples
@@ -44,12 +44,12 @@ Your Rhai code should:
   /// Detailed explanation of the Smart Agreement's functionality...
   ```
 
-- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/saved_output/struct.SAVEDOutput.html)
-- Use only the registered helper functions [Helper Functions](https://docs.rs/saved_engine/latest/saved_engine/rhai_engine/rhai_functions/prelude/index.html)
+- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/saved_output/struct.SAVEDOutput.html)
+- Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
 
-### input_signature.json Requirements
+### runtime_input_signature.json Requirements
 
 Provide a JSON Schema that defines the expected input structure to your code:
 

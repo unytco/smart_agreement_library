@@ -4,35 +4,27 @@
     {
       "name": "allocation",
       "instruction": {
-        "ProvidedBy": {
-          "role_name": "spender",
-          "consumed_link": true
-        }
+        "ProvidedBy": "spender"
       }
     },
     {
       "name": "receiver",
       "instruction": {
-        "ProvidedBy": {
-          "role_name": "spender",
-          "consumed_link": false
-        }
+        "ProvidedBy": "spender"
       }
     },
     {
       "name": "return_address",
       "instruction": {
-        "ProvidedBy": {
-          "role_name": "spender",
-          "consumed_link": false
-        }
+        "ProvidedBy": "spender"
       }
     }
   ],
   "executor_rules": { "Any": null },
   "roles": [
     {
-      "name": "spender",
+      "ct_role_id": "spender",
+      "display_name": "Spender",
       "description": "The spender role",
       "qualification": { "Any": null }
     }

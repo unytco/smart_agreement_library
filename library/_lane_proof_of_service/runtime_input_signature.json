@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "allocation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        }
+      },
+      "required": ["allocation"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "receiver": { "type": "array", "items": { "type": "string" } },
+        "pos": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["receiver", "pos"]
+    }
+  },
+  "required": ["consumed_inputs", "inputs"]
+}

@@ -4,25 +4,87 @@
 
 Currently, Smart Agreement Execution Code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
 
-The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED-rhai engine is expecting for the code to return.
+The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED-rhai engine is expecting for the code to return.
 
 Read the Rules for the output section to understand how to return the correct output.
 
 ## Agreement Code Template
 
-An Agreement Code template is a combination of 3 parts:
+An Agreement Code template is a combination of 4 parts:
 
-1. The Input Schema
-2. The Execution Code
-3. The Output Schema
+1. The Agreement Definition Input
+2. The Runtime Input Schema
+3. The Execution Code
+4. The Output Schema
 
-### Input Schema
+### Agreement Definition Input
 
-The input schema is a JSON Schema that defines the expected inputs into your code.
+The `agreement_definition_input` is a JSON schema that defines the inputs required for creating a smart agreement. UIs can use this to dynamically render forms for creating and configuring agreements. The schema should be a JSON object with a `properties` field.
+
+This struct wraps a JSON schema (`serde_json::Value`) that defines the inputs required for a smart agreement.
+It is intended to be used by UIs to dynamically render forms for creating and configuring agreements.
+The schema should be a JSON object with a `properties` field.
+
+The standard defines an initial set of properties, but it can be extended by the UI.
+
+### `expected_roles`
+
+An array of objects, where each object defines a role required by the agreement. This is a mandatory property.
+Each role object must have:
+
+- `id`: A string identifier for the role.
+- `consumed_link`: A boolean indicating if a link is consumed upon execution for this role.
+
+#### Example:
+
+```json
+ "expected_roles": {
+   "type": "array",
+   "items": [
+     { "const": { "id": "admin", "consumed_link": false } },
+     { "const": { "id": "user", "consumed_link": true } }
+   ]
+ }
+```
+
+### `api_calls` (Optional)
+
+An object that defines external API calls required by the agreement.
+This can be used for services like oracles or timestamping servers.
+Each key represents an API, and its value is a JSON schema for its input (e.g., a URL).
+The UI can use this to prompt the user for URLs or other parameters.
+
+#### Example:
+
+```json
+ "api_calls": {
+   "type": "object",
+   "properties": {
+     "timestamp_server": {
+       "type": "string",
+       "format": "uri",
+       "description": "URL of the trusted timestamping service."
+     },
+     "oracle_service": {
+       "type": "string",
+       "format": "uri",
+       "description": "URL of the data oracle."
+     }
+   },
+   "required": ["timestamp_server"]
+ }
+```
+
+The UI can be designed to allow users to add more properties to this schema,
+so the the UI of creating an agreement can use it to help out users autofilling the inputs or certain fields.
+
+### Runtime Input Schema
+
+The runtime input schema is a JSON Schema that defines the expected inputs into your code.
 
 For this, you also should think through how you expect to pass the input when the Smart Agreement is Executed.
 
-Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/saved_engine/latest/saved_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
+Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
 
 Note: You won't set the particular input sources in the template. Instead, you will have to set these Input Source instructions when creating a Smart Agreement (which will adhere to this Agreement Code Template).
 
@@ -33,7 +95,7 @@ The code template is the Rhai code that implements the logic of your SAVED. It i
 ### Output Schema
 
 - The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
-- Look at the [SAVEDOutput](https://docs.rs/saved_engine/latest/saved_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) {TODO: Update Link} struct to understand the expected output.
+- Look at the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
 
 ## Smart Agreement
 
@@ -61,9 +123,9 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
   {
     "unyt_allocation": [
       {
+        "receiver": "receiver_agent_pubkey",
         "amount": ["100", "0"],
-        "agent": "receiver_agent_pubkey",
-        "proof": "proof_hash"
+        "source": "source_hash"
       }
     ]
   }
@@ -71,15 +133,15 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
 
   - This can be used to transfer funds to multiple agents
 
-### Qhen using Smart Agreements to set a credit limit
+### When using Smart Agreements to set a credit limit
 
 - The code template must have a Output Schema that contains a `credit_limit` field, This credit_limit will be a json object
 
   ```json
   {
     "credit_limit": {
-      "amount": ["100", "0"],
-      "agent": "uhCAk0iWcAxNXcgZ7-URnYkTYOBUrgmwmXdQ7rkAzWsVLJz4bd-pa"
+      "agent": "uhCAk0iWcAxNXcgZ7-URnYkTYOBUrgmwmXdQ7rkAzWsVLJz4bd-pa",
+      "amount": "100"
     }
   }
   ```

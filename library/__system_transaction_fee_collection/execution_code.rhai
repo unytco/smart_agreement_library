@@ -11,13 +11,13 @@
 let total_amount = 0;
 let merged_allocations = [];
         
-for a in allocation {
+for a in consumed_inputs.allocation {
     merged_allocations.push(#{
-        "receiver": receiver,
-        "amount": a.amount,
-        "source": a.source
+        "receiver": inputs.receiver.data,
+        "amount": a.data.amount,
+        "source": a.data.source
     });
-    total_amount += parse_float(a.amount["0"]);
+    total_amount += parse_float(a.data.amount["0"]);
 }
 
 return #{
