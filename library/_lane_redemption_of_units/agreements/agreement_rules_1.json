@@ -1,5 +1,5 @@
 {
-  "title": "redemption v0",
+  "title": "default lane redemption of units v0.1.0",
   "input_rules": [
     {
       "name": "redemption_price",
