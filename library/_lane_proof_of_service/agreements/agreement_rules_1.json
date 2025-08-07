@@ -1,5 +1,5 @@
 {
-  "title": "default lane proof of service v0.1.0",
+  "title": "default lane proof of service",
   "input_rules": [
     {
       "name": "allocation",

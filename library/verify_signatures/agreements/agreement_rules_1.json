@@ -1,5 +1,5 @@
 {
-  "title": "example verify signatures v0.1.0",
+  "title": "example verify signatures",
   "input_rules": [
     {
       "name": "spend_data",

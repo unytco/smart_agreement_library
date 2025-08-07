@@ -1,5 +1,5 @@
 {
-  "title": "default lane purchase of units v0.1.0",
+  "title": "default lane purchase of units",
   "input_rules": [
     {
       "name": "proof_of_deposit_hash",

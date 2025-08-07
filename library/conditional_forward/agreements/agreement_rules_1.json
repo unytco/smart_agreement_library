@@ -1,5 +1,5 @@
 {
-  "title": "example conditional forward v0.1.0",
+  "title": "example conditional forward",
   "input_rules": [
     {
       "name": "allocation",

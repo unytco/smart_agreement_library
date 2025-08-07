@@ -1,5 +1,5 @@
 {
-  "title": "credit check v0.1.0",
+  "title": "credit check",
   "input_rules": [
     {
       "name": "claiming_agent_pubkey",

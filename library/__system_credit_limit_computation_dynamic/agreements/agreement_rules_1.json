@@ -1,5 +1,5 @@
 {
-  "title": "circulo credit check v0.1.0",
+  "title": "circulo credit check",
   "input_rules": [
     {
       "name": "claiming_agent_pubkey",

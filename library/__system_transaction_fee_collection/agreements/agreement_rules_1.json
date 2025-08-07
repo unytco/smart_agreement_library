@@ -1,5 +1,5 @@
 {
-  "title": "collect fee v0.1",
+  "title": "collect fee",
   "input_rules": [
     {
       "name": "allocation",
