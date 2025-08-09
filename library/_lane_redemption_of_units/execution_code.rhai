@@ -18,7 +18,7 @@
 let unyt_allocation = [];
 let redemption_report = [];
 let only_allocation = [];
-for allo in consumed_inputs.allocation {
+for allo in consumed_inputs.spender_allocations {
     only_allocation.push(allo.data);
 }
 let sorted_parked_links = acceding_sort_allocation(only_allocation);

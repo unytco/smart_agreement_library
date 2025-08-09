@@ -13,7 +13,7 @@
         {
           "const": {
             "id": "invoice_gateway",
-            "consumed_link": false
+            "consumed_link": true
           }
         }
       ],

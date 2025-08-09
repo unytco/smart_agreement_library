@@ -12,13 +12,7 @@
         },
         "required": ["receiver", "amount", "source"]
       }
-    },
-    "computed_values": {
-      "type": "object",
-      "properties": {
-        "pos": { "type": "string" }
-      }
     }
   },
-  "required": ["unyt_allocation", "computed_values"]
+  "required": ["unyt_allocation"]
 }

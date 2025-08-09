@@ -2,7 +2,7 @@
   "title": "example filter base check",
   "input_rules": [
     {
-      "name": "allocation",
+      "name": "spender_allocations",
       "instruction": {
         "ProvidedBy": "spender"
       }

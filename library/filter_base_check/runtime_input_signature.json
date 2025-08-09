@@ -4,7 +4,7 @@
     "consumed_inputs": {
       "type": "object",
       "properties": {
-        "allocation": {
+        "spender_allocations": {
           "type": "object",
           "properties": {
             "amount": { "type": "object", "additionalProperties": { "type": "string" } },
@@ -15,7 +15,7 @@
         "receiver": { "type": "string" },
         "return_address": { "type": "string" }
       },
-      "required": ["allocation", "receiver", "return_address"]
+      "required": ["spender_allocations", "receiver", "return_address"]
     }
   },
   "required": ["consumed_inputs"]

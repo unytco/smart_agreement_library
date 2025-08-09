@@ -2,7 +2,7 @@
   "title": "example conditional forward",
   "input_rules": [
     {
-      "name": "allocation",
+      "name": "spender_allocations",
       "instruction": {
         "ProvidedBy": "spender"
       }

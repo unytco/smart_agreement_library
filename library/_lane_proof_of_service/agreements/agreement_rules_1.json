@@ -2,9 +2,15 @@
   "title": "default lane proof of service",
   "input_rules": [
     {
-      "name": "allocation",
+      "name": "spender_allocations",
       "instruction": {
         "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "invoice_gateway_allocations_invoice",
+      "instruction": {
+        "ProvidedBy": "invoice_gateway"
       }
     },
     {
@@ -14,7 +20,7 @@
       }
     },
     {
-      "name": "pos",
+      "name": "work_proof",
       "instruction": {
         "ProvidedBy": "invoice_gateway"
       }

@@ -11,7 +11,7 @@
 let total_amount = 0;
 let merged_allocations = [];
         
-for a in consumed_inputs.allocation {
+for a in consumed_inputs.spender_allocations {
     merged_allocations.push(#{
         "receiver": inputs.receiver.data,
         "amount": a.data.amount,

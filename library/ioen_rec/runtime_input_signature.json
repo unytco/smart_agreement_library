@@ -4,7 +4,7 @@
     "consumed_inputs": {
       "type": "object",
       "properties": {
-        "allocation": {
+        "spender_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -22,7 +22,7 @@
           }
         }
       },
-      "required": ["allocation", "logs"]
+      "required": ["spender_allocations", "logs"]
     }
   },
   "required": ["consumed_inputs"]

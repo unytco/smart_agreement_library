@@ -12,7 +12,7 @@
       "instruction": { "ExecutorProvided": null }
     },
     {
-      "name": "allocation",
+      "name": "spender_allocations",
       "instruction": {
         "ProvidedBy": "spender"
       }

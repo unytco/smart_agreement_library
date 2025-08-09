@@ -5,7 +5,7 @@
       "type": "object",
       "properties": {
         "proof_of_deposit_hash": { "type": "array", "items": { "type": "string" } },
-        "allocation": {
+        "spender_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -17,7 +17,7 @@
           }
         }
       },
-      "required": ["proof_of_deposit_hash", "allocation"]
+      "required": ["proof_of_deposit_hash", "spender_allocations"]
     },
     "inputs": {
       "type": "object",
