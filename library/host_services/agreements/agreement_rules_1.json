@@ -1,0 +1,46 @@
+{
+  "title": "Hosting Agreement",
+  "input_rules": [
+    {
+      "name": "spender_allocations",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "invoice_gateway_allocations_invoice",
+      "instruction": {
+        "ProvidedBy": "invoice_gateway"
+      }
+    },
+    {
+      "name": "receiver",
+      "instruction": {
+        "ProvidedBy": "invoice_gateway"
+      }
+    },
+    {
+      "name": "work_proof",
+      "instruction": {
+        "ProvidedBy": "invoice_gateway"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "spender",
+      "display_name": "Spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    },
+    {
+      "ct_role_id": "invoice_gateway",
+      "display_name": "Invoice Gateway",
+      "description": "The invoice gateway role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "one_time_run": false,
+  "aggregate_execution": true
+}
