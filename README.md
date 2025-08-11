@@ -17,4 +17,4 @@ Each Smart Agreement has its own directory in that library directory. Each Smart
 
 ## More Info and Where to Run Smart Agreements
 
-Smart Agreements are designed to be run in a Peer-to-Peer Domino Accounting application. Downloads and Documentation are available at https://github.com/unytco/domino-releases.
+Smart Agreements are designed to be run in a Peer-to-Peer Unyt Accounting application. Downloads and Documentation are available at https://github.com/unytco/unyt-releases.
