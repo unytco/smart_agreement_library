@@ -26,7 +26,5 @@
       "description": "The sales agent",
       "qualification": { "Any": null }
     }
-  ],
-  "one_time_run": false,
-  "aggregate_execution": true
+  ]
 }

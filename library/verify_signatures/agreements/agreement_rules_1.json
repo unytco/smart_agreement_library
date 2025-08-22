@@ -20,7 +20,5 @@
       "description": "The spender role",
       "qualification": { "Any": null }
     }
-  ],
-  "one_time_run": true,
-  "aggregate_execution": false
+  ]
 }

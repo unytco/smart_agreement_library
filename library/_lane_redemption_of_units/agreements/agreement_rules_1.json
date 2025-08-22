@@ -28,7 +28,5 @@
       "description": "The redeeming agent",
       "qualification": { "Any": null }
     }
-  ],
-  "one_time_run": false,
-  "aggregate_execution": true
+  ]
 }

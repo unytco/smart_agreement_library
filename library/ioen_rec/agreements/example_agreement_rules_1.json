@@ -22,7 +22,5 @@
       "description": "The log harvester",
       "qualification": { "Authorized": "spender pub key" }
     }
-  ],
-  "one_time_run": false,
-  "aggregate_execution": true
+  ]
 }
