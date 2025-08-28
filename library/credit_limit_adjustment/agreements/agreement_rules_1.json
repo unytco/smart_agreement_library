@@ -1,0 +1,20 @@
+{
+  "title": "credit limit adjustment",
+  "input_rules": [
+    {
+      "name": "proof_of_deposit",
+      "instruction": {
+        "ProvidedBy": "oracal"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "oracal",
+      "display_name": "Oracal",
+      "description": "The oracal role",
+      "qualification": { "Any": null }
+    }
+  ]
+}

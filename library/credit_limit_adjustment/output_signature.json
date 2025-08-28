@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "object",
+      "properties": {
+        "historical_carry_forward": {
+          "type": "object",
+          "properties": {
+            "amount": { "type": "object", "additionalProperties": { "type": "string" } }
+          }
+        },
+        "amount": { "type": "string" }
+      },
+      "required": ["agent", "amount"]
+    }
+  },
+  "required": ["credit_limit"]
+}
