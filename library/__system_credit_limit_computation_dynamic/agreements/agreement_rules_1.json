@@ -17,7 +17,7 @@
               "hdk_queries": [
                 {
                   "sequence_range": "Unbounded",
-                  "entry_type": [{ "App": { "entry_index": 3, "zome_index": 0, "visibility": "Public" } }],
+                  "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
                   "action_type": ["Create"],
                   "entry_hashes": null,
                   "action_hashes": null,
