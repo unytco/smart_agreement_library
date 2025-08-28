@@ -1,0 +1,62 @@
+{
+  "title": "blockchain bridge",
+  "input_rules": [
+    {
+      "name": "proof_of_deposit",
+      "instruction": {
+        "ProvidedBy": "depositor"
+      }
+    },
+    {
+      "name": "method",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
+      "name": "aml_outcome",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
+      "name": "parked_spend_link",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
+      "name": "external_wallet_address",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "smart_contract_identifier",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "ea_id", // make this a default that is passed by the RAVE Engin
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "depositor",
+      "display_name": "Depositor",
+      "description": "The depositor role",
+      "qualification": { "Any": null }
+    },
+    {
+      "ct_role_id": "withdrawer",
+      "display_name": "Withdrawer",
+      "description": "The withdrawer role",
+      "qualification": { "Any": null }
+    }
+  ]
+}

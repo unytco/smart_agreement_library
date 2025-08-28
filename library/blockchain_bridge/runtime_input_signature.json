@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "proof_of_deposit": { "type": "string" },
+        "method": { "type": "string" },
+        "aml_outcome": { "type": "string" },
+        "parked_spend_link": { "type": "string" },
+        "ea_id": { "type": "string" }
+      },
+      "required": ["aml_outcome", "proof_of_deposit", "parked_spend_link"]
+    }
+  },
+  "required": ["consumed_inputs"]
+}

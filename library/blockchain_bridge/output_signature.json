@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "object",
+      "properties": {
+        "agent": { "type": "string" },
+        "amount": { "type": "string" }
+      },
+      "required": ["agent", "amount"]
+    }
+  },
+  "required": ["credit_limit"]
+}
