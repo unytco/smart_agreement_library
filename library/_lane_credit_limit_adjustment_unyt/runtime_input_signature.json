@@ -19,7 +19,13 @@
         }
       },
       "required": ["proof_of_deposit"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "previous_execution": { "type": "object" }
+      }
     }
   },
-  "required": ["consumed_inputs"]
+  "required": ["consumed_inputs", "inputs"]
 }

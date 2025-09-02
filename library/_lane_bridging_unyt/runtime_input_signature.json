@@ -27,7 +27,13 @@
         }
       },
       "required": ["bridging_agent_allocations", "proof_of_deposit"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "previous_execution": { "type": ["object", "null"] }
+      }
     }
   },
-  "required": ["consumed_inputs"]
+  "required": ["consumed_inputs", "inputs"]
 }

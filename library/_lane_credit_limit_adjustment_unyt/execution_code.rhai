@@ -1,8 +1,8 @@
 let unyt_index = "1";
 
 let amount = "0";
-if is_def_var("previous_execution") {
-    amount = previous_execution.output.credit_limit[unyt_index];
+if type_of(inputs.previous_execution.data) == "map" {
+    amount = inputs.previous_execution.data.output.credit_limit[unyt_index];
 }
 
 // use the output of this agreement to update it based on the input

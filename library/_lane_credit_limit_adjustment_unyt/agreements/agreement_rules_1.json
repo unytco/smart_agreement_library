@@ -6,6 +6,12 @@
       "instruction": {
         "ProvidedBy": "oracal"
       }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
     }
   ],
   "executor_rules": { "Any": null },

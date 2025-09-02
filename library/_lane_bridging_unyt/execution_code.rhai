@@ -41,8 +41,8 @@ fn withdraw_logic() {}
 // This agreement is going to have two types of spend links
 // The bridging agent will be attaching spend links with POD to send to the depositor
 // The withdrawer will be attaching spend links with ?? to send to the depositor
-if is_def_var("previous_execution") {
-    state = previous_execution.output.carryover;
+if type_of(inputs.previous_execution.data) == "map" {
+    state = inputs.previous_execution.data.output.carryover;
 }
 
 
