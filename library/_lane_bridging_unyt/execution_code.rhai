@@ -35,7 +35,54 @@ fn deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index) {
 }
 
 // todo
-fn withdraw_logic() {}
+fn withdraw_logic(consumed_inputs, ea_id, unyt_index) {
+    // Path to transfer out
+    
+    // Check Cool-Down period
+    // - check the holdings 6 hours ago
+    // - subtract it with any spends in the last 6 hours
+    // it should not be greater than the amount that is been trying to be withdraw
+
+    // Get the spend links for the last 6 hours
+    if  custom_logic_for_withdraw(
+        allocation.link_hash,
+        ea_id,
+        360, // mins -> 6 hours
+        unyt_index,
+    ) {
+        let amount = state[consumed_inputs.withdraw_contract_address];
+        if type_of(amount) == "string" {
+            let spent_amount = consumed_inputs.withdrawer_agent_allocations.data.amount;
+            amount = sub_fuel(amount, spent_amount);
+            state[consumed_inputs.withdraw_contract_address] = amount;
+            unyt_allocation.push(#{
+                "receiver": executor_pub_key,
+                "amounts": spent_amount,
+                "source": consumed_inputs.withdrawer_agent_allocations.data.source
+            });
+
+            return #{
+                "unyt_allocation": unyt_allocation, 
+                "state": state
+            };
+        
+        } else {
+            error("Failed to withdraw: contract_address does not have any balance");
+        }
+    }else {
+        error("Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours");
+    }
+
+    // Additional Notes:
+    // After the output is created, the withdrawer will need to request signatures 
+    // from the 3 agents to sign the output which can be used to claim the funds from the outside chain
+    // Requires 2 of 3 signatures
+    // Signers:
+    // - bridge agent
+    // - clearing house auditor
+    // - any from a list of predefine notaries
+
+}
 
 // Main execution code
 // This agreement is going to have two types of spend links
@@ -45,8 +92,14 @@ if type_of(inputs.previous_execution.data) == "map" {
     state = inputs.previous_execution.data.output.carryover;
 }
 
-
-let updated_state = deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index);
+let updated_state = #{};
+if is_def_var(consumed_inputs.bridging_agent_allocations) {
+    updated_state = deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index);
+} else if is_def_var(consumed_inputs.withdrawer_agent_allocations) {
+    updated_state = withdraw_logic(consumed_inputs, ea_id, unyt_index);
+} else {
+    error("Invalid input");
+}
 
 let unyt_allocation = updated_state.unyt_allocation;
 let state = updated_state.state;
@@ -55,53 +108,3 @@ return #{
     "unyt_allocation": unyt_allocation,
     "carryover": state
 };
-
-// if consumed_inputs.method == "deposit" {
-
-//     // The proof of deposit contains
-//     // - chain_id: string // Eth, polygon
-//     // - tx_hash: 
-//     // - timestmap/block_id: ?
-//     // - assest_id: HOT, HOT's contract ID
-//     // - amount of units:
-//     // - target_agent_key: string
-//     // Optional: smart contract identifier
-
-// // logic:
-// // validated asset
-// // amount in spend link matches the execution request
-// // not double spend (done but the DNA since we use a consumable link)
-
-// // send/assign units to target agent
-
-// // output:
-// // allocaiton
-// // caryover: 
-// // {
-// //      external units pre smart contract
-// //     "blockchain_contract": "balance change"
-// // }
-// // consumed_spend_link
-// // - get the prev_rave_hash from the ea_id carry over data
-// // - adjust it with the new allocation
-// // - add that to the output
-
-// } else if consumed_inputs.method == "withdraw" {
-// // tansfer out
-
-// // Check cooldown period
-// // - check the holdings 6 hours ago
-// // - subtract it with any spends in the last 6 hours
-// // it should not be greater than the amount that is been trying to be withdraw
-
-
-// // smart contract needs:
-// // - 2 of 3 sig
-// // - bridge agent
-// // - clearing house auditor
-// // - any from a list of predefine notarys
-
-
-// } else {
-//     error("Invalid method");
-// }

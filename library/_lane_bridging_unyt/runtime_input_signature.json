@@ -24,9 +24,17 @@
             },
             "required": ["method_fn", "name", "contract_address", "amount", "depositor_wallet_address"]
           }
-        }
-      },
-      "required": ["bridging_agent_allocations", "proof_of_deposit"]
+        },
+        "withdrawer_agent_allocations": {
+          "type": "object",
+          "properties": {
+            "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+            "source": { "type": "string" }
+          },
+          "required": ["amount", "source"]
+        },
+        "withdraw_contract_address": { "type": "string" }
+      }
     },
     "inputs": {
       "type": "object",

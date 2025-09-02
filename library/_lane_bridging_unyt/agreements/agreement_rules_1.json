@@ -18,6 +18,18 @@
       "instruction": {
         "Custom": "GetPreviousExecution"
       }
+    },
+    {
+      "name": "withdrawer_agent_allocations",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "withdraw_contract_address",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
     }
   ],
   "executor_rules": { "Any": null },
