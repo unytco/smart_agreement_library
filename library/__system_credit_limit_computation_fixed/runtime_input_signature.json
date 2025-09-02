@@ -4,7 +4,7 @@
     "inputs": {
       "type": "object",
       "properties": {
-        "agent_spend_records": { "type": "any" }
+        "credit_limit": { "type": "object", "additionalProperties": { "type": "string" } }
       }
     }
   },

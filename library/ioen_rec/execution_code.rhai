@@ -36,7 +36,7 @@ for (log, i) in consumed_inputs.logs {
     }
     unyt_allocation.push(#{
       "receiver": l.owner_address,
-      "amount": [total, "0", "0"],
+      "amounts": [total, "0", "0"],
       "source": allocation.source
     });
     total_rec_amount = add_fuel(total_rec_amount, total);

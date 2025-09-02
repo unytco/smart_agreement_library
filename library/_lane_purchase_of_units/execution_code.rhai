@@ -44,14 +44,14 @@ for (pod, i) in consumed_inputs.proof_of_deposit_hash {
      if check_1 && check_2 {
         unyt_allocation.push(#{
             "receiver": payload.receiver_wallet_address,
-            "amount": #{
+            "amounts": #{
                 "0": expected_fuel_base_units_after_fee.to_string()
             },
             "source": consumed_inputs.spender_allocations[i].data.source
         });
         unyt_allocation.push(#{
             "receiver": inputs.service_fee_wallet_address.data,
-            "amount": #{
+            "amounts": #{
                 "0": service_fee.to_string()
             },
             "source": consumed_inputs.spender_allocations[i].data.source

@@ -1,7 +1,6 @@
 /// Subject: Dynamic Credit Limit Computation Based on Agent Spend Count
 /// 
 /// Inputs:
-/// claiming_agent_pubkey: the pubkey of the agent that is claiming the credit limit
 /// agent_spend_records: array of spend records for the agent
 /// 
 /// Summary:
@@ -29,8 +28,7 @@ let credit_limit = (spend_count + 1) * 10;
 // Return the computed credit limit for the agent
 return #{
     "credit_limit": #{
-        "agent": inputs.claiming_agent_pubkey.data,
-        "amount": credit_limit.to_string(),
+        "0": credit_limit.to_string() 
     },
     "computed_values": #{
         "spend_count": spend_count,

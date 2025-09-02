@@ -9,7 +9,7 @@ for record in inputs.spend_data.data {
         
         merged_allocations.push(#{
             "receiver": consumed_inputs.receiver.data,
-            "amount": allocation.amount,
+            "amounts": allocation.amount,
             "source": allocation.source
         });
         total_amount += parse_float(allocation.amount[0]);

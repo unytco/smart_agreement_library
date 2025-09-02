@@ -2,12 +2,16 @@
   "title": "credit check",
   "input_rules": [
     {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
+      "name": "credit_limit",
+      "instruction": {
+        "Fixed": {
+          "0": "10000"
+        }
+      }
     },
     {
-      "name": "credit_limit",
-      "instruction": { "Fixed": "10000" }
+      "name": "credit_adjustment_execution",
+      "instruction": { "Custom": "GetCreditAdjustment" }
     }
   ],
   "executor_rules": { "Any": null },

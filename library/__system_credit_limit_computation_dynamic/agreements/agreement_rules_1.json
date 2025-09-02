@@ -2,10 +2,6 @@
   "title": "circulo credit check",
   "input_rules": [
     {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
-    },
-    {
       "name": "agent_spend_records",
       "instruction": {
         "Query": {

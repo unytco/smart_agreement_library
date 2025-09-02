@@ -24,7 +24,7 @@ return #{
   "unyt_allocation": [
     #{
       "receiver": final_receiver,
-      "amount": consumed_inputs.spender_allocations.data.amount,
+      "amounts": consumed_inputs.spender_allocations.data.amount,
       "source": consumed_inputs.spender_allocations.data.source
     }
   ]

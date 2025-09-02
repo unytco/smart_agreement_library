@@ -3,16 +3,9 @@
   "properties": {
     "expected_roles": {
       "type": "array",
-      "items": [
-        {
-          "const": {
-            "id": "spender",
-            "consumed_link": true
-          }
-        }
-      ],
-      "minItems": 1,
-      "maxItems": 1,
+      "items": [],
+      "minItems": 0,
+      "maxItems": 0,
       "uniqueItems": true
     }
   },
