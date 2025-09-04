@@ -14,13 +14,7 @@
       }
     },
     {
-      "name": "previous_execution",
-      "instruction": {
-        "Custom": "GetPreviousExecution"
-      }
-    },
-    {
-      "name": "withdrawer_agent_allocations",
+      "name": "withdrawer_allocations",
       "instruction": {
         "ProvidedBy": "withdrawer"
       }
@@ -29,6 +23,24 @@
       "name": "withdraw_contract_address",
       "instruction": {
         "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
+    },
+    {
+      "name": "call_method",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
+      "name": "cool_down_period",
+      "instruction": {
+        "Fixed": "2"
       }
     }
   ],

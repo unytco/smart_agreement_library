@@ -5,28 +5,31 @@ let state = #{
     "0xpolygon_mainnet": "0"
 };
 let unyt_allocation = [];
+
 // Function definitions first
 fn deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index) {
     // use the output of this agreement to update it based on the input
-    for pod in consumed_inputs.proof_of_deposit.data {
-        // find the contract this is going to touch
-        let contract_address = pod.contract_address;
-        let amount = state[contract_address];
-        if pod.method == "deposit" {
-            let new_amount = pod.amount;
-            amount = add_fuel(amount, new_amount);
-        } else if pod.method == "withdraw" {
-            let new_amount = pod.amount;
-            amount = sub_fuel(amount, new_amount);
-        } 
-        state[contract_address] = amount;
-        let amounts = #{};
-        amounts[unyt_index] = pod.amount; 
-        unyt_allocation.push(#{
-            "receiver": pod.depositor_wallet_address,
-            "amounts": amounts,
-            "source": consumed_inputs.proof_of_deposit.link_hash
-        });
+    for pod_link in consumed_inputs.proof_of_deposit {
+        for pod in pod_link.data {
+            // find the contract this is going to touch
+            let contract_address = pod.contract_address;
+            let amount = state[contract_address];
+            if pod.method == "deposit" {
+                let new_amount = pod.amount;
+                amount = add_fuel(amount, new_amount);
+            } else if pod.method == "withdraw" {
+                let new_amount = pod.amount;
+                amount = sub_fuel(amount, new_amount);
+            } 
+            state[contract_address] = amount;
+            let amounts = #{};
+            amounts[unyt_index] = pod.amount; 
+            unyt_allocation.push(#{
+                "receiver": pod.depositor_wallet_address,
+                "amounts": amounts,
+                "source": pod_link.link_hash
+            });
+        }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
@@ -34,8 +37,8 @@ fn deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index) {
     };
 }
 
-// todo
-fn withdraw_logic(consumed_inputs, ea_id, unyt_index) {
+// todo: refine this logic to check that you are not withdrawing an amount that is not available
+fn withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
     // Path to transfer out
     
     // Check Cool-Down period
@@ -44,35 +47,47 @@ fn withdraw_logic(consumed_inputs, ea_id, unyt_index) {
     // it should not be greater than the amount that is been trying to be withdraw
 
     // Get the spend links for the last 6 hours
-    if  custom_logic_for_withdraw(
-        allocation.link_hash,
-        ea_id,
-        360, // mins -> 6 hours
-        unyt_index,
-    ) {
-        let amount = state[consumed_inputs.withdraw_contract_address];
-        if type_of(amount) == "string" {
-            let spent_amount = consumed_inputs.withdrawer_agent_allocations.data.amount;
-            amount = sub_fuel(amount, spent_amount);
-            state[consumed_inputs.withdraw_contract_address] = amount;
-            unyt_allocation.push(#{
-                "receiver": executor_pub_key,
-                "amounts": spent_amount,
-                "source": consumed_inputs.withdrawer_agent_allocations.data.source
-            });
+    for allocation in consumed_inputs.withdrawer_allocations {
+        if  custom_logic_for_withdraw(
+            allocation.link_hash,
+            ea_id,
+            executed_timestamp,
+            cool_down_period, // in seconds
+            unyt_index,
+        ) {
+            let found_contract_address = false;
+            let contract_address;
+            for addresses in consumed_inputs.withdraw_contract_address {
+                // this is to match the request with the appropriate contract address
+                if addresses.link_hash == allocation.link_hash {
+                    found_contract_address = true;
+                    contract_address = addresses.data;
+                    break;
+                }
+            }
+            let amount = state[contract_address];
+            if type_of(amount) == "string" {
+                let spent_amount = allocation.data.amount;
+                amount = sub_fuel(amount, spent_amount[unyt_index]);
+                state[contract_address] = amount;
+                unyt_allocation.push(#{
+                    "receiver": executor_pub_key,
+                    "amounts": spent_amount,
+                    "source": allocation.link_hash
+                });
 
-            return #{
-                "unyt_allocation": unyt_allocation, 
-                "state": state
-            };
-        
+                return #{
+                    "unyt_allocation": unyt_allocation, 
+                    "state": state
+                };
+            
+            } else {
+                throw "Failed to withdraw: contract_address does not have any balance";
+            }
         } else {
-            error("Failed to withdraw: contract_address does not have any balance");
+            throw "Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours";
         }
-    }else {
-        error("Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours");
     }
-
     // Additional Notes:
     // After the output is created, the withdrawer will need to request signatures 
     // from the 3 agents to sign the output which can be used to claim the funds from the outside chain
@@ -93,12 +108,12 @@ if type_of(inputs.previous_execution.data) == "map" {
 }
 
 let updated_state = #{};
-if is_def_var(consumed_inputs.bridging_agent_allocations) {
+if inputs.call_method.data == "deposit" {
     updated_state = deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index);
-} else if is_def_var(consumed_inputs.withdrawer_agent_allocations) {
-    updated_state = withdraw_logic(consumed_inputs, ea_id, unyt_index);
+} else if inputs.call_method.data == "withdraw" {
+    updated_state = withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
 } else {
-    error("Invalid input");
+    throw "Invalid call method";
 }
 
 let unyt_allocation = updated_state.unyt_allocation;
