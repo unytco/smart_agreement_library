@@ -21,8 +21,10 @@ for a in consumed_inputs.spender_allocations {
 }
 
 return #{
-  "unyt_allocation": merged_allocations,
-  "computed_values": #{
-      "total_amount": total_amount,
-  }
+  "output": #{
+        "unyt_allocation": merged_allocations,
+        "computed_values": #{
+            "total_amount": total_amount,
+        }
+    }
 };

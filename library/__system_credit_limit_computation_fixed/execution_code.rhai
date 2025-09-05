@@ -9,5 +9,7 @@
 /// 
 /// The credit limit is default to what is passed in
 return  #{
-    "credit_limit":  inputs.credit_limit.data
+    "output": #{
+        "credit_limit":  inputs.credit_limit.data
+    }
 };  

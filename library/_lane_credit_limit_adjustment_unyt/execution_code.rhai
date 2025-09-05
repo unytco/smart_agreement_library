@@ -26,5 +26,7 @@ let credit_limit = #{};
 credit_limit[unyt_index] = amount;
 
 return #{
-    "credit_limit": credit_limit
-}
+    "output": #{
+        "credit_limit": credit_limit
+    }
+};

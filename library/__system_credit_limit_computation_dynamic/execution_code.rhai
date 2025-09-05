@@ -27,11 +27,13 @@ let credit_limit = (spend_count + 1) * 10;
 
 // Return the computed credit limit for the agent
 return #{
-    "credit_limit": #{
-        "0": credit_limit.to_string() 
-    },
-    "computed_values": #{
-        "spend_count": spend_count,
-        "formula": "( spend_count + 1 ) × 10"
+    "output": #{
+        "credit_limit": #{
+            "0": credit_limit.to_string() 
+        },
+        "computed_values": #{
+            "spend_count": spend_count,
+            "formula": "( spend_count + 1 ) × 10"
+        }
     }
 };

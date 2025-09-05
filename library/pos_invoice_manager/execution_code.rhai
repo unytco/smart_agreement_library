@@ -18,8 +18,10 @@ for a in consumed_inputs.spender_allocations {
 }
 
 return #{
-  "unyt_allocation": unyt_allocation,
-  "computed_values": #{
-    "pos": consumed_inputs.pos[0].data,
+  "output": #{
+    "unyt_allocation": unyt_allocation,
+    "computed_values": #{
+      "pos": consumed_inputs.pos[0].data,
+    }
   }
 }

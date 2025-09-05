@@ -41,5 +41,7 @@ if expected_base_value == parse_float(consumed_inputs.spender_allocations.data.a
 
 
 return #{
-  "unyt_allocation": checked_allocation
-}
+  "output": #{
+    "unyt_allocation": checked_allocation
+  }
+};

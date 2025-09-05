@@ -21,6 +21,7 @@ for agent in inputs.whitelisted_receiver.data {
 
 
 return #{
+  "output": #{
   "unyt_allocation": [
     #{
       "receiver": final_receiver,
@@ -28,4 +29,5 @@ return #{
       "source": consumed_inputs.spender_allocations.data.source
     }
   ]
-}
+  }
+};

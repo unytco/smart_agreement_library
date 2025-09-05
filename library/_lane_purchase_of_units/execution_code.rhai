@@ -71,6 +71,8 @@ for (pod, i) in consumed_inputs.proof_of_deposit_hash {
 
 
 return  #{
-    "unyt_allocation": unyt_allocation,
-    "computed_values": computed_values
+    "output": #{
+        "unyt_allocation": unyt_allocation,
+        "computed_values": computed_values
+    }
 }; 

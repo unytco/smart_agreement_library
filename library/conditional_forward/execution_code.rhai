@@ -12,11 +12,13 @@ if !inputs.condition.data {
 }
 
 return #{
-  "unyt_allocation": [
-    #{
-      "receiver": consumed_inputs.receiver.data,
-      "amounts": consumed_inputs.spender_allocations.data.amount,
-      "source": consumed_inputs.spender_allocations.data.source
-    }
-  ]
-}
+  "output": #{
+    "unyt_allocation": [
+      #{
+        "receiver": consumed_inputs.receiver.data,
+        "amounts": consumed_inputs.spender_allocations.data.amount,
+        "source": consumed_inputs.spender_allocations.data.source
+      }
+    ]
+  }
+};

@@ -4,10 +4,9 @@ let state = #{
     "0xeth_rinkeby": "0",
     "0xpolygon_mainnet": "0"
 };
-let unyt_allocation = [];
-
 // Function definitions first
-fn deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index) {
+fn deposit_logic(consumed_inputs, state, unyt_index) {
+    let unyt_allocation = [];
     // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
         for pod in pod_link.data {
@@ -37,8 +36,7 @@ fn deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index) {
     };
 }
 
-// todo: refine this logic to check that you are not withdrawing an amount that is not available
-fn withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
+fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
     // Path to transfer out
     
     // Check Cool-Down period
@@ -47,6 +45,8 @@ fn withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, ex
     // it should not be greater than the amount that is been trying to be withdraw
 
     // Get the spend links for the last 6 hours
+    let unyt_allocation = [];
+    let rejected_links = [];
     for allocation in consumed_inputs.withdrawer_allocations {
         if  custom_logic_for_withdraw(
             allocation.link_hash,
@@ -76,20 +76,32 @@ fn withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, ex
                         "amounts": spent_amount,
                         "source": allocation.link_hash
                     });
-                    return #{
-                        "unyt_allocation": unyt_allocation, 
-                        "state": state
-                    };
+                  break;
                 } else {
-                    throw "Failed to withdraw: the contract needs to hold a balance for the expected amount";
+                    rejected_links.push(#{
+                        "hash": allocation.link_hash,
+                        "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
+                    });
                 }
             } else {
-                throw "Failed to withdraw: contract_address does not have any balance";
+                rejected_links.push(#{
+                    "hash": allocation.link_hash,
+                    "reason": "Failed to withdraw: contract_address does not have any balance"
+                });
+               
             }
         } else {
-            throw "Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours";
+            rejected_links.push(#{
+                "hash": allocation.link_hash,
+                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours"
+            });           
         }
     }
+    return #{
+        "unyt_allocation": unyt_allocation, 
+        "state": state,
+        "rejected_links": rejected_links
+    };
     // Additional Notes:
     // After the output is created, the withdrawer will need to request signatures 
     // from the 3 agents to sign the output which can be used to claim the funds from the outside chain
@@ -109,19 +121,26 @@ if type_of(inputs.previous_execution.data) == "map" {
     state = inputs.previous_execution.data.output.carryover;
 }
 
-let updated_state = #{};
 if inputs.call_method.data == "deposit" {
-    updated_state = deposit_logic(consumed_inputs, unyt_allocation, state, unyt_index);
+    let updated_state = deposit_logic(consumed_inputs, state, unyt_index);
+    return #{
+        "output": #{
+            "unyt_allocation": updated_state.unyt_allocation,
+            "carryover": updated_state.state,
+        }
+    };
 } else if inputs.call_method.data == "withdraw" {
-    updated_state = withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
+    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
+    if updated_state.unyt_allocation.is_empty {
+        throw "Failed to withdraw: No valid unyt allocation to process";
+    }
+    return #{
+        "output": #{
+            "unyt_allocation": updated_state.unyt_allocation,
+            "carryover": updated_state.state,
+        },
+        "rejected_links": updated_state.rejected_links
+    };
 } else {
     throw "Invalid call method";
 }
-
-let unyt_allocation = updated_state.unyt_allocation;
-let state = updated_state.state;
-
-return #{
-    "unyt_allocation": unyt_allocation,
-    "carryover": state
-};

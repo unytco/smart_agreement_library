@@ -48,9 +48,11 @@ for (parked_link, i) in sorted_parked_links {
 
 
 return  #{
+    "output": #{
     "unyt_allocation": unyt_allocation,
-    "computed_values": #{
-        "redemption_report": redemption_report,
-        "redemption_price": `${inputs.redemption_price.data}`,
+        "computed_values": #{
+            "redemption_report": redemption_report,
+            "redemption_price": `${inputs.redemption_price.data}`,
+        }
     }
 }; 

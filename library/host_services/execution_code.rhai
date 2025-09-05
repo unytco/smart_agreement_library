@@ -44,5 +44,7 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
 }
 
 return #{
-  "unyt_allocation": final_unyt_allocation
-}
+  "output": #{
+    "unyt_allocation": final_unyt_allocation
+  }
+};

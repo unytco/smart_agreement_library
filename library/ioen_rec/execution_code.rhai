@@ -44,8 +44,10 @@ for (log, i) in consumed_inputs.logs {
 }
 
 return #{
-  "unyt_allocation": unyt_allocation,
-  "computed_values": #{
-    "total_rec_amount": total_rec_amount
+  "output": #{
+    "unyt_allocation": unyt_allocation,
+    "computed_values": #{
+        "total_rec_amount": total_rec_amount
+     }
   }
 }
