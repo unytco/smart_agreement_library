@@ -69,18 +69,20 @@ fn withdraw_logic(consumed_inputs, unyt_allocation, state, ea_id, unyt_index, ex
             if type_of(amount) == "string" {
                 let spent_amount = allocation.data.amount;
                 amount = sub_fuel(amount, spent_amount[unyt_index]);
-                state[contract_address] = amount;
-                unyt_allocation.push(#{
-                    "receiver": executor_pub_key,
-                    "amounts": spent_amount,
-                    "source": allocation.link_hash
-                });
-
-                return #{
-                    "unyt_allocation": unyt_allocation, 
-                    "state": state
-                };
-            
+                if is_greater_than_eq(amount, "0") {
+                    state[contract_address] = amount;
+                    unyt_allocation.push(#{
+                        "receiver": executor_pub_key,
+                        "amounts": spent_amount,
+                        "source": allocation.link_hash
+                    });
+                    return #{
+                        "unyt_allocation": unyt_allocation, 
+                        "state": state
+                    };
+                } else {
+                    throw "Failed to withdraw: the contract needs to hold a balance for the expected amount";
+                }
             } else {
                 throw "Failed to withdraw: contract_address does not have any balance";
             }

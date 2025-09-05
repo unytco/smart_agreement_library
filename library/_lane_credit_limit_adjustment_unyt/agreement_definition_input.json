@@ -6,7 +6,7 @@
       "items": [
         {
           "const": {
-            "id": "oracal",
+            "id": "oracle",
             "consumed_link": true
           }
         }

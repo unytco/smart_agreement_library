@@ -4,7 +4,7 @@
     {
       "name": "proof_of_deposit",
       "instruction": {
-        "ProvidedBy": "oracal"
+        "ProvidedBy": "oracle"
       }
     },
     {
@@ -17,9 +17,9 @@
   "executor_rules": { "Any": null },
   "roles": [
     {
-      "ct_role_id": "oracal",
-      "display_name": "Oracal",
-      "description": "The oracal role",
+      "ct_role_id": "oracle",
+      "display_name": "oracle",
+      "description": "The oracle role",
       "qualification": { "Any": null }
     }
   ]
