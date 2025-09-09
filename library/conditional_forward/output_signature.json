@@ -7,10 +7,10 @@
         "type": "object",
         "properties": {
           "receiver": { "type": "string" },
-          "amount": { "type": "any" },
+          "amounts": { "type": "any" },
           "source": { "type": "string" }
         },
-        "required": ["receiver", "amount", "source"]
+        "required": ["receiver", "amounts", "source"]
       }
     }
   },

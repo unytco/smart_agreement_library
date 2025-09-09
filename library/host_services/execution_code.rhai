@@ -28,8 +28,8 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
     
     final_unyt_allocation.push(#{
       "receiver": consumed_inputs.receiver[count].data,
-      "amount": invoice_amount,
-      "source": spender_amount.data.source
+      "amounts": invoice_amount,
+      "source": spender_amount.link_hash
     });
     
     // Calculate the remaining amount
@@ -44,5 +44,7 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
 }
 
 return #{
-  "unyt_allocation": final_unyt_allocation
-}
+  "output": #{
+    "unyt_allocation": final_unyt_allocation
+  }
+};

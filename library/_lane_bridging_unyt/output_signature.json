@@ -10,15 +10,13 @@
           "amounts": { "type": "object", "additionalProperties": { "type": "string" } },
           "source": { "type": "string" }
         },
-        "required": ["amounts", "receiver", "source"]
+        "required": ["receiver", "amounts", "source"]
       }
     },
-    "computed_values": {
+    "carryover": {
       "type": "object",
-      "properties": {
-        "signature_valid": { "type": "boolean" },
-        "error": { "type": "string" }
-      }
+      "additionalProperties": { "type": "string" }
     }
-  }
+  },
+  "required": ["unyt_allocation", "carryover"]
 }

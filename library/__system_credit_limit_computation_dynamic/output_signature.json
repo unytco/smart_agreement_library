@@ -3,11 +3,7 @@
   "properties": {
     "credit_limit": {
       "type": "object",
-      "properties": {
-        "agent": { "type": "string" },
-        "amount": { "type": "string" }
-      },
-      "required": ["agent", "amount"]
+      "additionalProperties": { "type": "string" }
     },
     "computed_values": {
       "type": "object",

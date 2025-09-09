@@ -9,7 +9,7 @@ for record in inputs.spend_data.data {
         
         merged_allocations.push(#{
             "receiver": consumed_inputs.receiver.data,
-            "amount": allocation.amount,
+            "amounts": allocation.amount,
             "source": allocation.source
         });
         total_amount += parse_float(allocation.amount[0]);
@@ -22,11 +22,13 @@ for record in inputs.spend_data.data {
 }
 
 return #{
-  "unyt_allocation": merged_allocations,
-  "computed_values": #{
-      "total_amount": total_amount,
-      "signature_valid": is_valid,
-      "error": if !is_valid { "Invalid signature" } else { "" },
-      "spend_data": inputs.spend_data.data,
+  "output": #{
+    "unyt_allocation": merged_allocations,
+    "computed_values": #{
+        "total_amount": total_amount,
+        "signature_valid": is_valid,
+        "error": if !is_valid { "Invalid signature" } else { "" },
+        "spend_data": inputs.spend_data.data,
+    }
   }
 };

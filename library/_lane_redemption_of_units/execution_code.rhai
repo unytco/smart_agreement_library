@@ -36,7 +36,7 @@ for (parked_link, i) in sorted_parked_links {
     available_ledger_balance = updated_balance;
     unyt_allocation.push(#{
         "receiver": inputs.sales_agent_pubkey.data,
-        "amount": parked_link.amount,
+        "amounts": parked_link.amount,
         "source": parked_link.source
     });
     redemption_report.push(#{
@@ -48,9 +48,11 @@ for (parked_link, i) in sorted_parked_links {
 
 
 return  #{
+    "output": #{
     "unyt_allocation": unyt_allocation,
-    "computed_values": #{
-        "redemption_report": redemption_report,
-        "redemption_price": `${inputs.redemption_price.data}`,
+        "computed_values": #{
+            "redemption_report": redemption_report,
+            "redemption_price": `${inputs.redemption_price.data}`,
+        }
     }
 }; 
