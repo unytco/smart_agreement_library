@@ -22,5 +22,6 @@
       "description": "The fee drop off agent",
       "qualification": { "Any": null }
     }
-  ]
+  ],
+  "tags": [{ "System": "fee" }]
 }

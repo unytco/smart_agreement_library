@@ -28,5 +28,6 @@
       "description": "The spender role",
       "qualification": { "Any": null }
     }
-  ]
+  ],
+  "tags": [{ "Public": "conditional" }]
 }

@@ -40,5 +40,6 @@
       "description": "The invoice gateway role",
       "qualification": { "Any": null }
     }
-  ]
+  ],
+  "tags": [{ "ServiceNetwork": "proof-of-service" }]
 }

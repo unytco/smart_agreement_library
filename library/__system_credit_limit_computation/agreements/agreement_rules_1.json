@@ -15,5 +15,6 @@
     }
   ],
   "executor_rules": { "Any": null },
-  "roles": []
+  "roles": [],
+  "tags": [{ "System": "credit" }]
 }

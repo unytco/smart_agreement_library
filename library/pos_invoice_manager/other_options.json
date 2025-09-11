@@ -1,4 +1,5 @@
 {
   "one_time_run": false,
-  "aggregate_execution": true
+  "aggregate_execution": true,
+  "tags": [{ "Public": "hosting" }]
 }
