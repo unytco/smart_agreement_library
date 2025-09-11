@@ -22,5 +22,6 @@
       "description": "The log harvester",
       "qualification": { "Authorized": "spender pub key" }
     }
-  ]
+  ],
+  "tags": [{ "Public": "ioen" }, { "Public": "hosting" }]
 }

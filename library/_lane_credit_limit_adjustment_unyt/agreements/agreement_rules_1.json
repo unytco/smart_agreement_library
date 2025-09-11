@@ -22,5 +22,6 @@
       "description": "The oracle role",
       "qualification": { "Any": null }
     }
-  ]
+  ],
+  "tags": [{ "ServiceNetwork": "credit-adjustment" }]
 }

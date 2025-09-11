@@ -28,5 +28,6 @@
       "description": "The redeeming agent",
       "qualification": { "Any": null }
     }
-  ]
+  ],
+  "tags": [{ "ServiceNetwork": "redemption-of-units" }]
 }
