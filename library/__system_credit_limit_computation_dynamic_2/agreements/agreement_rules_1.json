@@ -30,8 +30,8 @@
                   "order_descending": false
                 }
               ],
-              "filter_entry_type": ["Spend", "ParkedSpend"],
-              "return_type": { "Count": null }
+              "filter_entry_type": [],
+              "return_type": { "Record": null }
             }
           }
         }
