@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string" },
+          "amounts": { "type": "object", "additionalProperties": { "type": "string" } },
+          "source": { "type": "string" }
+        },
+        "required": ["receiver", "amounts", "source"]
+      }
+    }
+  },
+  "required": ["unyt_allocation"]
+}
