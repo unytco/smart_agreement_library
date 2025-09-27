@@ -28,7 +28,7 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
     final_unyt_allocation.push(#{
       "receiver": consumed_inputs.receiver[count].data,
       "amounts": invoice_amount,
-      "source": spender_amount.data.source
+      "sources": [spender_amount.data.source]
     });
     
     // Calculate the remaining amount

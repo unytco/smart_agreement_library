@@ -8,9 +8,9 @@
         "properties": {
           "receiver": { "type": "string" },
           "amounts": { "type": "object", "additionalProperties": { "type": "string" } },
-          "source": { "type": "string" }
+          "sources": { "type": "array", "items": { "type": "string" } }
         },
-        "required": ["receiver", "amounts", "source"]
+        "required": ["receiver", "amounts", "sources"]
       }
     },
     "carryover": {

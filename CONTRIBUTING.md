@@ -91,7 +91,7 @@ Provide a JSON Schema that defines the expected output structure:
             "type": "array",
             "items": { "type": "string" }
           },
-          "source": { "type": "string" }
+          "sources": { "type": "array" }
         }
       }
     },
