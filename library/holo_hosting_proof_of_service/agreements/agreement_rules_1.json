@@ -1,5 +1,5 @@
 {
-  "title": "default lane proof of service",
+  "title": "(needs additional info): holo hosting proof of service",
   "input_rules": [
     {
       "name": "log_harvester_allocations",
@@ -32,13 +32,21 @@
       "ct_role_id": "log_harvester",
       "display_name": "Log Harvester",
       "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
-      "qualification": { "Authorized": "<Placeholder: log_harvester_pubkey>" }
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role needs to be authorized to the log_harvester_pubkey",
+        "Authorized": "<Placeholder: log_harvester_pubkey>"
+      }
     },
     {
       "ct_role_id": "happ_provider",
       "display_name": "Happ Provider",
       "description": "The agent that has asked hosts to provide service",
-      "qualification": { "Authorized": "<Placeholder: happ_provider_pubkey>" }
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role needs to be authorized to the happ_provider_pubkey",
+        "Authorized": "<Placeholder: happ_provider_pubkey>"
+      }
     }
   ],
   "tags": [{ "ServiceNetwork": "proof-of-service" }, { "Public": "holo-hosting" }]
