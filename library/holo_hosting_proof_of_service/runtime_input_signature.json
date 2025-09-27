@@ -4,7 +4,7 @@
     "consumed_inputs": {
       "type": "object",
       "properties": {
-        "spender_allocations": {
+        "log_harvester_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -15,7 +15,7 @@
             "required": ["amount", "source"]
           }
         },
-        "invoice_gateway_allocations_invoice": {
+        "happ_provider_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -26,11 +26,30 @@
             "required": ["amount", "source"]
           }
         },
-        "receiver": { "type": "array", "items": { "type": "string" } },
-        "work_proof": { "type": "array", "items": { "type": "string" } }
+        "invoice_payloads": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "host_pub_key": { "type": "string" },
+                "logs": { "type": "array", "items": { "type": "object" } }
+              },
+              "required": ["host_pub_key", "logs"]
+            }
+          }
+        }
       },
-      "required": ["spender_allocations", "invoice_gateway_allocations_invoice", "receiver", "work_proof"]
+      "required": ["log_harvester_allocations", "happ_provider_allocations", "invoice_payloads"]
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "price_sheet_data_blob_hash": { "type": "string" }
+      },
+      "required": ["price_sheet_data_blob_hash"]
     }
   },
-  "required": ["consumed_inputs"]
+  "required": ["consumed_inputs", "inputs"]
 }

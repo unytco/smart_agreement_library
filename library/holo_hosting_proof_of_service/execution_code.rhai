@@ -39,41 +39,126 @@
 ///      Document: amount returned to spender or the carry forward 
 /// - else, return an error with the message of how much is expected 
 ///
-let todo = inputs.work_proof;
+
+// Service units invoiced for
+let HST = "1"; // holochain storage
+let HGSP = "2"; // holochain gossip
+
+// get price sheet data blob
+let price_sheet_data_blob = get_data_blob(inputs.price_sheet_data_blob_hash.data);
+let storage_price = price_sheet_data_blob.base_per_st;
+let gossip_price = price_sheet_data_blob.base_per_gsp;
+
+// compare the log_harvester_allocations with the invoice_payload and if they match 
+// calculate the price expected, based on the service units logged
 
 // check type of unyt_allocation
 let final_unyt_allocation = [];
-let spender_unyt_allocation = consumed_inputs.spender_allocations;
+let total_payment_expected = 0;
+let total_gossip_units_invoiced = 0;
+let total_storage_units_invoiced = 0;
+let hp_alloc = consumed_inputs.happ_provider_allocations;
 
-let invoice_gateway_unyt_allocation = [];
-for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
-  let invoice_amount = value.data.amount;
-  
-  // Find the index of the spend that will cover the invoice amount
-  let spender_index = spender_unyt_allocation.index_of(|a| parse_float(a.data.amount["0"]) >= parse_float(invoice_amount["0"]));
+let able_to_pay = true;
+// the aggregate invoice payloads
+for (value, count) in consumed_inputs.invoice_payloads {
+  // parse the individual arrays of invoice payloads
+  for (payload, i) in value.data {
+    
+    let logs = payload.logs;
+    // iterate over each log
+    let total_gossip_units = 0;
+    let total_storage_units = 0;
+    for (log, i) in logs {
+      total_gossip_units = total_gossip_units + parse_float(log["g"]);
+      total_storage_units = total_storage_units + parse_float(log["s"]);
+    }
+    
+    let gossip_amount = total_gossip_units * gossip_price;
+    let storage_amount = total_storage_units * storage_price;
+    
+    let exp_amt = storage_amount + gossip_amount;
 
-  if spender_index >= 0 {
-    let spender_amount = spender_unyt_allocation[spender_index];
-    
-    final_unyt_allocation.push(#{
-      "receiver": consumed_inputs.receiver[count].data,
-      "amounts": invoice_amount,
-      "source": spender_amount.data.source
-    });
-    
-    // Calculate the remaining amount
-    let remaining_amount = sub_units(spender_amount.data.amount, invoice_amount);
-    
-    // Update the element in place with the remaining amount
-    spender_unyt_allocation[spender_index].data.amount = remaining_amount;
-    
-  } else {
-    throw "Invoice not paid";
+    total_payment_expected = total_payment_expected + exp_amt;
+    total_gossip_units_invoiced = total_gossip_units_invoiced + total_gossip_units;
+    total_storage_units_invoiced = total_storage_units_invoiced + total_storage_units;
+
+    // if the execution is able to allocate the amount, then we can continue
+    if able_to_pay {
+        // Find the index of the spend that will cover the invoice amount
+        let hp_index = hp_alloc.index_of(|a| parse_float(a.data.amount["0"]) >= exp_amt);
+
+        if hp_index >= 0 {
+          let hp_amount_used = hp_alloc[hp_index];
+          
+          // todo: this can be optimized by summing all the amounts for the specific host into one allocation
+          let invoice_amount = #{
+            "0": exp_amt.to_string()
+          };
+          final_unyt_allocation.push(#{
+            "receiver": payload.host_pub_key,
+            "amounts": invoice_amount,
+            "sources": [hp_amount_used.data.source]
+          });
+          
+          // Calculate the remaining amount
+          let remaining_amount = sub_units(hp_amount_used.data.amount, invoice_amount);
+          
+          // Update the element in place with the remaining amount
+          hp_alloc[hp_index].data.amount = remaining_amount;
+          
+        } else {
+          // find out what the total invoiced amount is or how much is missing
+          able_to_pay = false;
+          continue;
+          // throw "All invoices should be paid";
+        }
+    } else {
+      // else we only continue to calculate the total expected amount
+      continue;
+    }
   }
 }
 
-return #{
-  "output": #{
-    "unyt_allocation": final_unyt_allocation
+if able_to_pay {
+
+  // attach the total gossip and storage units invoiced to the unyt allocation
+  final_unyt_allocation.push(#{
+    "receiver": executor_pub_key,
+    "amounts": #{ 
+      "1": total_gossip_units_invoiced.to_string(), 
+      "2": total_storage_units_invoiced.to_string() 
+    },
+    "sources": consumed_inputs.invoice_payloads.map(|p| p.link_hash)
+  });
+
+  // calculate the remaining amount in the hp_alloc and return it as unyt allocation
+  // to the happ provider
+  // Future: we will implement carry over so that we dont need to spend again
+  let remaining_hp_alloc = 0;
+  let remaining_sources = [];
+  for (hp_alloc, i) in hp_alloc {
+    if parse_float(hp_alloc.data.amount["0"]) > 0 {
+      remaining_hp_alloc = remaining_hp_alloc + parse_float(hp_alloc.data.amount["0"]);
+      remaining_sources.push(hp_alloc.data.source);
+    }
   }
-};
+
+  if remaining_hp_alloc > 0 {
+    final_unyt_allocation.push(#{
+      "receiver": executor_pub_key,
+      "amounts": #{ 
+        "0": remaining_hp_alloc.to_string() 
+      },
+      "sources": remaining_sources
+    });
+  }
+
+  return #{
+    "output": #{
+      "unyt_allocation": final_unyt_allocation
+    }
+  };
+} else {
+  throw "Expected to pay: " + total_payment_expected.to_string();
+}

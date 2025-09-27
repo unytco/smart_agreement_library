@@ -2,44 +2,44 @@
   "title": "default lane proof of service",
   "input_rules": [
     {
-      "name": "spender_allocations",
+      "name": "log_harvester_allocations",
       "instruction": {
-        "ProvidedBy": "spender"
+        "ProvidedBy": "log_harvester"
       }
     },
     {
-      "name": "invoice_gateway_allocations_invoice",
+      "name": "happ_provider_allocations",
       "instruction": {
-        "ProvidedBy": "invoice_gateway"
+        "ProvidedBy": "happ_provider"
       }
     },
     {
-      "name": "receiver",
+      "name": "invoice_payloads",
       "instruction": {
-        "ProvidedBy": "invoice_gateway"
+        "ProvidedBy": "log_harvester"
       }
     },
     {
-      "name": "work_proof",
+      "name": "price_sheet_data_blob_hash",
       "instruction": {
-        "ProvidedBy": "invoice_gateway"
+        "Fixed": "<Placeholder: price_sheet_data_blob_hash>"
       }
     }
   ],
   "executor_rules": { "Any": null },
   "roles": [
     {
-      "ct_role_id": "spender",
-      "display_name": "Spender",
-      "description": "The spender role",
-      "qualification": { "Any": null }
+      "ct_role_id": "log_harvester",
+      "display_name": "Log Harvester",
+      "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
+      "qualification": { "Authorized": "<Placeholder: log_harvester_pubkey>" }
     },
     {
-      "ct_role_id": "invoice_gateway",
-      "display_name": "Invoice Gateway",
-      "description": "The invoice gateway role",
-      "qualification": { "Any": null }
+      "ct_role_id": "happ_provider",
+      "display_name": "Happ Provider",
+      "description": "The agent that has asked hosts to provide service",
+      "qualification": { "Authorized": "<Placeholder: happ_provider_pubkey>" }
     }
   ],
-  "tags": [{ "ServiceNetwork": "proof-of-service" }]
+  "tags": [{ "ServiceNetwork": "proof-of-service" }, { "Public": "holo-hosting" }]
 }

@@ -6,13 +6,13 @@
       "items": [
         {
           "const": {
-            "id": "spender",
+            "id": "log_harvester",
             "consumed_link": true
           }
         },
         {
           "const": {
-            "id": "invoice_gateway",
+            "id": "happ_provider",
             "consumed_link": true
           }
         }

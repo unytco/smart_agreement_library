@@ -16,7 +16,6 @@ let todo = inputs.work_proof;
 let final_unyt_allocation = [];
 let spender_unyt_allocation = consumed_inputs.spender_allocations;
 
-let invoice_gateway_unyt_allocation = [];
 for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
   let invoice_amount = value.data.amount;
   
