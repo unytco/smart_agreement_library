@@ -4,7 +4,7 @@
     "consumed_inputs": {
       "type": "object",
       "properties": {
-        "log_harvester_allocations": {
+        "log_harvester_spender_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -15,7 +15,7 @@
             "required": ["amount", "source"]
           }
         },
-        "happ_provider_allocations": {
+        "happ_provider_spender_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -41,7 +41,7 @@
           }
         }
       },
-      "required": ["log_harvester_allocations", "happ_provider_allocations", "invoice_payloads"]
+      "required": ["log_harvester_spender_allocations", "happ_provider_spender_allocations", "invoice_payloads"]
     },
     "inputs": {
       "type": "object",

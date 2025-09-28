@@ -49,7 +49,7 @@ let price_sheet_data_blob = get_data_blob(inputs.price_sheet_data_blob_hash.data
 let storage_price = price_sheet_data_blob.base_per_st;
 let gossip_price = price_sheet_data_blob.base_per_gsp;
 
-// compare the log_harvester_allocations with the invoice_payload and if they match 
+// compare the log_harvester_spender_allocations with the invoice_payload and if they match 
 // calculate the price expected, based on the service units logged
 
 // check type of unyt_allocation
@@ -57,7 +57,7 @@ let final_unyt_allocation = [];
 let total_payment_expected = 0;
 let total_gossip_units_invoiced = 0;
 let total_storage_units_invoiced = 0;
-let hp_alloc = consumed_inputs.happ_provider_allocations;
+let hp_alloc = consumed_inputs.happ_provider_spender_allocations;
 
 let able_to_pay = true;
 // the aggregate invoice payloads

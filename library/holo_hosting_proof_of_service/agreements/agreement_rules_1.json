@@ -2,21 +2,21 @@
   "title": "(needs additional info): holo hosting proof of service",
   "input_rules": [
     {
-      "name": "log_harvester_allocations",
+      "name": "log_harvester_spender_allocations",
       "instruction": {
-        "ProvidedBy": "log_harvester"
+        "ProvidedBy": "log_harvester_spender"
       }
     },
     {
-      "name": "happ_provider_allocations",
+      "name": "happ_provider_spender_allocations",
       "instruction": {
-        "ProvidedBy": "happ_provider"
+        "ProvidedBy": "happ_provider_spender"
       }
     },
     {
       "name": "invoice_payloads",
       "instruction": {
-        "ProvidedBy": "log_harvester"
+        "ProvidedBy": "log_harvester_spender"
       }
     },
     {
@@ -29,7 +29,7 @@
   "executor_rules": { "Any": null },
   "roles": [
     {
-      "ct_role_id": "log_harvester",
+      "ct_role_id": "log_harvester_spender",
       "display_name": "Log Harvester",
       "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
       "qualification": { "Any": null },
@@ -39,7 +39,7 @@
       }
     },
     {
-      "ct_role_id": "happ_provider",
+      "ct_role_id": "happ_provider_spender",
       "display_name": "Happ Provider",
       "description": "The agent that has asked hosts to provide service",
       "qualification": { "Any": null },
@@ -49,5 +49,5 @@
       }
     }
   ],
-  "tags": [{ "ServiceNetwork": "proof-of-service" }, { "Public": "holo-hosting" }]
+  "tags": [{ "Public": "holo-hosting" }]
 }
