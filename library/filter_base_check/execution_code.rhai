@@ -28,14 +28,14 @@ if expected_base_value == parse_float(consumed_inputs.spender_allocations.data.a
   checked_allocation.push(#{
     "receiver": consumed_inputs.receiver.data,
     "amounts": consumed_inputs.spender_allocations.data.amount,
-    "source": consumed_inputs.spender_allocations.data.source
+    "sources": [consumed_inputs.spender_allocations.data.source]
   });
 } else {
   // forwarding the amount back to the return_address
   checked_allocation.push(#{
     "receiver": inputs.return_address.data,
     "amounts": consumed_inputs.spender_allocations.data.amount,
-    "source": consumed_inputs.spender_allocations.data.source
+    "sources": [consumed_inputs.spender_allocations.data.source]
   });
 }
 

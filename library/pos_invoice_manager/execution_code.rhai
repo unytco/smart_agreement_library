@@ -13,7 +13,7 @@ for a in consumed_inputs.spender_allocations {
   unyt_allocation.push(#{
     "receiver": consumed_inputs.receiver[0].data,
     "amounts": a.data.amount,
-    "source": a.data.source
+    "sources": [a.data.source]
   });
 }
 

@@ -37,7 +37,7 @@ for (parked_link, i) in sorted_parked_links {
     unyt_allocation.push(#{
         "receiver": inputs.sales_agent_pubkey.data,
         "amounts": parked_link.amount,
-        "source": parked_link.source
+        "sources": parked_link.sources
     });
     redemption_report.push(#{
         "spender": parked_link.spender,
@@ -49,7 +49,7 @@ for (parked_link, i) in sorted_parked_links {
 
 return  #{
     "output": #{
-    "unyt_allocation": unyt_allocation,
+        "unyt_allocation": unyt_allocation,
         "computed_values": #{
             "redemption_report": redemption_report,
             "redemption_price": `${inputs.redemption_price.data}`,
