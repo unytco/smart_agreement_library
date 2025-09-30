@@ -26,7 +26,7 @@ return #{
     #{
       "receiver": final_receiver,
       "amounts": consumed_inputs.spender_allocations.data.amount,
-      "source": consumed_inputs.spender_allocations.data.source
+      "sources": [consumed_inputs.spender_allocations.data.source]
     }
   ]
   }

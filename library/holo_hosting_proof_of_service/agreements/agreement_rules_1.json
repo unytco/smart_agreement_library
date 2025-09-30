@@ -1,0 +1,53 @@
+{
+  "title": "(needs additional info): holo hosting proof of service",
+  "input_rules": [
+    {
+      "name": "log_harvester_spender_allocations",
+      "instruction": {
+        "ProvidedBy": "log_harvester_spender"
+      }
+    },
+    {
+      "name": "happ_provider_spender_allocations",
+      "instruction": {
+        "ProvidedBy": "happ_provider_spender"
+      }
+    },
+    {
+      "name": "invoice_payloads",
+      "instruction": {
+        "ProvidedBy": "log_harvester_spender"
+      }
+    },
+    {
+      "name": "price_sheet_data_blob_hash",
+      "instruction": {
+        "Fixed": "<Placeholder: price_sheet_data_blob_hash>"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "log_harvester_spender",
+      "display_name": "Log Harvester",
+      "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role needs to be authorized to the log_harvester_pubkey",
+        "Authorized": "<Placeholder: log_harvester_pubkey>"
+      }
+    },
+    {
+      "ct_role_id": "happ_provider_spender",
+      "display_name": "Happ Provider",
+      "description": "The agent that has asked hosts to provide service",
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role needs to be authorized to the happ_provider_pubkey",
+        "Authorized": "<Placeholder: happ_provider_pubkey>"
+      }
+    }
+  ],
+  "tags": [{ "Public": "holo-hosting" }]
+}

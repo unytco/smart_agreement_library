@@ -16,7 +16,6 @@ let todo = inputs.work_proof;
 let final_unyt_allocation = [];
 let spender_unyt_allocation = consumed_inputs.spender_allocations;
 
-let invoice_gateway_unyt_allocation = [];
 for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
   let invoice_amount = value.data.amount;
   
@@ -29,7 +28,7 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
     final_unyt_allocation.push(#{
       "receiver": consumed_inputs.receiver[count].data,
       "amounts": invoice_amount,
-      "source": spender_amount.data.source
+      "sources": [spender_amount.data.source]
     });
     
     // Calculate the remaining amount

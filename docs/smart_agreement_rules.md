@@ -125,7 +125,7 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
       {
         "receiver": "receiver_agent_pubkey",
         "amount": ["100", "0"],
-        "source": "source_hash"
+        "sources": ["source_hash"]
       }
     ]
   }

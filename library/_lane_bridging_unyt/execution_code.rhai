@@ -26,7 +26,7 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
             unyt_allocation.push(#{
                 "receiver": pod.depositor_wallet_address,
                 "amounts": amounts,
-                "source": pod_link.link_hash
+                "sources": [pod_link.link_hash]
             });
         }
     }
@@ -74,7 +74,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                     unyt_allocation.push(#{
                         "receiver": executor_pub_key,
                         "amounts": spent_amount,
-                        "source": allocation.link_hash
+                        "sources": [allocation.link_hash]
                     });
                   break;
                 } else {
