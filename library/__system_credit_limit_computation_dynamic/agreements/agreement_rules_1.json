@@ -7,7 +7,7 @@
         "Query": {
           "MustGetSelfActivity": {
             "chain_top": null,
-            "filters": "ToGenesis",
+            "limit_conditions": "ToGenesis",
             "include_cached_entries": true,
             "transformer": {
               "hdk_queries": [
