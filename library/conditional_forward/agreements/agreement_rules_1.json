@@ -1,5 +1,5 @@
 {
-  "title": "example conditional forward",
+  "title": "Example Conditional Forward",
   "input_rules": [
     {
       "name": "spender_allocations",

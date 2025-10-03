@@ -1,5 +1,5 @@
 {
-  "title": "example pos invoice management",
+  "title": "filter by checking base",
   "input_rules": [
     {
       "name": "spender_allocations",
@@ -14,7 +14,7 @@
       }
     },
     {
-      "name": "pos",
+      "name": "return_address",
       "instruction": {
         "ProvidedBy": "spender"
       }
@@ -29,5 +29,5 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "hosting" }]
+  "tags": [{ "Public": "conditional" }]
 }
