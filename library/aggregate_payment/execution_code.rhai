@@ -2,7 +2,6 @@
 /// 
 /// Inputs:
 /// unyt_allocation: the unyt_allocation to be checked
-/// pos: the pos to be checked
 /// 
 /// Summary:
 /// This is a simple return of the unyt_allocation
@@ -11,7 +10,7 @@
 let unyt_allocation = [];
 for a in consumed_inputs.spender_allocations {
   unyt_allocation.push(#{
-    "receiver": consumed_inputs.receiver[0].data,
+    "receiver": inputs.receiver.data,
     "amounts": a.data.amount,
     "sources": [a.data.source]
   });
@@ -19,9 +18,6 @@ for a in consumed_inputs.spender_allocations {
 
 return #{
   "output": #{
-    "unyt_allocation": unyt_allocation,
-    "computed_values": #{
-      "pos": consumed_inputs.pos[0].data,
-    }
+    "unyt_allocation": unyt_allocation
   }
 }
