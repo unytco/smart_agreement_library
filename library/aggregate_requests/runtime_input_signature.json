@@ -26,10 +26,9 @@
             "required": ["amount", "source"]
           }
         },
-        "receiver": { "type": "array", "items": { "type": "string" } },
-        "work_proof": { "type": "array", "items": { "type": "string" } }
+        "receiver": { "type": "array", "items": { "type": "string" } }
       },
-      "required": ["spender_allocations", "invoice_gateway_allocations_invoice", "receiver", "work_proof"]
+      "required": ["spender_allocations", "invoice_gateway_allocations_invoice", "receiver"]
     }
   },
   "required": ["consumed_inputs"]

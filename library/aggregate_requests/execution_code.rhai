@@ -1,16 +1,21 @@
-/// Subject: This is for the Demo Aug 9
+/// Subject: Aggregate Requests - Invoice Payment with Refund Support
 /// 
 /// Inputs:
-/// unyt_allocation: the unyt_allocation to be checked
-/// work_proof: the work_proof to be checked
+/// consumed_inputs.spender_allocations: Array of spend allocations from spenders
+/// consumed_inputs.invoice_gateway_allocations_invoice: Array of invoices to be paid
+/// consumed_inputs.receiver: Array of receivers for each invoice
+/// consumed_inputs.work_proof: Work proof data (optional)
 /// 
 /// Summary:
-/// This is a simple return of the unyt_allocation
+/// This smart agreement aggregates multiple spend allocations to pay multiple invoices.
+/// If a spend cannot be partially used (i.e., there's excess after paying all invoices),
+/// the remaining amount is automatically returned to the original spender.
+/// The agreement uses get_spend_links_author to identify the spender and create a refund allocation.
 
 // what do you want to do with the work_proof?
 // we could have a signature here and then verify its signature
 // or we could calculate if the invoiced amount is correct based on the stats that are provided in the work_proof
-let todo = inputs.work_proof;
+// let todo = inputs.work_proof;
 
 // check type of unyt_allocation
 let final_unyt_allocation = [];
@@ -86,16 +91,22 @@ for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
   });
 }
 
-// Check if there are excess spends (more available than invoiced)
-let total_remaining_spends = #{"0": "0"};
+// Return excess spends back to the spender
+// Instead of erroring out, we return any remaining amounts back to the original spender
 for spender_allocation in spender_unyt_allocation {
-  total_remaining_spends = #{
-    "0": add_fuel(total_remaining_spends["0"], spender_allocation.data.amount["0"])
-  };
-}
-
-if parse_float(total_remaining_spends["0"]) > 0 {
-  throw `Excess spends detected. Total Invoiced: ${total_invoiced["0"]}, Total Available Spends: ${total_available_spends["0"]}, Remaining Unused Spends: ${total_remaining_spends["0"]}`;
+  let remaining_amount = spender_allocation.data.amount;
+  
+  if parse_float(remaining_amount["0"]) > 0 {
+    // Get the author of this spend link (the original spender)
+    let spender_author = get_spend_links_author(spender_allocation.link_hash);
+    
+    // Add allocation to return the remaining amount to the spender
+    final_unyt_allocation.push(#{
+      "receiver": spender_author,
+      "amounts": remaining_amount,
+      "sources": [spender_allocation.link_hash]
+    });
+  }
 }
 
 return #{

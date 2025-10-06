@@ -18,12 +18,6 @@
       "instruction": {
         "ProvidedBy": "invoice_gateway"
       }
-    },
-    {
-      "name": "work_proof",
-      "instruction": {
-        "ProvidedBy": "invoice_gateway"
-      }
     }
   ],
   "executor_rules": { "Any": null },
@@ -36,8 +30,8 @@
     },
     {
       "ct_role_id": "invoice_gateway",
-      "display_name": "Invoice Gateway",
-      "description": "The invoice gateway role",
+      "display_name": "Requestor",
+      "description": "The requestor role",
       "qualification": { "Any": null }
     }
   ],
