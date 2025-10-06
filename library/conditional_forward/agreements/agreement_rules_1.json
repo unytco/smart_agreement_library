@@ -22,6 +22,10 @@
     {
       "name": "condition",
       "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "question",
+      "instruction": { "Fixed": "What is the question for the condition to be met?" }
     }
   ],
   "executor_rules": { "Any": null },
