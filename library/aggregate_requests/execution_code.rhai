@@ -2,7 +2,7 @@
 /// 
 /// Inputs:
 /// consumed_inputs.spender_allocations: Array of spend allocations from spenders
-/// consumed_inputs.invoice_gateway_allocations_invoice: Array of invoices to be paid
+/// consumed_inputs.requestor_allocations_invoice: Array of invoices to be paid
 /// consumed_inputs.receiver: Array of receivers for each invoice
 /// consumed_inputs.work_proof: Work proof data (optional)
 /// 
@@ -31,14 +31,14 @@ for spender_allocation in spender_unyt_allocation {
 
 // Calculate total invoiced amount
 let total_invoiced = #{"0": "0"};
-for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
+for (value, count) in consumed_inputs.requestor_allocations_invoice {
   total_invoiced = #{
     "0": add_fuel(total_invoiced["0"], value.data.amount["0"])
   };
 }
 
-let invoice_gateway_unyt_allocation = [];
-for (value, count) in consumed_inputs.invoice_gateway_allocations_invoice {
+let requestor_unyt_allocation = [];
+for (value, count) in consumed_inputs.requestor_allocations_invoice {
   let invoice_amount = value.data.amount;
   let remaining_invoice_amount = invoice_amount;
   let used_sources = [];

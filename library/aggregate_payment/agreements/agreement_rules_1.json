@@ -1,5 +1,5 @@
 {
-  "title": "Example for a collect payments then allocate",
+  "title": "Example: Collect payments then allocate",
   "input_rules": [
     {
       "name": "spender_allocations",
@@ -10,13 +10,7 @@
     {
       "name": "receiver",
       "instruction": {
-        "ProvidedBy": "spender"
-      }
-    },
-    {
-      "name": "pos",
-      "instruction": {
-        "ProvidedBy": "spender"
+        "ExecutorProvided": null
       }
     }
   ],

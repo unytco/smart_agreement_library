@@ -1,5 +1,5 @@
 {
-  "title": "Example for a collect requests then pay",
+  "title": "Example: Collect requests then pay",
   "input_rules": [
     {
       "name": "spender_allocations",
@@ -8,15 +8,15 @@
       }
     },
     {
-      "name": "invoice_gateway_allocations_invoice",
+      "name": "requestor_allocations_invoice",
       "instruction": {
-        "ProvidedBy": "invoice_gateway"
+        "ProvidedBy": "requestor"
       }
     },
     {
       "name": "receiver",
       "instruction": {
-        "ProvidedBy": "invoice_gateway"
+        "ProvidedBy": "requestor"
       }
     }
   ],
@@ -29,7 +29,7 @@
       "qualification": { "Any": null }
     },
     {
-      "ct_role_id": "invoice_gateway",
+      "ct_role_id": "requestor",
       "display_name": "Requestor",
       "description": "The requestor role",
       "qualification": { "Any": null }

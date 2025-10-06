@@ -15,7 +15,7 @@
             "required": ["amount", "source"]
           }
         },
-        "invoice_gateway_allocations_invoice": {
+        "requestor_allocations_invoice": {
           "type": "array",
           "items": {
             "type": "object",
@@ -28,7 +28,7 @@
         },
         "receiver": { "type": "array", "items": { "type": "string" } }
       },
-      "required": ["spender_allocations", "invoice_gateway_allocations_invoice", "receiver"]
+      "required": ["spender_allocations", "requestor_allocations_invoice", "receiver"]
     }
   },
   "required": ["consumed_inputs"]
