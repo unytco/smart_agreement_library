@@ -1,5 +1,5 @@
 {
-  "title": "Example Conditional Forward",
+  "title": "Example for a conditional forward",
   "input_rules": [
     {
       "name": "spender_allocations",
@@ -33,5 +33,5 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "conditional" }]
+  "tags": [{ "Public": "conditional" }, { "Public": "template" }]
 }

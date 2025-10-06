@@ -1,5 +1,5 @@
 {
-  "title": "Holo Hosting proof of service (template)",
+  "title": "holo.host proof of service (template)",
   "input_rules": [
     {
       "name": "log_harvester_spender_allocations",
@@ -49,5 +49,5 @@
       }
     }
   ],
-  "tags": [{ "Public": "holo-hosting" }]
+  "tags": [{ "Public": "holo-hosting" }, { "Public": "template" }]
 }
