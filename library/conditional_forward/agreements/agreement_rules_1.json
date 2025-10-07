@@ -20,12 +20,12 @@
       }
     },
     {
-      "name": "condition",
+      "name": "condition_met",
       "instruction": { "ExecutorProvided": null }
     },
     {
-      "name": "question",
-      "instruction": { "Fixed": "What is the question for the condition to be met?" }
+      "name": "condition_to_meet",
+      "instruction": { "Fixed": "Did the dude find my car?" }
     }
   ],
   "executor_rules": { "Any": null },

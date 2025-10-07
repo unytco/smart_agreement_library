@@ -8,7 +8,7 @@
 ///
 
 let receiver = consumed_inputs.return_address.data;
-if inputs.condition.data {
+if inputs.condition_met.data {
   receiver = consumed_inputs.receiver.data;
 }
 

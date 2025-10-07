@@ -1,5 +1,5 @@
 {
-  "title": "holo.host proof of service (template)",
+  "title": "Holo.Host proof of service (sample)",
   "input_rules": [
     {
       "name": "log_harvester_spender_allocations",

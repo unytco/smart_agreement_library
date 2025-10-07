@@ -20,10 +20,10 @@
     "inputs": {
       "type": "object",
       "properties": {
-        "condition": { "type": "boolean" },
-        "question": { "type": "string" }
+        "condition_met": { "type": "boolean" },
+        "condition_to_meet": { "type": "string" }
       },
-      "required": ["condition", "question"]
+      "required": ["condition_met", "condition_to_meet"]
     }
   },
   "required": ["consumed_inputs", "inputs"]
