@@ -22,7 +22,11 @@ let credit_limit = (spend_count + 1) * 10;
 return #{
     "output": #{
         "credit_limit": #{
-            "0": credit_limit.to_string() 
+            "0": credit_limit.to_string(),
+            "1": credit_limit.to_string(),
+            "2": credit_limit.to_string(),
+            "3": credit_limit.to_string(),
+            "4": credit_limit.to_string()
         },
         "computed_values": #{
             "spend_count": spend_count,
