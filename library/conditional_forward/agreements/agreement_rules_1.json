@@ -37,5 +37,5 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "conditional" }, { "Public": "template" }]
+  "tags": [{ "Public": "conditional" }, { "Public": "example" }]
 }
