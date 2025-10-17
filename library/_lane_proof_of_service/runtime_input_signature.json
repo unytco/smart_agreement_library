@@ -14,23 +14,15 @@
             },
             "required": ["amount", "source"]
           }
-        },
-        "invoice_gateway_allocations_invoice": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-              "source": { "type": "string" }
-            },
-            "required": ["amount", "source"]
-          }
-        },
-        "receiver": { "type": "array", "items": { "type": "string" } },
-        "work_proof": { "type": "array", "items": { "type": "string" } }
-      },
-      "required": ["spender_allocations", "invoice_gateway_allocations_invoice", "receiver", "work_proof"]
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "receiver": { "type": "string" }
+      }
     }
   },
-  "required": ["consumed_inputs"]
+  "required": ["consumed_inputs", "inputs"]
 }
