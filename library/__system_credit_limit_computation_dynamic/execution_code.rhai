@@ -15,8 +15,8 @@
 // Count all spends from the claiming agent
 let spend_count = inputs.agent_spend_records.data;
 
-// Calculate dynamic credit limit using the formula: (spend_count + 1) × 10
-let credit_limit = (spend_count + 1) * 10;
+// Calculate dynamic credit limit using the formula: (spend_count + 1) × 100
+let credit_limit = (spend_count + 1) * 100;
 
 // Return the computed credit limit for the agent
 return #{
@@ -26,11 +26,27 @@ return #{
             "1": credit_limit.to_string(),
             "2": credit_limit.to_string(),
             "3": credit_limit.to_string(),
-            "4": credit_limit.to_string()
+            "4": credit_limit.to_string(),
+            "5": credit_limit.to_string(),
+            "6": credit_limit.to_string(),
+            "7": credit_limit.to_string(),
+            "8": credit_limit.to_string(),
+            "9": credit_limit.to_string(),
+            "10": credit_limit.to_string(),
+            "11": credit_limit.to_string(),
+            "12": credit_limit.to_string(),
+            "13": credit_limit.to_string(),
+            "14": credit_limit.to_string(),
+            "15": credit_limit.to_string(),
+            "16": credit_limit.to_string(),
+            "17": credit_limit.to_string(),
+            "18": credit_limit.to_string(),
+            "19": credit_limit.to_string(),
+            "20": credit_limit.to_string()
         },
         "computed_values": #{
             "spend_count": spend_count,
-            "formula": "( spend_count + 1 ) × 10"
+            "formula": "( spend_count + 1 ) × 100"
         }
     }
 };

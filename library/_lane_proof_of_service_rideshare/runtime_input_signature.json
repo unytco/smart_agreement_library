@@ -24,9 +24,14 @@
       "type": "object",
       "properties": {
         "condition_met": { "type": "boolean" },
-        "condition_to_meet": { "type": "string" }
+        "condition_to_meet": { "type": "string" },
+        "service_agent_address": { "type": "string" },
+        "index_of_min": { "type": "string" },
+        "index_of_km": { "type": "string" },
+        "index_of_tolls": { "type": "string" },
+        "index_of_surge": { "type": "string" }
       },
-      "required": ["condition_met", "condition_to_meet"]
+      "required": ["condition_met", "condition_to_meet", "index_of_min", "index_of_km", "index_of_tolls", "index_of_surge"]
     }
   },
   "required": ["consumed_inputs", "inputs"]
