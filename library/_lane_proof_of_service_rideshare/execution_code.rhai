@@ -28,10 +28,14 @@ for (spender_link, index) in consumed_inputs.spender_allocations {
   // validate price of the spender_allocation
   let price_km = (round(parse_float(spender_link.data.amount[INDEX_KM]) * PRICE_PER_KM * 100) / 100);
   let price_min = (round(parse_float(spender_link.data.amount[INDEX_MIN]) * PRICE_PER_MIN * 100) / 100);
-  let price_tolls = parse_float(spender_link.data.amount[INDEX_TOLL]);
-  let surge_multiplier = parse_float(spender_link.data.amount[INDEX_SURGE]);
+  let price_tolls = parse_float(spender_link.data.amount[INDEX_TOLL] ?? "0");
+  let surge_multiplier = parse_float(spender_link.data.amount[INDEX_SURGE] ?? "0");
   
-  let price = ((-price_km) + (-price_min) + (-price_tolls))  * (-surge_multiplier);
+  // get surge multiplier  as delta from 1
+  // note the surge_multiplier will be a negative number
+  let surge_delta = 1 + surge_multiplier ;
+
+  let price = ((-price_km) + (-price_min) + (-price_tolls))  * (surge_delta);
 
   let final_price = (round(price * 100) / 100) + SERVICE_FEES; // round to 2 decimal places
 
