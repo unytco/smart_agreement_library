@@ -17,7 +17,6 @@ const INDEX_KM = inputs.index_of_km.data;
 const INDEX_TOLL = inputs.index_of_tolls.data;
 const INDEX_SURGE = inputs.index_of_surge.data;
 
-
 const PRICE_PER_KM = 1;
 const PRICE_PER_MIN = 2;
 const SERVICE_FEES = 1;
