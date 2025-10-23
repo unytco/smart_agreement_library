@@ -23,5 +23,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "hosting" }, { "Public": "example" }]
+  "tags": [{ "Public": "hosting" }, { "Public": "example" }],
+  "permissions": { "ServiceNetwork": null }
 }

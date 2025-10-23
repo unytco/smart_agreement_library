@@ -21,5 +21,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "conditional" }]
+  "tags": [{ "Public": "conditional" }],
+  "permissions": { "Default": null }
 }

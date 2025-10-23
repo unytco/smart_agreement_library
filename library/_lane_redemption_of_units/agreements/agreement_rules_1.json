@@ -29,5 +29,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "ServiceNetwork": "redemption-of-units" }]
+  "tags": [{ "ServiceNetwork": "redemption-of-units" }],
+  "permissions": { "ServiceNetwork": null }
 }

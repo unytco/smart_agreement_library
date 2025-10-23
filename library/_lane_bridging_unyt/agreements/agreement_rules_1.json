@@ -59,5 +59,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "ServiceNetwork": "bridging" }]
+  "tags": [{ "ServiceNetwork": "bridging" }],
+  "permissions": { "ServiceNetwork": null }
 }

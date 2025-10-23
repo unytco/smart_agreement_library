@@ -1,5 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "System": "fee" }]
+  "tags": [{ "System": "fee" }],
+  "permissions": { "Global": null }
 }

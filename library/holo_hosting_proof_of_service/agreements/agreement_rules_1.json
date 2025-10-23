@@ -49,5 +49,6 @@
       }
     }
   ],
-  "tags": [{ "Public": "holo-hosting" }, { "Public": "example" }]
+  "tags": [{ "Public": "holo-hosting" }, { "Public": "example" }],
+  "permissions": { "Default": null }
 }

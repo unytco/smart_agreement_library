@@ -23,5 +23,6 @@
       "qualification": { "Authorized": "spender pub key" }
     }
   ],
-  "tags": [{ "Public": "ioen" }, { "Public": "hosting" }]
+  "tags": [{ "Public": "ioen" }, { "Public": "hosting" }],
+  "permissions": { "Default": null }
 }

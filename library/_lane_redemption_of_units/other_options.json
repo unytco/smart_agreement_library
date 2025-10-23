@@ -1,5 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "ServiceNetwork": "redemption-of-units" }]
+  "tags": [{ "ServiceNetwork": "redemption-of-units" }],
+  "permissions": { "ServiceNetwork": null }
 }

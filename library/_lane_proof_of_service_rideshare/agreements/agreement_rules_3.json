@@ -57,5 +57,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "Public": "conditional" }, { "Public": "example" }]
+  "tags": [{ "Public": "conditional" }, { "Public": "example" }],
+  "permissions": { "ServiceNetwork": null }
 }

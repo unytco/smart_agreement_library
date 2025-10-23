@@ -1,5 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "Public": "hosting" }]
+  "tags": [{ "Public": "hosting" }],
+  "permissions": { "ServiceNetwork": null }
 }

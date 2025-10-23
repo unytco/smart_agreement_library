@@ -1,5 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "Public": "ioen" }, { "Public": "hosting" }]
+  "tags": [{ "Public": "ioen" }, { "Public": "hosting" }],
+  "permissions": { "Default": null }
 }
