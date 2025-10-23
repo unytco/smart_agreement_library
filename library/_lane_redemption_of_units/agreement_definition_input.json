@@ -9,12 +9,6 @@
             "id": "spender",
             "consumed_link": true
           }
-        },
-        {
-          "const": {
-            "id": "invoice_gateway",
-            "consumed_link": false
-          }
         }
       ],
       "minItems": 2,
