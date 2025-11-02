@@ -12,7 +12,7 @@ Each Smart Agreement has its own directory in that library directory. Each Smart
 
 ## Documentation
 
-- [Rules when writing a Smart Agreement](./docs/saved_rules.md)
+- [Rules when writing a Smart Agreement](./docs/rave_rules.md)
 - [How to contribute to the Smart Agreement Code Library](./CONTRIBUTING.md)
 
 ## More Info and Where to Run Smart Agreements

@@ -1,6 +1,6 @@
 # Contributing to Smart Agreement Code Library
 
-Thank you for your interest in contributing to the Smart Agreement Code Library! This document provides guidelines for submitting new SAVEDs.
+Thank you for your interest in contributing to the Smart Agreement Code Library! This document provides guidelines for submitting new RAVEs.
 
 ## How to Contribute
 
@@ -16,7 +16,7 @@ When adding a new Smart Agreement, please follow this directory structure:
 ```bash
 smart_agreement_library/
 └── library/
-    └── your_saved_name/
+    └── your_rave_name/
         ├── README.md               # Documentation for your Smart Agreement
         ├── execution_code.rhai      # The Smart Agreement code in Rhai format
         ├── runtime_input_signature.json     # JSON schema for input validation
@@ -44,7 +44,7 @@ Your Rhai code should:
   /// Detailed explanation of the Smart Agreement's functionality...
   ```
 
-- Return an object with one or more of these properties: [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/saved_output/struct.SAVEDOutput.html)
+- Return an object with one or more of these properties: [RAVEOutput](https://docs.rs/rave_engine/latest/rave_engine/types/rave_output/struct.RAVEOutput.html)
 - Use only the registered helper functions [Helper Functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html)
 - Include error handling
 - Follow Rhai language best practices
