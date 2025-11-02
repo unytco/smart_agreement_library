@@ -27,6 +27,6 @@
       "qualification": { "Any": null }
     }
   ],
-  "tags": [{ "ServiceNetwork": "purchase-of-units" }],
-  "permissions": { "ServiceNetwork": null }
+  "tags": [{ "Lane": "purchase-of-units" }],
+  "permissions": { "Lane": null }
 }

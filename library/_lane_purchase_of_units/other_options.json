@@ -1,6 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "ServiceNetwork": "purchase-of-units" }],
-  "permissions": { "ServiceNetwork": null }
+  "tags": [{ "Lane": "purchase-of-units" }],
+  "permissions": { "Lane": null }
 }

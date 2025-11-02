@@ -1,6 +1,6 @@
 {
   "one_time_run": false,
   "aggregate_execution": true,
-  "tags": [{ "ServiceNetwork": "bridging" }],
-  "permissions": { "ServiceNetwork": null }
+  "tags": [{ "Lane": "bridging" }],
+  "permissions": { "Lane": null }
 }

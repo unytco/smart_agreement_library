@@ -58,5 +58,5 @@
     }
   ],
   "tags": [{ "Public": "conditional" }, { "Public": "example" }],
-  "permissions": { "ServiceNetwork": null }
+  "permissions": { "Lane": null }
 }
