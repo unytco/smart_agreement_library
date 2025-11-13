@@ -160,5 +160,5 @@ if able_to_pay {
     }
   };
 } else {
-  throw "Expected to pay: " + total_payment_expected.to_string();
+  throw "Expected payment amount: " + total_payment_expected.to_string() + " ZF";
 }
