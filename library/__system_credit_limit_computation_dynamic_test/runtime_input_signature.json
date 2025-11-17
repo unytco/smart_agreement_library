@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "agent_spend_records": { "type": "any" }
+      }
+    }
+  },
+  "required": ["inputs"]
+}

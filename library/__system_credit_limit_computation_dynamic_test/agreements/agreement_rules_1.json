@@ -1,0 +1,45 @@
+{
+  "title": "circulo credit check",
+  "input_rules": [
+    {
+      "name": "agent_spend_records",
+      "instruction": {
+        "Query": {
+          "MustGetSelfActivity": {
+            "chain_top": null,
+            "limit_conditions": "ToGenesis",
+            "include_cached_entries": true,
+            "transformer": {
+              "hdk_queries": [
+                {
+                  "sequence_range": "Unbounded",
+                  "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
+                  "action_type": ["Create"],
+                  "entry_hashes": null,
+                  "action_hashes": null,
+                  "include_entries": true,
+                  "order_descending": false
+                },
+                {
+                  "sequence_range": "Unbounded",
+                  "entry_type": null,
+                  "action_type": ["CreateLink"],
+                  "entry_hashes": null,
+                  "action_hashes": null,
+                  "include_entries": true,
+                  "order_descending": false
+                }
+              ],
+              "filter_entry_type": ["Spend", "ParkedSpend"],
+              "return_type": { "Count": null }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
+}

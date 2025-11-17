@@ -1,0 +1,6 @@
+{
+  "one_time_run": false,
+  "aggregate_execution": false,
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
+}

@@ -160,5 +160,5 @@ if able_to_pay {
     }
   };
 } else {
-  throw "Expected payment amount: " + total_payment_expected.to_string() + " ZF";
+  throw "For execution to succeed, a payment of " + total_payment_expected.to_string() + " ZF must be sent to this agreement to settle outstanding invoices.";
 }

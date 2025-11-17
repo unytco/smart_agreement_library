@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "spend_count": { "type": "number" },
+        "formula": { "type": "string" }
+      }
+    }
+  },
+  "required": ["credit_limit", "computed_values"]
+}
