@@ -35,7 +35,7 @@ for (spender_link, index) in consumed_inputs.spender_allocations {
   // note the surge_multiplier will be a negative number
   let surge_delta = 1 + surge_multiplier ;
 
-  let price = ((-price_km) + (-price_min) + (-price_tolls))  * (surge_delta);
+  let price = ((price_km) + (price_min) + (price_tolls))  * (surge_delta);
 
   let final_price = (round(price * 100) / 100) + SERVICE_FEES; // round to 2 decimal places
 
@@ -47,7 +47,14 @@ for (spender_link, index) in consumed_inputs.spender_allocations {
     });
     unyt_allocations.push(#{
       "receiver": consumed_inputs.receiver[index].data,
-      "amounts": amount,
+      "amounts": #{
+        "0": amount["0"]
+      },
+      "sources": [spender_link.data.source]
+    });
+    unyt_allocations.push(#{
+      "receiver": inputs.service_agent_address.data,
+      "amounts": extract_indexes(amount, [INDEX_KM, INDEX_MIN]),
       "sources": [spender_link.data.source]
     });
     unyt_allocations.push(#{
@@ -60,7 +67,9 @@ for (spender_link, index) in consumed_inputs.spender_allocations {
   } else {
     unyt_allocations.push(#{
       "receiver": consumed_inputs.return_address[index].data,
-      "amounts": spender_link.data.amount,
+      "amounts": #{
+        "0": spender_link.data.amount["0"]
+      },
       "sources": [spender_link.data.source]
     });
   }
