@@ -1,5 +1,5 @@
 {
-  "title": "credit check fixed",
+  "title": "Global: credit check (fixed)",
   "input_rules": [
     {
       "name": "credit_limit",

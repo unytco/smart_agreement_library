@@ -1,5 +1,5 @@
 {
-  "title": "Example: Collect payments then allocate",
+  "title": "Lane: Collect payments then allocate",
   "input_rules": [
     {
       "name": "spender_allocations",

@@ -1,5 +1,5 @@
 {
-  "title": "blockchain bridge",
+  "title": "Lane: blockchain bridge",
   "input_rules": [
     {
       "name": "bridging_agent_allocations",

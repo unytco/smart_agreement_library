@@ -1,5 +1,5 @@
 {
-  "title": "circulo credit check",
+  "title": "Global: credit check (dynamic)",
   "input_rules": [
     {
       "name": "agent_spend_records",
@@ -13,7 +13,10 @@
               "hdk_queries": [
                 {
                   "sequence_range": "Unbounded",
-                  "entry_type": [{ "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }],
+                  "entry_type": [
+                    { "App": { "entry_index": 1, "zome_index": 0, "visibility": "Public" } },
+                    { "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }
+                  ],
                   "action_type": ["Create"],
                   "entry_hashes": null,
                   "action_hashes": null,
@@ -30,7 +33,7 @@
                   "order_descending": false
                 }
               ],
-              "filter_entry_type": ["Spend", "ParkedSpend"],
+              "filter_entry_type": ["Commitment", "Accept", "ParkedSpend"],
               "return_type": { "Count": null }
             }
           }
