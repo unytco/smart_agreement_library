@@ -22,7 +22,8 @@ let credit_limit = (spend_count + 1) * 10;
 return #{
     "output": #{
         "credit_limit": #{
-            "0": credit_limit.to_string()
+            "0": credit_limit.to_string(),
+            "1": credit_limit.to_string() // For YoloFuel
         },
         "computed_values": #{
             "spend_count": spend_count,
