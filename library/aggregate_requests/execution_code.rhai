@@ -45,7 +45,7 @@ for (value, count) in consumed_inputs.requestor_allocations_invoice {
   
   // Try to cover the invoice amount using available spends
   for (spender_allocation, i) in spender_unyt_allocation {
-    if parse_float(remaining_invoice_amount["0"]) == 0 {
+    if parse_float(remaining_invoice_amount["0"]) <= 0 {
       break; // Invoice is fully covered
     }
     
@@ -53,8 +53,8 @@ for (value, count) in consumed_inputs.requestor_allocations_invoice {
     let available_float = parse_float(available_amount["0"]);
     let remaining_float = parse_float(remaining_invoice_amount["0"]);
     
-    if available_float < 0 { // Only use spends that have remaining funds
-      if available_float <= remaining_float {
+    if available_float > 0 { // Only use spends that have remaining funds
+      if available_float >= remaining_float {
         // This spend can cover the remaining invoice amount
         used_sources.push(spender_allocation.link_hash);
         
@@ -79,7 +79,7 @@ for (value, count) in consumed_inputs.requestor_allocations_invoice {
   }
   
   // Check if the invoice was fully covered
-  if parse_float(remaining_invoice_amount["0"]) < 0 {
+  if parse_float(remaining_invoice_amount["0"]) > 0 {
     throw `Invoice not paid - insufficient funds. Total Invoiced: ${total_invoiced["0"]}, Total Available Spends: ${total_available_spends["0"]}`;
   }
   
@@ -96,7 +96,7 @@ for (value, count) in consumed_inputs.requestor_allocations_invoice {
 for spender_allocation in spender_unyt_allocation {
   let remaining_amount = spender_allocation.data.amount;
   
-  if parse_float(remaining_amount["0"]) < 0 {
+  if parse_float(remaining_amount["0"]) > 0 {
     // Get the author of this spend link (the original spender)
     let spender_author = get_spend_links_author(spender_allocation.link_hash);
     

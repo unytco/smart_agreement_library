@@ -85,17 +85,15 @@ for (value, count) in consumed_inputs.invoice_payloads {
 
     // if the execution is able to allocate the amount, then we can continue
     if able_to_pay {
-        let exp_amt = -exp_amt;
         // Find the index of the spend that will cover the invoice amount
-        // since hp_alloc are spends that would be negative values
-        let hp_index = hp_alloc.index_of(|a| parse_float(a.data.amount["0"]) <= exp_amt);
+        let hp_index = hp_alloc.index_of(|a| parse_float(a.data.amount["0"]) >= exp_amt);
 
         if hp_index >= 0 {
           let hp_amount_used = hp_alloc[hp_index];
           
           // todo: this can be optimized by summing all the amounts for the specific host into one allocation
           let invoice_amount = #{
-            "0": (exp_amt).to_string()
+            "0": exp_amt.to_string()
           };
           final_unyt_allocation.push(#{
             "receiver": payload.host_pub_key,
@@ -128,8 +126,8 @@ if able_to_pay {
   final_unyt_allocation.push(#{
     "receiver": executor_pub_key,
     "amounts": #{ 
-      "1": (-total_gossip_units_invoiced).to_string(), 
-      "2": (-total_storage_units_invoiced).to_string() 
+      "1": total_gossip_units_invoiced.to_string(), 
+      "2": total_storage_units_invoiced.to_string() 
     },
     "sources": consumed_inputs.invoice_payloads.map(|p| p.link_hash)
   });
@@ -140,14 +138,13 @@ if able_to_pay {
   let remaining_hp_alloc = 0;
   let remaining_sources = [];
   for (hp_alloc, i) in hp_alloc {
-    // again less than because the spends are negative values
-    if parse_float(hp_alloc.data.amount["0"]) < 0 {
+    if parse_float(hp_alloc.data.amount["0"]) > 0 {
       remaining_hp_alloc = remaining_hp_alloc + parse_float(hp_alloc.data.amount["0"]);
       remaining_sources.push(hp_alloc.data.source);
     }
   }
 
-  if remaining_hp_alloc < 0 {
+  if remaining_hp_alloc > 0 {
     final_unyt_allocation.push(#{
       "receiver": executor_pub_key,
       "amounts": #{ 
@@ -163,5 +160,5 @@ if able_to_pay {
     }
   };
 } else {
-  throw "For execution to succeed, a payment of " + total_payment_expected.to_string() + " must be sent to this agreement to settle outstanding invoices.";
+  throw "For execution to succeed, a payment of " + total_payment_expected.to_string() + " ZF must be sent to this agreement to settle outstanding invoices.";
 }
