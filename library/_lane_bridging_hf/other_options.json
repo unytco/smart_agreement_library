@@ -1,0 +1,6 @@
+{
+  "one_time_run": false,
+  "aggregate_execution": true,
+  "tags": [{ "Lane": "bridging" }],
+  "permissions": { "Global": null }
+}

@@ -25,18 +25,18 @@
       "type": "object",
       "properties": {
         "bridging_from": {
-          "index": 0,
-          "name": "unyt",
-          "symbol": "UNYT"
+         "index": 0,
+         "name": "holofuel",
+         "symbol": "HF"
         },
         "bridging_to": {
-          "name": "unyt",
-          "symbol": "UNYT"
+          "name": "yolofuel",
+          "symbol": "YF"
         },
-       
+        
         "ct_role_id": "withdrawer",
-        "withdraw_contract_address": "0xeth_mainnet",
-        "deposit_contract_address": "0xeth_mainnet"
+        "withdraw_contract_address": "0xholofuel_testnet",
+        "deposit_contract_address": "0xyolofuel_testnet"
       }
     }
   },
