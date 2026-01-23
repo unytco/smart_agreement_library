@@ -33,10 +33,13 @@
           "name": "unyt",
           "symbol": "UNYT"
         },
-       
-        "ct_role_id": "withdrawer",
-        "withdraw_contract_address": "0xeth_mainnet",
-        "deposit_contract_address": "0xeth_mainnet"
+        "transfer_in": {
+          "ct_role_id": "withdrawer",
+          "withdraw_contract_address": "0xholofuel_testnet",
+          "deposit_contract_address": "0xyolofuel_testnet",
+          "bridging_to_agent": "0xhf_bridgeing_agent",
+          "bridging_to_dna_hash": "0xhf_network_id"
+        }
       }
     }
   },

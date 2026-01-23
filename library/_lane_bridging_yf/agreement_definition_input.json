@@ -33,9 +33,13 @@
           "name": "holofuel",
           "symbol": "HF"
         },
-        "ct_role_id": "withdrawer",
-        "withdraw_contract_address": "0xholofuel_testnet",
-        "deposit_contract_address": "0xyolofuel_testnet"
+        "transfer_in": {
+          "ct_role_id": "withdrawer",
+          "withdraw_contract_address": "0xholofuel_testnet",
+          "deposit_contract_address": "0xyolofuel_testnet",
+          "bridging_to_agent": "0xhf_bridgeing_agent",
+          "bridging_to_dna_hash": "0xhf_network_id"
+        }
       }
     }
   },
