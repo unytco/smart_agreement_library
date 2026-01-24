@@ -1,11 +1,11 @@
-let unyt_index = "0";
 // list of contract addresses for bridging into yolofuel
 let state = #{
     "0xholofuel_testnet": "0",
     "0xtf_testnet": "0",
 };
 // Function definitions first
-fn deposit_logic(consumed_inputs, state, unyt_index) {
+fn deposit_logic(consumed_inputs, state) {
+    let deposit_unyt_index = "1";
     let unyt_allocation = [];
     // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
@@ -22,7 +22,7 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
             } 
             state[contract_address] = amount;
             let amounts = #{};
-            amounts[unyt_index] = pod.amount; 
+            amounts[deposit_unyt_index] = pod.amount; 
             unyt_allocation.push(#{
                 "receiver": pod.depositor_wallet_address,
                 "amounts": amounts,
@@ -36,9 +36,9 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
     };
 }
 
-fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
+fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_period, executor_pub_key) {
+    let withdraw_unyt_index = "0";
     // Path to transfer out
-    
     // Check Cool-Down period
     // - check the holdings 6 hours ago
     // - subtract it with any spends in the last 6 hours
@@ -53,7 +53,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
         //     ea_id,
         //     executed_timestamp,
         //     cool_down_period, // in seconds
-        //     unyt_index,
+        //     withdraw_unyt_index,
         // ) {
             let found_contract_address = false;
             let contract_address;
@@ -68,7 +68,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             let amount = state[contract_address];
             if type_of(amount) == "string" {
                 let spent_amount = allocation.data.amount;
-                amount = sub_fuel(amount, spent_amount[unyt_index]);
+                amount = sub_fuel(amount, spent_amount[withdraw_unyt_index]);
                 // if is_greater_than_eq(amount, "0") {
 
                 // unique to the requestor side to let you withdraw credit
@@ -126,7 +126,7 @@ if type_of(inputs.previous_execution.data) == "map" {
 }
 
 if inputs.call_method.data == "deposit" {
-    let updated_state = deposit_logic(consumed_inputs, state, unyt_index);
+    let updated_state = deposit_logic(consumed_inputs, state);
     return #{
         "output": #{
             "unyt_allocation": updated_state.unyt_allocation,
@@ -134,7 +134,7 @@ if inputs.call_method.data == "deposit" {
         }
     };
 } else if inputs.call_method.data == "withdraw" {
-    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
+    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
     if updated_state.unyt_allocation.is_empty {
         throw "Failed to withdraw: No valid unyt allocation to process in yolofuel network "+ updated_state;
     }

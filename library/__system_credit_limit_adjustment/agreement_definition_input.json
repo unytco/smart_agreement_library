@@ -14,6 +14,13 @@
       "minItems": 1,
       "maxItems": 1,
       "uniqueItems": true
+    },
+    "scheduler_properties": {
+      "bridging_to": {
+        "index": 1,
+        "name": "yolofuel",
+        "symbol": "YF"
+      }
     }
   },
   "required": ["expected_roles"],

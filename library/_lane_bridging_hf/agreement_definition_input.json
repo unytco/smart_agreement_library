@@ -30,6 +30,7 @@
          "symbol": "HF"
         },
         "bridging_to": {
+          "index": 1,
           "name": "yolofuel",
           "symbol": "YF"
         },
