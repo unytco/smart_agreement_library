@@ -24,22 +24,27 @@
     "ui_properties": {
       "type": "object",
       "properties": {
-        "bridging_from": {
-         "index": 0,
-         "name": "holofuel",
-         "symbol": "HF"
-        },
-        "bridging_to": {
-          "index": 1,
-          "name": "yolofuel",
-          "symbol": "YF"
+        "transfer_out": {
+          "network_name": "Yolofuel Network",
+          "ct_role_id": "withdrawer",
+          "contract_address": "0xyolofuel_testnet",
+          "bridging_unit": {
+            "index": 0,
+            "name": "Holofuel",
+            "symbol": "HF"
+          }
         },
         "transfer_in": {
+          "network_name": "Yolofuel Network",
           "ct_role_id": "withdrawer",
-          "withdraw_contract_address": "0xyolofuel_testnet",
-          "deposit_contract_address": "0xholofuel_testnet",
-          "bridging_to_agent": "0xyolofuel_bridgeing_agent",
-          "bridging_to_dna_hash": "0xyolofuel_network_id"
+          "contract_address": "0xholofuel_testnet",
+          "source_bridging_agent": "0xyolofuel_bridgeing_agent",
+          "source_dna_hash": "0xyolofuel_network_id",
+          "bridging_unit": {
+            "index": 0,
+            "name": "Yolofuel",
+            "symbol": "YF"
+          }
         }
       }
     }
