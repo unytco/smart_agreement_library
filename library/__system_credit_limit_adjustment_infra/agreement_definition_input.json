@@ -16,10 +16,9 @@
       "uniqueItems": true
     },
     "scheduler_properties": {
-      "description": "This is used by the oracle to adjust the credit limit of the unit that its meant to adjust",
       "bridging_to": {
-        "index": 0,
-        "name": "Holofuel",
+        "index": 1,
+        "name": "holofuel",
         "symbol": "HF"
       }
     }

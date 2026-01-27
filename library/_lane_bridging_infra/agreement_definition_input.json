@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "expected_roles": {
+      "type": "array",
+      "items": [
+        {
+          "const": {
+            "id": "bridging_agent",
+            "consumed_link": true
+          }
+        },
+        {
+          "const": {
+            "id": "withdrawer",
+            "consumed_link": true
+          }
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "ui_properties": {
+      "type": "object",
+      "properties": {
+        "transfer_out": {
+          "description": "This is used to transfer hf from the infrastructure network to the holofuel network",
+          "network_name": "Holofuel Network",
+          "ct_role_id": "withdrawer",
+          "contract_address": "0xholofuel_testnet",
+          "bridging_unit": {
+            "description": "Since the units are from this network, the index is 1",
+            "index": 1,
+            "name": "Holofuel",
+            "symbol": "HF"
+          }
+        },
+        "transfer_in": {
+          "description": "This is used to request hf from the holofuel network to the infrastructure network",
+          "network_name": "Holofuel Network",
+          "ct_role_id": "withdrawer",
+          "contract_address": "0xholofuel_testnet",
+          "source_bridging_agent": "0xhf_bridgeing_agent",
+          "source_dna_hash": "0xhf_network_id",
+          "bridging_unit": {
+            "description": "Since the units are from the holofuel network, the index is 0 where hf is at index 0",
+            "index": 0,
+            "name": "Holofuel",
+            "symbol": "HF"
+          }
+        }
+      }
+    }
+  },
+  "required": ["expected_roles"],
+  "additionalProperties": false
+}

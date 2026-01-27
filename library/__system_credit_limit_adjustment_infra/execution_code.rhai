@@ -1,4 +1,4 @@
-let unyt_index = "0";
+let unyt_index = "1";
 
 let amount = "0";
 if type_of(inputs.previous_execution.data) == "map" {

@@ -1,11 +1,12 @@
-let unyt_index = "1";
+// list of contract addresses for bridging into holofuel
+// This should track the outgoing mirror units
 let state = #{
-    "0xeth_mainnet": "0",
-    "0xeth_rinkeby": "0",
-    "0xpolygon_mainnet": "0"
+    "0xholofuel_testnet": "0",
 };
+
 // Function definitions first
-fn deposit_logic(consumed_inputs, state, unyt_index) {
+fn deposit_logic(consumed_inputs, state) {
+    let deposit_unyt_index = "0";
     let unyt_allocation = [];
     // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
@@ -22,7 +23,7 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
             } 
             state[contract_address] = amount;
             let amounts = #{};
-            amounts[unyt_index] = pod.amount; 
+            amounts[deposit_unyt_index] = pod.amount; 
             unyt_allocation.push(#{
                 "receiver": pod.depositor_wallet_address,
                 "amounts": amounts,
@@ -36,7 +37,8 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
     };
 }
 
-fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
+fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_period, executor_pub_key) {
+    let withdraw_unyt_index = "0";
     // Path to transfer out
     
     // Check Cool-Down period
@@ -48,13 +50,13 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     let unyt_allocation = [];
     let rejected_links = [];
     for allocation in consumed_inputs.withdrawer_allocations {
-        if  custom_logic_for_withdraw(
-            allocation.link_hash,
-            ea_id,
-            executed_timestamp,
-            cool_down_period, // in seconds
-            unyt_index,
-        ) {
+        // if  custom_logic_for_withdraw(
+        //     allocation.link_hash,
+        //     ea_id,
+        //     executed_timestamp,
+        //     cool_down_period, // in seconds
+        //     withdraw_unyt_index,
+        // ) {
             let found_contract_address = false;
             let contract_address;
             for addresses in consumed_inputs.withdraw_contract_address {
@@ -68,8 +70,8 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             let amount = state[contract_address];
             if type_of(amount) == "string" {
                 let spent_amount = allocation.data.amount;
-                amount = sub_fuel(amount, spent_amount[unyt_index]);
-                if is_greater_than_eq(amount, "0") {
+                amount = sub_fuel(amount, spent_amount[withdraw_unyt_index]);
+                // if is_greater_than_eq(amount, "0") {
                     state[contract_address] = amount;
                     unyt_allocation.push(#{
                         "receiver": executor_pub_key,
@@ -77,12 +79,12 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                         "sources": [allocation.link_hash]
                     });
                   break;
-                } else {
-                    rejected_links.push(#{
-                        "hash": allocation.link_hash,
-                        "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
-                    });
-                }
+                // } else {
+                //     rejected_links.push(#{
+                //         "hash": allocation.link_hash,
+                //         "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
+                //     });
+                // }
             } else {
                 rejected_links.push(#{
                     "hash": allocation.link_hash,
@@ -90,12 +92,12 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                 });
                
             }
-        } else {
-            rejected_links.push(#{
-                "hash": allocation.link_hash,
-                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period"
-            });           
-        }
+        // } else {
+        //     rejected_links.push(#{
+        //         "hash": allocation.link_hash,
+        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period"
+        //     });           
+        // }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
@@ -122,7 +124,7 @@ if type_of(inputs.previous_execution.data) == "map" {
 }
 
 if inputs.call_method.data == "deposit" {
-    let updated_state = deposit_logic(consumed_inputs, state, unyt_index);
+    let updated_state = deposit_logic(consumed_inputs, state);
     return #{
         "output": #{
             "unyt_allocation": updated_state.unyt_allocation,
@@ -130,9 +132,9 @@ if inputs.call_method.data == "deposit" {
         }
     };
 } else if inputs.call_method.data == "withdraw" {
-    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
+    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
     if updated_state.unyt_allocation.is_empty {
-        throw "Failed to withdraw: No valid unyt allocation to process";
+        throw "Failed to withdraw: No valid unyt allocation to process in holofuel network "+ updated_state;
     }
     return #{
         "output": #{

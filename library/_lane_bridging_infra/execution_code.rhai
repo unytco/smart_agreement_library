@@ -1,8 +1,10 @@
-// list of contract addresses for bridging into holofuel
+// list of contract addresses for bridging into infrastructure
+// This will be tracking mirror units
 let state = #{
-    "0xyolofuel_testnet": "0",
-    "0xtf_testnet": "0",
+    "0xholofuel_testnet": "0",
+    "0xspore_testnet": "0",
 };
+
 // Function definitions first
 fn deposit_logic(consumed_inputs, state) {
     let deposit_unyt_index = "1";
@@ -37,9 +39,8 @@ fn deposit_logic(consumed_inputs, state) {
 }
 
 fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_period, executor_pub_key) {
-    let withdraw_unyt_index = "0";
+    let withdraw_unyt_index = "1";
     // Path to transfer out
-    
     // Check Cool-Down period
     // - check the holdings 6 hours ago
     // - subtract it with any spends in the last 6 hours
@@ -49,13 +50,13 @@ fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_p
     let unyt_allocation = [];
     let rejected_links = [];
     for allocation in consumed_inputs.withdrawer_allocations {
-        // if  custom_logic_for_withdraw(
-        //     allocation.link_hash,
-        //     ea_id,
-        //     executed_timestamp,
-        //     cool_down_period, // in seconds
-        //     withdraw_unyt_index,
-        // ) {
+        if  custom_logic_for_withdraw(
+            allocation.link_hash,
+            ea_id,
+            executed_timestamp,
+            cool_down_period, // in seconds
+            withdraw_unyt_index,
+        ) {
             let found_contract_address = false;
             let contract_address;
             for addresses in consumed_inputs.withdraw_contract_address {
@@ -70,33 +71,37 @@ fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_p
             if type_of(amount) == "string" {
                 let spent_amount = allocation.data.amount;
                 amount = sub_fuel(amount, spent_amount[withdraw_unyt_index]);
-                // if is_greater_than_eq(amount, "0") {
+                if is_greater_than_eq(amount, "0") {
+
+                    // unique to the requestor side to let you withdraw credit
+                    // This means that there can be withdrawals can get the amount go to negative 
+                    // since its the credit of the holofuel network that is being used to withdraw   
                     state[contract_address] = amount;
-                    unyt_allocation.push(#{
-                        "receiver": executor_pub_key,
-                        "amounts": spent_amount,
-                        "sources": [allocation.link_hash]
+                        unyt_allocation.push(#{
+                            "receiver": executor_pub_key,
+                            "amounts": spent_amount,
+                            "sources": [allocation.link_hash]
+                        });
+                    break;
+                } else {
+                    rejected_links.push(#{
+                        "hash": allocation.link_hash,
+                        "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
                     });
-                  break;
-                // } else {
-                //     rejected_links.push(#{
-                //         "hash": allocation.link_hash,
-                //         "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
-                //     });
-                // }
+                }
             } else {
                 rejected_links.push(#{
                     "hash": allocation.link_hash,
-                    "reason": "Failed to withdraw: contract_address does not have any balance"
+                    "reason": "Failed to withdraw: contract_address (" + contract_address + ") is invalid or does not have any balance"
                 });
                
             }
-        // } else {
-        //     rejected_links.push(#{
-        //         "hash": allocation.link_hash,
-        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours"
-        //     });           
-        // }
+        } else {
+            rejected_links.push(#{
+                "hash": allocation.link_hash,
+                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period"
+            });           
+        }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
@@ -143,5 +148,5 @@ if inputs.call_method.data == "deposit" {
         "rejected_links": updated_state.rejected_links
     };
 } else {
-    throw "Invalid call method";
+    throw "Invalid call method: "+ inputs.call_method.data;
 }

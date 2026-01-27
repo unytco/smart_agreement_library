@@ -97,7 +97,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_p
         // } else {
         //     rejected_links.push(#{
         //         "hash": allocation.link_hash,
-        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for atleast 6 hours"
+        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period"
         //     });           
         // }
     }
