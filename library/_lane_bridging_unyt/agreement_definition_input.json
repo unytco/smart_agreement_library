@@ -24,21 +24,30 @@
     "ui_properties": {
       "type": "object",
       "properties": {
-        "bridging_from": {
-          "index": 0,
-          "name": "unyt",
-          "symbol": "UNYT"
-        },
-        "bridging_to": {
-          "name": "unyt",
-          "symbol": "UNYT"
+        "transfer_out": {
+          "type": "blockchain_bridging",
+          "description": "This is used to transfer Mirror HOT into the Sepolia network",
+          "network_name": "Sepolia Network",
+          "ct_role_id": "withdrawer",
+          "contract_address": "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6",
+          "bridging_unit": {
+            "description": "Since the units are from this network, the index is 0",
+            "index": 1,
+            "name": "Hot Token",
+            "symbol": "HOT"
+          }
         },
         "transfer_in": {
-          "ct_role_id": "withdrawer",
-          "withdraw_contract_address": "0xholofuel_testnet",
-          "deposit_contract_address": "0xyolofuel_testnet",
-          "bridging_to_agent": "0xhf_bridgeing_agent",
-          "bridging_to_dna_hash": "0xhf_network_id"
+          "type": "blockchain_bridging",
+          "description": "This is used to request HOT from the Sepolia network",
+          "network_name": "Sepolia Network",
+          "source_bridging_link": "https://hot-bridge.unyt.dev/lock",
+          "bridging_unit": {
+            "description": "Since the units are from this network, the index is 0",
+            "index": 1,
+            "name": "Hot Token",
+            "symbol": "HOT"
+          }        
         }
       }
     }

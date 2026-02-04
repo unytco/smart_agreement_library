@@ -47,6 +47,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "withdraw_to_address": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

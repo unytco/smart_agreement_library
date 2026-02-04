@@ -1,7 +1,7 @@
 let unyt_index = "1";
 let state = #{
+    "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6": "0",
     "0xeth_mainnet": "0",
-    "0xeth_rinkeby": "0",
     "0xpolygon_mainnet": "0"
 };
 // Function definitions first

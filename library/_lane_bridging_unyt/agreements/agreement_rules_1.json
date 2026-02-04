@@ -26,6 +26,12 @@
       }
     },
     {
+      "name": "withdraw_to_address",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
       "name": "previous_execution",
       "instruction": {
         "Custom": "GetPreviousExecution"
