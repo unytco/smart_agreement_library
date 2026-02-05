@@ -61,6 +61,7 @@
       "properties": {
         "previous_execution": { "type": ["object", "null"] },
         "call_method": { "type": "string" },
+        "coupon": { "type": "string" },
         "cool_down_period": { "type": "string" }
       }
     }

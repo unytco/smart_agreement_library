@@ -44,6 +44,12 @@
       }
     },
     {
+      "name": "coupon",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
       "name": "cool_down_period",
       "instruction": {
         "Fixed": "2"

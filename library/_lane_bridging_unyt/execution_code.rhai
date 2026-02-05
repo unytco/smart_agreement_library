@@ -93,7 +93,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
         } else {
             rejected_links.push(#{
                 "hash": allocation.link_hash,
-                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period"
+                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period" + cool_down_period + "sec, " 
             });           
         }
     }
@@ -134,10 +134,14 @@ if inputs.call_method.data == "deposit" {
     if updated_state.unyt_allocation.is_empty {
         throw "Failed to withdraw: No valid unyt allocation to process";
     }
+    // todo: validate the coupon
     return #{
         "output": #{
             "unyt_allocation": updated_state.unyt_allocation,
             "carryover": updated_state.state,
+            "computed_values": #{
+                "coupon": inputs.coupon.data
+            }
         },
         "rejected_links": updated_state.rejected_links
     };
