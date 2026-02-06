@@ -48,13 +48,13 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     let unyt_allocation = [];
     let rejected_links = [];
     for allocation in consumed_inputs.withdrawer_allocations {
-        if  custom_logic_for_withdraw(
-            allocation.link_hash,
-            ea_id,
-            executed_timestamp,
-            cool_down_period, // in seconds
-            unyt_index,
-        ) {
+        // if  custom_logic_for_withdraw(
+        //     allocation.link_hash,
+        //     ea_id,
+        //     executed_timestamp,
+        //     cool_down_period, // in seconds
+        //     unyt_index,
+        // ) {
             let found_contract_address = false;
             let contract_address;
             for addresses in consumed_inputs.withdraw_contract_address {
@@ -69,7 +69,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             if type_of(amount) == "string" {
                 let spent_amount = allocation.data.amount;
                 amount = sub_fuel(amount, spent_amount[unyt_index]);
-                if is_greater_than_eq(amount, "0") {
+                // if is_greater_than_eq(amount, "0") {
                     state[contract_address] = amount;
                     unyt_allocation.push(#{
                         "receiver": executor_pub_key,
@@ -77,12 +77,12 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                         "sources": [allocation.link_hash]
                     });
                   break;
-                } else {
-                    rejected_links.push(#{
-                        "hash": allocation.link_hash,
-                        "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
-                    });
-                }
+                // } else {
+                //     rejected_links.push(#{
+                //         "hash": allocation.link_hash,
+                //         "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
+                //     });
+                // }
             } else {
                 rejected_links.push(#{
                     "hash": allocation.link_hash,
@@ -90,12 +90,12 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                 });
                
             }
-        } else {
-            rejected_links.push(#{
-                "hash": allocation.link_hash,
-                "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period" + cool_down_period + "sec, " 
-            });           
-        }
+        // } else {
+        //     rejected_links.push(#{
+        //         "hash": allocation.link_hash,
+        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period" + cool_down_period + "sec, " 
+        //     });           
+        // }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
@@ -132,7 +132,7 @@ if inputs.call_method.data == "deposit" {
 } else if inputs.call_method.data == "withdraw" {
     let updated_state = withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
     if updated_state.unyt_allocation.is_empty {
-        throw "Failed to withdraw: No valid unyt allocation to process";
+        throw "Failed to withdraw: No valid unyt allocation to process :" + updated_state;
     }
     // todo: validate the coupon
     return #{
