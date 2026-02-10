@@ -26,8 +26,8 @@
       "properties": {
         "transfer_out": {
           "type": "blockchain_bridging",
-          "description": "This is used to transfer Mirror HOT into the Sepolia network",
-          "network_name": "Sepolia Network",
+          "description": "This is used to transfer Mirror HOT into the Sepolia Blockchain (Eth TestNet)",
+          "network_name": "Sepolia Blockchain (Eth TestNet)",
           "ct_role_id": "withdrawer",
           "contract_address": "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6",
           "bridging_unit": {
@@ -39,8 +39,8 @@
         },
         "transfer_in": {
           "type": "blockchain_bridging",
-          "description": "This is used to request HOT from the Sepolia network",
-          "network_name": "Sepolia Network",
+          "description": "This is used to request HOT from the Sepolia Blockchain (Eth TestNet)",
+          "network_name": "Sepolia Blockchain (Eth TestNet)",
           "source_bridging_link": "https://hot-bridge.unyt.dev/lock",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
