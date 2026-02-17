@@ -7,13 +7,13 @@
         {
           "const": {
             "id": "spender",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         },
         {
           "const": {
             "id": "requestor",
-            "consumed_link": true
+            "parked_link_type": { "ParkedData": true }
           }
         }
       ],

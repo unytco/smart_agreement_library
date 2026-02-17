@@ -7,13 +7,13 @@
         {
           "const": {
             "id": "log_harvester_spender",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         },
         {
           "const": {
             "id": "happ_provider_spender",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         }
       ],

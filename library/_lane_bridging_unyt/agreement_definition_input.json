@@ -7,13 +7,13 @@
         {
           "const": {
             "id": "bridging_agent",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         },
         {
           "const": {
             "id": "withdrawer",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendBalance"
           }
         }
       ],
@@ -47,7 +47,7 @@
             "index": 1,
             "name": "Hot Token",
             "symbol": "HOT"
-          }        
+          }
         }
       }
     }

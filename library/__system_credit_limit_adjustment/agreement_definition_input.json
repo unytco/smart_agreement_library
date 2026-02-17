@@ -7,7 +7,7 @@
         {
           "const": {
             "id": "oracle",
-            "consumed_link": true
+            "parked_link_type": { "ParkedData": true }
           }
         }
       ],

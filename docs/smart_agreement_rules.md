@@ -33,18 +33,18 @@ An array of objects, where each object defines a role required by the agreement.
 Each role object must have:
 
 - `id`: A string identifier for the role.
-- `consumed_link`: A boolean indicating if a link is consumed upon execution for this role.
+- `parked_link_type`: A string indicating the type of link parked upon execution for this role.
 
 #### Example:
 
 ```json
- "expected_roles": {
-   "type": "array",
-   "items": [
-     { "const": { "id": "admin", "consumed_link": false } },
-     { "const": { "id": "user", "consumed_link": true } }
-   ]
- }
+"expected_roles": {
+  "type": "array",
+  "items": [
+    { "const": { "id": "admin", "parked_link_type": "ParkedSpendCredit" } },
+    { "const": { "id": "user", "parked_link_type": { "ParkedData": true } } }
+  ]
+}
 ```
 
 ### `api_calls` (Optional)

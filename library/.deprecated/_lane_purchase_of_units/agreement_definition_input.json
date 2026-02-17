@@ -7,7 +7,7 @@
         {
           "const": {
             "id": "spender",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         }
       ],
