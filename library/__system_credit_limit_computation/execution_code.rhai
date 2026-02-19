@@ -2,7 +2,7 @@
 let amount = inputs.credit_limit.data;
 for credit_adjustment_execution in inputs.credit_adjustment_execution.data {
     if type_of(credit_adjustment_execution) == "map" {
-        let amount = add_units(amount, credit_adjustment_execution.output.credit_limit);
+        amount = add_units(amount, credit_adjustment_execution.output.credit_limit);
     }
 }
 
