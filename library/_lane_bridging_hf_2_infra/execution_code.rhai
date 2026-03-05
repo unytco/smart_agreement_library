@@ -50,7 +50,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_p
     let unyt_allocation = [];
     let rejected_links = [];
     for allocation in consumed_inputs.withdrawer_allocations {
-        // if  custom_logic_for_withdraw(
+        // if  check_cool_down_period(
         //     allocation.link_hash,
         //     ea_id,
         //     executed_timestamp,
