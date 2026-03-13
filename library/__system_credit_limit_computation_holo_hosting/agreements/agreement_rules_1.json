@@ -1,0 +1,21 @@
+{
+  "title": "Global: credit check",
+  "input_rules": [
+    {
+      "name": "credit_limit",
+      "instruction": {
+        "Fixed": {
+          "1": "10000"
+        }
+      }
+    },
+    {
+      "name": "credit_adjustment_execution",
+      "instruction": { "Custom": "GetCreditAdjustment" }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
+}

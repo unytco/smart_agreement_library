@@ -41,9 +41,9 @@
 ///
 
 // Service units invoiced for
-let HST = "1"; // holochain storage
-let HGSP = "2"; // holochain gossip
-
+let HFP = "1"; // Holofuel
+let HST = "2"; // holochain storage
+let HGSP = "3"; // holochain gossip
 // get price sheet data blob
 let price_sheet_data_blob = get_data_blob(inputs.price_sheet_data_blob_hash.data);
 let storage_price = price_sheet_data_blob.base_per_st;
@@ -86,14 +86,14 @@ for (value, count) in consumed_inputs.invoice_payloads {
     // if the execution is able to allocate the amount, then we can continue
     if able_to_pay {
         // Find the index of the spend that will cover the invoice amount
-        let hp_index = hp_alloc.index_of(|a| parse_float(a.data.amount["0"]) >= exp_amt);
+        let hp_index = hp_alloc.index_of(|a| parse_float(a.data.amount["1"]) >= exp_amt);
 
         if hp_index >= 0 {
           let hp_amount_used = hp_alloc[hp_index];
           
           // todo: this can be optimized by summing all the amounts for the specific host into one allocation
           let invoice_amount = #{
-            "0": exp_amt.to_string()
+            "1": exp_amt.to_string()
           };
           final_unyt_allocation.push(#{
             "receiver": payload.host_pub_key,
@@ -126,8 +126,8 @@ if able_to_pay {
   final_unyt_allocation.push(#{
     "receiver": executor_pub_key,
     "amounts": #{ 
-      "1": total_gossip_units_invoiced.to_string(), 
-      "2": total_storage_units_invoiced.to_string() 
+      "2": total_gossip_units_invoiced.to_string(), 
+      "3": total_storage_units_invoiced.to_string() 
     },
     "sources": consumed_inputs.invoice_payloads.map(|p| p.link_hash)
   });
@@ -138,8 +138,8 @@ if able_to_pay {
   let remaining_hp_alloc = 0;
   let remaining_sources = [];
   for (hp_alloc, i) in hp_alloc {
-    if parse_float(hp_alloc.data.amount["0"]) > 0 {
-      remaining_hp_alloc = remaining_hp_alloc + parse_float(hp_alloc.data.amount["0"]);
+    if parse_float(hp_alloc.data.amount["1"]) > 0 {
+      remaining_hp_alloc = remaining_hp_alloc + parse_float(hp_alloc.data.amount["1"]);
       remaining_sources.push(hp_alloc.data.source);
     }
   }
@@ -148,7 +148,7 @@ if able_to_pay {
     final_unyt_allocation.push(#{
       "receiver": executor_pub_key,
       "amounts": #{ 
-        "0": remaining_hp_alloc.to_string() 
+        "1": remaining_hp_alloc.to_string() 
       },
       "sources": remaining_sources
     });

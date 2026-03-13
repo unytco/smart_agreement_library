@@ -6,7 +6,7 @@ let state = #{
 
 // Function definitions first
 fn deposit_logic(consumed_inputs, state) {
-    let deposit_unyt_index = "0";
+    let deposit_unyt_index = "1";
     let unyt_allocation = [];
     // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
@@ -38,7 +38,7 @@ fn deposit_logic(consumed_inputs, state) {
 }
 
 fn withdraw_logic(consumed_inputs, state, ea_id, executed_timestamp, cool_down_period, executor_pub_key) {
-    let withdraw_unyt_index = "0";
+    let withdraw_unyt_index = "1";
     // Path to transfer out
     
     // Check Cool-Down period
