@@ -1,5 +1,5 @@
 {
-  "title": "Lane: holofuel network bridging",
+  "title": "Global: HF bridging to external network",
   "input_rules": [
     {
       "name": "bridging_agent_allocations",

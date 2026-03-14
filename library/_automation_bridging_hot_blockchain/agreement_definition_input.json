@@ -32,7 +32,7 @@
           "contract_address": "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
-            "index": 0,
+            "index": 1,
             "name": "Hot Token",
             "symbol": "HOT"
           }
@@ -44,7 +44,7 @@
           "source_bridging_link": "https://hot-bridge.unyt.dev/lock",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
-            "index": 0,
+            "index": 1,
             "name": "Hot Token",
             "symbol": "HOT"
           }

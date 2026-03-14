@@ -31,7 +31,7 @@
           "contract_address": "0xholofuel_testnet",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
-            "index": 1,
+            "index": 0,
             "name": "Holofuel",
             "symbol": "HF"
           }
