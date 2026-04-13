@@ -38,13 +38,7 @@
       }
     },
     {
-      "name": "call_method",
-      "instruction": {
-        "ExecutorProvided": null
-      }
-    },
-    {
-      "name": "coupon",
+      "name": "coupons",
       "instruction": {
         "ExecutorProvided": null
       }

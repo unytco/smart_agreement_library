@@ -7,17 +7,18 @@ if type_of(inputs.previous_execution.data) == "map" {
 
 // use the output of this agreement to update it based on the input
 for pod in consumed_inputs.proof_of_deposit {
-    
-    if pod.data.method == "deposit" {
-        let new_amount = pod.data.amount;
-        amount = add_fuel(amount, new_amount);
-    } 
-    else if pod.data.method == "withdraw" {
-        let new_amount = pod.data.amount;
-        amount = sub_fuel(amount, new_amount);
-    } 
-    else {
-        error("Invalid method");
+    for proof in pod.data {
+        if proof.method == "deposit" {
+            let new_amount = proof.amount;
+            amount = add_fuel(amount, new_amount);
+        } 
+        else if proof.method == "withdraw" {
+            let new_amount = proof.amount;
+            amount = sub_fuel(amount, new_amount);
+        } 
+        else {
+            error("Invalid method");
+        }
     }
 }
 

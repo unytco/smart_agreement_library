@@ -16,6 +16,15 @@
     "carryover": {
       "type": "object",
       "additionalProperties": { "type": "string" }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "coupons": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
     }
   },
   "required": ["unyt_allocation", "carryover"]

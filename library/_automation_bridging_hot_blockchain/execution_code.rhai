@@ -36,18 +36,18 @@ fn deposit_logic(consumed_inputs, state, unyt_index) {
     };
 }
 
-fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key) {
-    // Path to transfer out
-    
-    // Check Cool-Down period
-    // - check the holdings 6 hours ago
-    // - subtract it with any spends in the last 6 hours
-    // it should not be greater than the amount that is been trying to be withdraw
-
-    // Get the spend links for the last 6 hours
+fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, cool_down_period, executor_pub_key, coupons) {
     let unyt_allocation = [];
     let rejected_links = [];
+    let processed_coupons = #{};
     for allocation in consumed_inputs.withdrawer_allocations {
+        if !(allocation.link_hash in coupons) {
+            rejected_links.push(#{
+                "hash": allocation.link_hash,
+                "reason": "No coupon provided for this withdrawal"
+            });
+            continue;
+        }
         // if  check_cool_down_period(
         //     allocation.link_hash,
         //     ea_id,
@@ -58,7 +58,6 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             let found_contract_address = false;
             let contract_address;
             for addresses in consumed_inputs.withdraw_contract_address {
-                // this is to match the request with the appropriate contract address
                 if addresses.link_hash == allocation.link_hash {
                     found_contract_address = true;
                     contract_address = addresses.data;
@@ -76,7 +75,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                         "amounts": spent_amount,
                         "sources": [allocation.link_hash]
                     });
-                  break;
+                    processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
                 // } else {
                 //     rejected_links.push(#{
                 //         "hash": allocation.link_hash,
@@ -88,7 +87,6 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                     "hash": allocation.link_hash,
                     "reason": "Failed to withdraw: contract_address does not have any balance"
                 });
-               
             }
         // } else {
         //     rejected_links.push(#{
@@ -100,51 +98,36 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     return #{
         "unyt_allocation": unyt_allocation, 
         "state": state,
-        "rejected_links": rejected_links
+        "rejected_links": rejected_links,
+        "processed_coupons": processed_coupons
     };
-    // Additional Notes:
-    // After the output is created, the withdrawer will need to request signatures 
-    // from the 3 agents to sign the output which can be used to claim the funds from the outside chain
-    // Requires 2 of 3 signatures
-    // Signers:
-    // - bridge agent
-    // - clearing house auditor
-    // - any from a list of predefine notaries
-
 }
 
-// Main execution code
-// This agreement is going to have two types of spend links
-// The bridging agent will be attaching spend links with POD to send to the depositor
-// The withdrawer will be attaching spend links with ?? to send to the depositor
 if type_of(inputs.previous_execution.data) == "map" {
     state = inputs.previous_execution.data.output.carryover;
 }
 
-if inputs.call_method.data == "deposit" {
-    let updated_state = deposit_logic(consumed_inputs, state, unyt_index);
-    return #{
-        "output": #{
-            "unyt_allocation": updated_state.unyt_allocation,
-            "carryover": updated_state.state,
-        }
-    };
-} else if inputs.call_method.data == "withdraw" {
-    let updated_state = withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp, inputs.cool_down_period.data, executor_pub_key);
-    if updated_state.unyt_allocation.is_empty {
-        throw "Failed to withdraw: No valid unyt allocation to process :" + updated_state;
-    }
-    // todo: validate the coupon
-    return #{
-        "output": #{
-            "unyt_allocation": updated_state.unyt_allocation,
-            "carryover": updated_state.state,
-            "computed_values": #{
-                "coupon": inputs.coupon.data
-            }
-        },
-        "rejected_links": updated_state.rejected_links
-    };
-} else {
-    throw "Invalid call method";
+let deposit_result = deposit_logic(consumed_inputs, state, unyt_index);
+state = deposit_result.state;
+let unyt_allocation = deposit_result.unyt_allocation;
+
+let withdraw_result = withdraw_logic(
+    consumed_inputs, state, ea_id, unyt_index,
+    executed_timestamp, inputs.cool_down_period.data,
+    executor_pub_key, inputs.coupons.data
+);
+state = withdraw_result.state;
+for alloc in withdraw_result.unyt_allocation {
+    unyt_allocation.push(alloc);
 }
+
+return #{
+    "output": #{
+        "unyt_allocation": unyt_allocation,
+        "carryover": state,
+        "computed_values": #{
+            "coupons": withdraw_result.processed_coupons
+        }
+    },
+    "rejected_links": withdraw_result.rejected_links
+};

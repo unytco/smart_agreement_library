@@ -7,14 +7,17 @@
         "proof_of_deposit": {
           "type": "array",
           "items": {
-            "properties": {
-              "method_fn": { "type": "string" },
-              "name": { "type": "string" },
-              "contract_address": { "type": "string" },
-              "amount": { "type": "string" },
-              "depositor_wallet_address": { "type": "string" }
-            },
-            "required": ["method_fn", "name", "contract_address", "amount", "depositor_wallet_address"]
+            "type": "array",
+            "items": {
+              "properties": {
+                "method_fn": { "type": "string" },
+                "name": { "type": "string" },
+                "contract_address": { "type": "string" },
+                "amount": { "type": "string" },
+                "depositor_wallet_address": { "type": "string" }
+              },
+              "required": ["method_fn", "name", "contract_address", "amount", "depositor_wallet_address"]
+            }
           }
         }
       },

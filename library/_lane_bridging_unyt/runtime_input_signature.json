@@ -60,8 +60,7 @@
       "type": "object",
       "properties": {
         "previous_execution": { "type": ["object", "null"] },
-        "call_method": { "type": "string" },
-        "coupon": { "type": "string" },
+        "coupons": { "type": "object", "additionalProperties": { "type": "string" } },
         "cool_down_period": { "type": "string" }
       }
     }
