@@ -12,6 +12,12 @@
       "instruction": {
         "Custom": "GetPreviousExecution"
       }
+    },
+    {
+      "name": "unyt_index",
+      "instruction": {
+        "Fixed": "1"
+      }
     }
   ],
   "executor_rules": { "Any": null },
