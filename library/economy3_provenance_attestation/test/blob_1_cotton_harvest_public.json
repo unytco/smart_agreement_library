@@ -1,0 +1,10 @@
+{
+  "record_id":     "E3-20260412-001",
+  "resource_hash": "a3f9c2d1e4b87650a3f9c2d1e4b87650a3f9c2d1e4b87650a3f9c2d1e4b8765",
+  "material":      "Upland Cotton",
+  "step":          "harvest",
+  "creator_did":   "uhCAkProducerAlice1111111111111111111111111111111111111111",
+  "qty":           500,
+  "unit":          "KG",
+  "privacy_tier":  0
+}

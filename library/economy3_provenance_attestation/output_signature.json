@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "unyt_allocation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "receiver": { "type": "string", "description": "Producer's creator_did / Holochain agent key" },
+          "amounts": { "type": "array", "items": { "type": "string" }, "description": "[base_units, service_units_1, service_units_2]" },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["receiver", "amounts", "sources"]
+      }
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "total_attested":         { "type": "number", "description": "Count of attestations that earned credit" },
+        "skipped_authority_only": { "type": "number", "description": "Count of tier-3 records excluded from public credit" },
+        "returned_to_spender":    { "type": "string", "description": "Base units returned to spender for skipped records" }
+      },
+      "required": ["total_attested", "skipped_authority_only", "returned_to_spender"]
+    }
+  },
+  "required": ["unyt_allocation", "computed_values"]
+}
