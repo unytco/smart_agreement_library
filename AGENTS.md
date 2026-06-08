@@ -1,12 +1,10 @@
 # smart_agreement_library — Agent Instructions
 
+> **This repo follows the workshop root's patterns — it does not define its own.** Development workflow, process, changelog conventions, and spec/feature-doc discipline live in the workshop: [`CLAUDE.md`](../../../CLAUDE.md), [`AGENTS.md`](../../../AGENTS.md), [`documentation/DEVELOPMENT_WORKFLOW.md`](../../../documentation/DEVELOPMENT_WORKFLOW.md). Below is only what's specific to THIS repo.
+
 ## Purpose
 
-A content library of **RAVE** (Recorded Agreement Verifiably Executed) templates — the smart-agreement definitions the Unyt app executes for mutual-credit accounting and agreement enforcement. Each template is plain data: a Rhai execution script plus JSON Schemas for its inputs, outputs, and agreement-definition form. The library has no code of its own; it is loaded at runtime by the `rave_engine` crate inside the parent [`unyt-sandbox/unyt`](../) app. It is a nested git submodule of `unyt-sandbox/unyt` (base `main`, `pr-policy: reviewed`).
-
-## Classification
-
-`library` — pure template/data, consumed by `unyt-sandbox/unyt`. No build output of its own.
+`library` — a content library of **RAVE** (Recorded Agreement Verifiably Executed) templates (pure template/data, no code of its own): each is a Rhai execution script plus JSON Schemas for inputs, outputs, and agreement-definition form, loaded at runtime by the `rave_engine` crate in the parent [`unyt-sandbox/unyt`](../) app. Nested git submodule of `unyt-sandbox/unyt`.
 
 ## Stack
 
@@ -30,22 +28,9 @@ No suite here. Templates are exercised upstream by the parent app's sweettests (
 
 n/a (library) — ships as part of the parent `unyt` app.
 
-## Related repos in workshop
-
-- Consumed by [`unyt-sandbox/unyt`](../) via the `rave_engine` crate (`crates/rave_engine`); the `transactor` coordinator zome calls into it.
-- See workshop [`AGENTS.md`](../../../AGENTS.md) for the full map.
-
-## Changelog
-
-File: [`./CHANGELOG.md`](./CHANGELOG.md). Format: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/), `## [Unreleased]` at the top, standard subsections (Added/Changed/Deprecated/Removed/Fixed/Security). One bullet per agent change, ≤120 chars, present-tense imperative; branch-type → section mapping per [workshop `docs/WORKSHOP_WORKFLOW.md § Changelog conventions`](../../../docs/WORKSHOP_WORKFLOW.md). A new or changed RAVE template that affects execution output is user-visible → `### Added` / `### Changed`.
-
 ## Repo-specific rules
 
 - **Rhai runs sandboxed.** Only the helper functions registered by `rave_engine` are callable — no arbitrary Rust. Don't author scripts assuming host access.
 - **Outputs are a typed contract.** A RAVE returns `unyt_allocation`, `credit_limit`, and/or `computed_values`; match the `output_signature.json` exactly or `rave_engine` validation rejects it.
 - **Each role declares a `parked_link_type`** used by the UI for link creation; keep it in sync with the agreement definition.
 - **Changing a template's output shape is a breaking change for consumers** — coordinate with the parent app and run its sweettests before merging.
-
-## Lessons learned
-
-_Append entries here whenever an agent (or human) loses time to something a guardrail would have prevented. Keep each entry: date, short symptom, concrete fix._
