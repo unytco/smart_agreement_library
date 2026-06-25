@@ -9,5 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `holo_hosting_proof_of_service`: one agreement now pays the EdgeNode Hosts for **both** Holo services — EdgeNode and WindTunnel — through a single instance (only the invoice payload differs). It prices five independently-optional dimensions — storage, gossip, the new **gets**, and two reserved WindTunnel placeholders — reading every price-sheet rate and log count defensively (absent ⇒ 0), so partial invoices never break. Fixes the gossip/storage service-unit-index swap (each dimension now credits its own index), and renames the paying role Happ Provider → **EdgeNode Customer**.
+- `holo_hosting_proof_of_service`: pay EdgeNode Hosts for both Holo services through one agreement instance.
+- `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
+- `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
+- `holo_hosting_proof_of_service`: rename the paying role Happ Provider → EdgeNode Customer.
 - `__system_credit_limit_computation_holo_hosting`: narrow the special agent's elevated `special_credit_limit` to the HoloFuel unit only (`{0: 9999999}`), dropping the stale, over-broad second index.

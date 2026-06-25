@@ -39,11 +39,11 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "s": { "type": "string" },
-                      "g": { "type": "string" },
-                      "gt": { "type": "string" },
-                      "wt1": { "type": "string" },
-                      "wt2": { "type": "string" }
+                      "s": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
+                      "g": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
+                      "gt": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
+                      "wt1": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
+                      "wt2": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" }
                     }
                   }
                 }
