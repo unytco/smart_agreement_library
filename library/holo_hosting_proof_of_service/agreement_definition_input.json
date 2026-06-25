@@ -12,7 +12,7 @@
         },
         {
           "const": {
-            "id": "happ_provider_spender",
+            "id": "edge_node_customer_spender",
             "parked_link_type": "ParkedSpendCredit"
           }
         }

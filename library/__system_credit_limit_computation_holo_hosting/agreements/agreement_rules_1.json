@@ -19,8 +19,7 @@
       "name": "special_credit_limit",
       "instruction": {
         "Fixed": {
-          "0": "9999999",
-          "1": "9999999"
+          "0": "9999999"
         }
       }
     },
