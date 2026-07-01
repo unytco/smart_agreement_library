@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `lockbox`: a minimal AuthorizedExecutor agreement that holds conserved base-unit funds — parks and locks the remainder, carries the lock forward, spends it down, and unlocks it back to the creator. The proving ground for the locked-funds primitive.
+
 ### Changed
 
+- `holo_hosting_proof_of_service`: lock the unspent base-unit funding instead of returning it to the executor, auto-apply the carried lock on the next run (spend-down), and add an `unlock` executor input to reclaim it; `input_rules` gain `previous_execution` and `unlock`.
 - `holo_hosting_proof_of_service`: pay EdgeNode Hosts for both Holo services through one agreement instance.
 - `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
 - `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
