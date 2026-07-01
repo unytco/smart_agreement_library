@@ -46,7 +46,7 @@ if carried > 0.0 {
 let available = carried + parked;
 
 // Unlock: return the whole balance to the creator (the executor); no new lock.
-if (inputs.unlock.data ?? false) == true {
+if type_of(inputs.unlock) == "map" && inputs.unlock.data == true {
     let out = [];
     if available > 0.0 {
         let amt = #{};

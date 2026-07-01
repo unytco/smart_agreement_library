@@ -61,7 +61,7 @@ if type_of(inputs.previous_execution.data) == "map" {
 // Unlock: return the whole carried balance to the EdgeNode Customer (creator)
 // and emit no new lock. Runs before invoicing so a reclaim never settles host
 // work; sources name every funding source so nothing is left unaccounted.
-if (inputs.unlock.data ?? false) == true {
+if type_of(inputs.unlock) == "map" && inputs.unlock.data == true {
     let carried_back = 0.0;
     let sources = [];
     for alloc in customer_alloc {
