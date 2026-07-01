@@ -44,6 +44,39 @@ let dims = [
 let price_sheet = get_data_blob(inputs.price_sheet_data_blob_hash.data);
 let customer_alloc = consumed_inputs.edge_node_customer_spender_allocations;
 
+// Carried lock from the previous execution (auto-applied), and that execution's
+// hash — the source a lock-funded host payment names. Prepended to the customer
+// funding so the invoice loop draws it down before fresh parked credit.
+let prev_source = ();
+if type_of(inputs.previous_execution.data) == "map" {
+    prev_source = inputs.previous_execution.data.id;
+    let carried = parse_float(inputs.previous_execution.data.output.locked[BASE] ?? "0");
+    if carried > 0.0 {
+        let carried_amount = #{};
+        carried_amount[BASE] = carried.to_string();
+        customer_alloc.insert(0, #{ "data": #{ "amount": carried_amount, "source": prev_source } });
+    }
+}
+
+// Unlock: return the whole carried balance to the EdgeNode Customer (creator)
+// and emit no new lock. Runs before invoicing so a reclaim never settles host
+// work; sources name every funding source so nothing is left unaccounted.
+if (inputs.unlock.data ?? false) == true {
+    let carried_back = 0.0;
+    let sources = [];
+    for alloc in customer_alloc {
+        carried_back = carried_back + parse_float(alloc.data.amount[BASE] ?? "0");
+        sources.push(alloc.data.source);
+    }
+    let out = [];
+    if carried_back > 0.0 {
+        let amt = #{};
+        amt[BASE] = carried_back.to_string();
+        out.push(#{ "receiver": executor_pub_key, "amounts": amt, "sources": sources });
+    }
+    return #{ "output": #{ "unyt_allocation": out } };
+}
+
 let final_unyt_allocation = [];
 let total_payment_expected = 0.0;
 // Service-unit totals per dimension, accumulated across all invoices and credited
@@ -124,31 +157,22 @@ if able_to_pay {
         });
     }
 
-    // Return the executor's unspent base-unit funding (carry-forward is future work).
+    // Lock the unspent base-unit funding (carried lock + fresh parked remainder)
+    // for the next execution, instead of returning it to the executor. The parked
+    // sources are already named in the host payments above, so the full parked
+    // amount is conserved; the carried lock rides forward as the running balance.
     let remaining_customer_alloc = 0.0;
-    let remaining_sources = [];
     for (alloc, i) in customer_alloc {
-        let amt = parse_float(alloc.data.amount[BASE] ?? "0");
-        if amt > 0.0 {
-            remaining_customer_alloc = remaining_customer_alloc + amt;
-            remaining_sources.push(alloc.data.source);
-        }
-    }
-    if remaining_customer_alloc > 0.0 {
-        let remainder_amount = #{};
-        remainder_amount[BASE] = remaining_customer_alloc.to_string();
-        final_unyt_allocation.push(#{
-            "receiver": executor_pub_key,
-            "amounts": remainder_amount,
-            "sources": remaining_sources
-        });
+        remaining_customer_alloc = remaining_customer_alloc + parse_float(alloc.data.amount[BASE] ?? "0");
     }
 
-    return #{
-        "output": #{
-            "unyt_allocation": final_unyt_allocation
-        }
-    };
+    let output = #{ "unyt_allocation": final_unyt_allocation };
+    if remaining_customer_alloc > 0.0 {
+        let locked = #{};
+        locked[BASE] = remaining_customer_alloc.to_string();
+        output.locked = locked;
+    }
+    return #{ "output": output };
 } else {
     throw "For execution to succeed, a payment of " + total_payment_expected.to_string() + " ZF must be sent to this agreement to settle outstanding invoices.";
 }
