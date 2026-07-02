@@ -50,7 +50,10 @@ let customer_alloc = consumed_inputs.edge_node_customer_spender_allocations;
 let prev_source = ();
 if type_of(inputs.previous_execution.data) == "map" {
     prev_source = inputs.previous_execution.data.id;
-    let carried = parse_float(inputs.previous_execution.data.output.locked[BASE] ?? "0");
+    // A prior run that fully spent its funding omits `locked`, so default it to
+    // an empty map before indexing — `()[BASE]` would be a Rhai runtime error.
+    let carried_locked = inputs.previous_execution.data.output.locked ?? #{};
+    let carried = parse_float(carried_locked[BASE] ?? "0");
     if carried > 0.0 {
         let carried_amount = #{};
         carried_amount[BASE] = carried.to_string();

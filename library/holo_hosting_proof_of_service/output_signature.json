@@ -12,7 +12,8 @@
         },
         "required": ["receiver", "amounts", "sources"]
       }
-    }
+    },
+    "locked": { "type": "object", "additionalProperties": { "type": "string" } }
   },
   "required": ["unyt_allocation"]
 }
