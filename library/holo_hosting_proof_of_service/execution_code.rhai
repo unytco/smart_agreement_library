@@ -143,6 +143,24 @@ for (value, vi) in consumed_inputs.invoice_payloads {
 }
 
 if able_to_pay {
+    // Unspent base-unit funding (carried lock + fresh parked remainder) to lock for
+    // the next execution instead of returning it to the executor, and the sources
+    // that still carry a remainder. Every source that funds the new lock must stay
+    // named: a parked spend counts as conserved input only when a `unyt_allocation`
+    // names its source (fully-spent sources are already named on their host
+    // payments; the carried lock rides forward as the predecessor's running balance
+    // and needs no naming). They are named on the executor's dimension allocation
+    // below.
+    let remaining_customer_alloc = 0.0;
+    let remaining_sources = [];
+    for (alloc, i) in customer_alloc {
+        let amt = parse_float(alloc.data.amount[BASE] ?? "0");
+        if amt > 0.0 {
+            remaining_customer_alloc = remaining_customer_alloc + amt;
+            remaining_sources.push(alloc.data.source);
+        }
+    }
+
     // Credit each metered dimension's total to the executor on its own unit index.
     let executor_amounts = #{};
     let has_dimension_totals = false;
@@ -152,21 +170,30 @@ if able_to_pay {
             has_dimension_totals = true;
         }
     }
+    // Name the invoice sources plus the lock-funding remainder sources on the
+    // executor's (non-zero) dimension credit, so the remainder stays conserved
+    // without a dedicated `{ BASE: "0" }` allocation, which the ledger rejects at
+    // settlement (a zero MonetaryUnit amount is uncollectable).
+    //
+    // KNOWN LIMITATION (deferred): the remainder sources are named only when there
+    // is metered host work to credit. A lock with no metered work at all (empty
+    // invoices, or logs whose counts are all zero) has no non-zero allocation to
+    // carry the names, so those sources go unnamed and Rule 7 rejects the run — one
+    // facet of the broader "a zero MonetaryUnit amount is uncollectable at
+    // settlement" issue (a pure hold cannot name its sources with a `{ BASE: "0" }`
+    // allocation either). Deferred to that follow-up rather than worked around here
+    // with an empty-amount allocation, which would settle but emit a phantom
+    // zero-value deposit to the executor.
     if has_dimension_totals {
+        let executor_sources = consumed_inputs.invoice_payloads.map(|p| p.link_hash);
+        for s in remaining_sources {
+            executor_sources.push(s);
+        }
         final_unyt_allocation.push(#{
             "receiver": executor_pub_key,
             "amounts": executor_amounts,
-            "sources": consumed_inputs.invoice_payloads.map(|p| p.link_hash)
+            "sources": executor_sources
         });
-    }
-
-    // Lock the unspent base-unit funding (carried lock + fresh parked remainder)
-    // for the next execution, instead of returning it to the executor. The parked
-    // sources are already named in the host payments above, so the full parked
-    // amount is conserved; the carried lock rides forward as the running balance.
-    let remaining_customer_alloc = 0.0;
-    for (alloc, i) in customer_alloc {
-        remaining_customer_alloc = remaining_customer_alloc + parse_float(alloc.data.amount[BASE] ?? "0");
     }
 
     let output = #{ "unyt_allocation": final_unyt_allocation };
