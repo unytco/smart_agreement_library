@@ -56,18 +56,43 @@ if type_of(inputs.unlock) == "map" && inputs.unlock.data == true {
     return #{ "output": #{ "unyt_allocation": out } };
 }
 
-// Otherwise pay the requested amount and lock the rest.
-let payout = parse_float(inputs.payout_amount.data ?? "0");
+// Otherwise pay the requested amount and lock the rest. Both payout inputs are
+// optional (runtime_input_signature.json): an omitted/absent `payout_amount`
+// means a pure hold (pay 0). A negative payout is rejected — it would make
+// `remaining` exceed what was parked/carried and mint locked funds past the
+// first-law check.
+let payout = 0.0;
+if type_of(inputs.payout_amount) == "map" {
+    payout = parse_float(inputs.payout_amount.data ?? "0");
+}
+if payout < 0.0 {
+    throw "lockbox: payout_amount must not be negative";
+}
 if payout > available {
     throw "lockbox: payout " + payout.to_string() + " exceeds available " + available.to_string();
 }
 
 let allocation = [];
 if payout > 0.0 {
+    if type_of(inputs.payout_receiver) != "map" {
+        throw "lockbox: payout_receiver is required for a nonzero payout";
+    }
     let amt = #{};
     amt[BASE] = payout.to_string();
     allocation.push(#{
         "receiver": inputs.payout_receiver.data,
+        "amounts": amt,
+        "sources": sources
+    });
+} else if parked > 0.0 {
+    // Pure hold of freshly-parked funds: name the parked sources with a
+    // zero-amount allocation so they count as conserved input — a parked source
+    // is an input only when a `unyt_allocation` names it (a carried lock is the
+    // running balance inherited from the predecessor and needs no naming).
+    let amt = #{};
+    amt[BASE] = "0";
+    allocation.push(#{
+        "receiver": executor_pub_key,
         "amounts": amt,
         "sources": sources
     });
