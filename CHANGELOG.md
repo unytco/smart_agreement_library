@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `holo_hosting_proof_of_service`: lock the unspent base-unit funding instead of returning it to the executor, auto-apply the carried lock on the next run (spend-down), and add an `unlock` executor input to reclaim it; `input_rules` gain `previous_execution` and `unlock` (both declared in the runtime input signature).
+- `holo_hosting_proof_of_service` + `lockbox`: note at each lock emission that a locking instance must use `AuthorizedExecutor` — the DNA rejects a `locked` output under `ExecutorRules::Any`, and the shipped default rules declare `Any`.
 - `holo_hosting_proof_of_service`: pay EdgeNode Hosts for both Holo services through one agreement instance.
 - `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
 - `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
