@@ -21,7 +21,8 @@
       "type": "object",
       "properties": {
         "receiver": { "type": "string" }
-      }
+      },
+      "required": ["receiver"]
     }
   },
   "required": ["consumed_inputs", "inputs"]

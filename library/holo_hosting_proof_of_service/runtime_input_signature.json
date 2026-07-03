@@ -58,7 +58,8 @@
     "inputs": {
       "type": "object",
       "properties": {
-        "price_sheet_data_blob_hash": { "type": "string" }
+        "price_sheet_data_blob_hash": { "type": "string" },
+        "unlock": { "type": "boolean" }
       },
       "required": ["price_sheet_data_blob_hash"]
     }

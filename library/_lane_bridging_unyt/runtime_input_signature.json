@@ -62,7 +62,8 @@
         "previous_execution": { "type": ["object", "null"] },
         "coupons": { "type": "object", "additionalProperties": { "type": "string" } },
         "cool_down_period": { "type": "string" }
-      }
+      },
+      "required": ["coupons"]
     }
   },
   "required": ["consumed_inputs", "inputs"]

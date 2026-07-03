@@ -56,7 +56,8 @@
         "previous_execution": { "type": ["object", "null"] },
         "call_method": { "type": "string" },
         "cool_down_period": { "type": "string" }
-      }
+      },
+      "required": ["call_method"]
     }
   },
   "required": ["consumed_inputs", "inputs"]
