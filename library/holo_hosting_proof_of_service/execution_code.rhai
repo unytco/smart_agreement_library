@@ -44,6 +44,42 @@ let dims = [
 let price_sheet = get_data_blob(inputs.price_sheet_data_blob_hash.data);
 let customer_alloc = consumed_inputs.edge_node_customer_spender_allocations;
 
+// Carried lock from the previous execution (auto-applied), and that execution's
+// hash — the source a lock-funded host payment names. Prepended to the customer
+// funding so the invoice loop draws it down before fresh parked credit.
+let prev_source = ();
+if type_of(inputs.previous_execution.data) == "map" {
+    prev_source = inputs.previous_execution.data.id;
+    // A prior run that fully spent its funding omits `locked`, so default it to
+    // an empty map before indexing — `()[BASE]` would be a Rhai runtime error.
+    let carried_locked = inputs.previous_execution.data.output.locked ?? #{};
+    let carried = parse_float(carried_locked[BASE] ?? "0");
+    if carried > 0.0 {
+        let carried_amount = #{};
+        carried_amount[BASE] = carried.to_string();
+        customer_alloc.insert(0, #{ "data": #{ "amount": carried_amount, "source": prev_source } });
+    }
+}
+
+// Unlock: return the whole carried balance to the EdgeNode Customer (creator)
+// and emit no new lock. Runs before invoicing so a reclaim never settles host
+// work; sources name every funding source so nothing is left unaccounted.
+if type_of(inputs.unlock) == "map" && inputs.unlock.data == true {
+    let carried_back = 0.0;
+    let sources = [];
+    for alloc in customer_alloc {
+        carried_back = carried_back + parse_float(alloc.data.amount[BASE] ?? "0");
+        sources.push(alloc.data.source);
+    }
+    let out = [];
+    if carried_back > 0.0 {
+        let amt = #{};
+        amt[BASE] = carried_back.to_string();
+        out.push(#{ "receiver": executor_pub_key, "amounts": amt, "sources": sources });
+    }
+    return #{ "output": #{ "unyt_allocation": out } };
+}
+
 let final_unyt_allocation = [];
 let total_payment_expected = 0.0;
 // Service-unit totals per dimension, accumulated across all invoices and credited
@@ -107,24 +143,14 @@ for (value, vi) in consumed_inputs.invoice_payloads {
 }
 
 if able_to_pay {
-    // Credit each metered dimension's total to the executor on its own unit index.
-    let executor_amounts = #{};
-    let has_dimension_totals = false;
-    for dim in dims {
-        if dimension_totals[dim.unit] > 0.0 {
-            executor_amounts[dim.unit] = dimension_totals[dim.unit].to_string();
-            has_dimension_totals = true;
-        }
-    }
-    if has_dimension_totals {
-        final_unyt_allocation.push(#{
-            "receiver": executor_pub_key,
-            "amounts": executor_amounts,
-            "sources": consumed_inputs.invoice_payloads.map(|p| p.link_hash)
-        });
-    }
-
-    // Return the executor's unspent base-unit funding (carry-forward is future work).
+    // Unspent base-unit funding (carried lock + fresh parked remainder) to lock for
+    // the next execution instead of returning it to the executor, and the sources
+    // that still carry a remainder. Every source that funds the new lock must stay
+    // named: a parked spend counts as conserved input only when a `unyt_allocation`
+    // names its source (fully-spent sources are already named on their host
+    // payments; the carried lock rides forward as the predecessor's running balance
+    // and needs no naming). They are named on the executor's dimension allocation
+    // below.
     let remaining_customer_alloc = 0.0;
     let remaining_sources = [];
     for (alloc, i) in customer_alloc {
@@ -134,21 +160,49 @@ if able_to_pay {
             remaining_sources.push(alloc.data.source);
         }
     }
-    if remaining_customer_alloc > 0.0 {
-        let remainder_amount = #{};
-        remainder_amount[BASE] = remaining_customer_alloc.to_string();
+
+    // Credit each metered dimension's total to the executor on its own unit index.
+    let executor_amounts = #{};
+    let has_dimension_totals = false;
+    for dim in dims {
+        if dimension_totals[dim.unit] > 0.0 {
+            executor_amounts[dim.unit] = dimension_totals[dim.unit].to_string();
+            has_dimension_totals = true;
+        }
+    }
+    // Name the invoice sources plus the lock-funding remainder sources on the
+    // executor's (non-zero) dimension credit, so the remainder stays conserved
+    // without a dedicated `{ BASE: "0" }` allocation, which the ledger rejects at
+    // settlement (a zero MonetaryUnit amount is uncollectable).
+    //
+    // KNOWN LIMITATION (deferred): the remainder sources are named only when there
+    // is metered host work to credit. A lock with no metered work at all (empty
+    // invoices, or logs whose counts are all zero) has no non-zero allocation to
+    // carry the names, so those sources go unnamed and Rule 7 rejects the run — one
+    // facet of the broader "a zero MonetaryUnit amount is uncollectable at
+    // settlement" issue (a pure hold cannot name its sources with a `{ BASE: "0" }`
+    // allocation either). Deferred to that follow-up rather than worked around here
+    // with an empty-amount allocation, which would settle but emit a phantom
+    // zero-value deposit to the executor.
+    if has_dimension_totals {
+        let executor_sources = consumed_inputs.invoice_payloads.map(|p| p.link_hash);
+        for s in remaining_sources {
+            executor_sources.push(s);
+        }
         final_unyt_allocation.push(#{
             "receiver": executor_pub_key,
-            "amounts": remainder_amount,
-            "sources": remaining_sources
+            "amounts": executor_amounts,
+            "sources": executor_sources
         });
     }
 
-    return #{
-        "output": #{
-            "unyt_allocation": final_unyt_allocation
-        }
-    };
+    let output = #{ "unyt_allocation": final_unyt_allocation };
+    if remaining_customer_alloc > 0.0 {
+        let locked = #{};
+        locked[BASE] = remaining_customer_alloc.to_string();
+        output.locked = locked;
+    }
+    return #{ "output": output };
 } else {
     throw "For execution to succeed, a payment of " + total_payment_expected.to_string() + " ZF must be sent to this agreement to settle outstanding invoices.";
 }

@@ -4,7 +4,7 @@
     "consumed_inputs": {
       "type": "object",
       "properties": {
-        "spender_allocations": {
+        "locker_spender_allocations": {
           "type": "array",
           "items": {
             "type": "object",
@@ -15,14 +15,17 @@
             "required": ["amount", "source"]
           }
         }
-      }
+      },
+      "required": ["locker_spender_allocations"]
     },
     "inputs": {
       "type": "object",
       "properties": {
-        "receiver": { "type": "string" }
-      },
-      "required": ["receiver"]
+        "previous_execution": { "type": "object" },
+        "unlock": { "type": "boolean" },
+        "payout_amount": { "type": "string" },
+        "payout_receiver": { "type": "string" }
+      }
     }
   },
   "required": ["consumed_inputs", "inputs"]

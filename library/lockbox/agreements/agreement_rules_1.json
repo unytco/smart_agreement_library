@@ -1,0 +1,36 @@
+{
+  "title": "Lockbox (locked-funds proving agreement)",
+  "input_rules": [
+    {
+      "name": "locker_spender_allocations",
+      "instruction": { "ProvidedBy": "locker_spender" }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": { "Custom": "GetPreviousExecution" }
+    },
+    {
+      "name": "unlock",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "payout_amount",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "payout_receiver",
+      "instruction": { "ExecutorProvided": null }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "locker_spender",
+      "display_name": "Locker",
+      "description": "Parks funds and runs the lockbox; holds and reclaims the locked balance. Must be the sole authorized executor (locking requires a single successor).",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Public": "lockbox" }, { "Public": "example" }],
+  "permissions": { "Default": null }
+}

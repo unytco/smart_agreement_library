@@ -24,6 +24,18 @@
       "instruction": {
         "Fixed": "<Placeholder: price_sheet_data_blob_hash>"
       }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
+    },
+    {
+      "name": "unlock",
+      "instruction": {
+        "ExecutorProvided": null
+      }
     }
   ],
   "executor_rules": { "Any": null },
