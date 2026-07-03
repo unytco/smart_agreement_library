@@ -198,10 +198,6 @@ if able_to_pay {
 
     let output = #{ "unyt_allocation": final_unyt_allocation };
     if remaining_customer_alloc > 0.0 {
-        // A `locked` output requires this instance to use `AuthorizedExecutor`:
-        // the DNA rejects `locked` under `ExecutorRules::Any` (lock lineage /
-        // anti-replay needs a fixed executor). The shipped default rules declare
-        // `Any`, so a locking instance must set the executor at instantiation.
         let locked = #{};
         locked[BASE] = remaining_customer_alloc.to_string();
         output.locked = locked;

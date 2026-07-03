@@ -101,10 +101,6 @@ if payout > 0.0 {
 let output = #{ "unyt_allocation": allocation };
 let remaining = available - payout;
 if remaining > 0.0 {
-    // A `locked` output requires this instance to use `AuthorizedExecutor`:
-    // the DNA rejects `locked` under `ExecutorRules::Any` (lock lineage /
-    // anti-replay needs a fixed executor). The shipped default rules declare
-    // `Any`, so a locking instance must set the executor at instantiation.
     let locked = #{};
     locked[BASE] = remaining.to_string();
     output.locked = locked;

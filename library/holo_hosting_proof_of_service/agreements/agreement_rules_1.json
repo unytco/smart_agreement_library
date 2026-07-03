@@ -56,7 +56,7 @@
       "description": "The agent that funds the agreement and is its executor; pays the hosts for the service they provide",
       "qualification": { "Any": null },
       "comment": {
-        "text": "This role needs to be authorized to the edge_node_customer_pubkey",
+        "text": "This role is the agreement's executor and must be authorized to the edge_node_customer_pubkey as the sole AuthorizedExecutor (not Any) — the agreement locks its unspent funding, which the DNA rejects under ExecutorRules::Any.",
         "Authorized": "<Placeholder: edge_node_customer_pubkey>"
       }
     }
