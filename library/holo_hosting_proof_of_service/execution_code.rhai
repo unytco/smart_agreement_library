@@ -52,11 +52,13 @@ if type_of(inputs.previous_execution.data) == "map" {
     prev_source = inputs.previous_execution.data.id;
     // A prior run that fully spent its funding omits `locked`, so default it to
     // an empty map before indexing — `()[BASE]` would be a Rhai runtime error.
+    // The carried amount stays the engine-written STRING end to end (floats are
+    // for branching only — an f64 round trip can distort a fuel amount).
     let carried_locked = inputs.previous_execution.data.output.locked ?? #{};
-    let carried = parse_float(carried_locked[BASE] ?? "0");
-    if carried > 0.0 {
+    let carried = carried_locked[BASE] ?? "0";
+    if to_num(carried) > 0.0 {
         let carried_amount = #{};
-        carried_amount[BASE] = carried.to_string();
+        carried_amount[BASE] = carried;
         customer_alloc.insert(0, #{ "data": #{ "amount": carried_amount, "source": prev_source } });
     }
 }
@@ -64,17 +66,19 @@ if type_of(inputs.previous_execution.data) == "map" {
 // Unlock: return the whole carried balance to the EdgeNode Customer (creator)
 // and emit no new lock. Runs before invoicing so a reclaim never settles host
 // work; sources name every funding source so nothing is left unaccounted.
+// Summed with exact fuel arithmetic (add_fuel) — an f64 accumulation can land
+// one micro-unit off the conserved inputs and fail Rule 7.
 if type_of(inputs.unlock) == "map" && inputs.unlock.data == true {
-    let carried_back = 0.0;
+    let carried_back = "0";
     let sources = [];
     for alloc in customer_alloc {
-        carried_back = carried_back + parse_float(alloc.data.amount[BASE] ?? "0");
+        carried_back = add_fuel(carried_back, alloc.data.amount[BASE] ?? "0");
         sources.push(alloc.data.source);
     }
     let out = [];
-    if carried_back > 0.0 {
+    if to_num(carried_back) > 0.0 {
         let amt = #{};
-        amt[BASE] = carried_back.to_string();
+        amt[BASE] = carried_back;
         out.push(#{ "receiver": executor_pub_key, "amounts": amt, "sources": sources });
     }
     return #{ "output": #{ "unyt_allocation": out } };
@@ -92,7 +96,7 @@ let able_to_pay = true;
 // invoices aggregate into a single settlement.
 let rates = #{};
 for dim in dims {
-    rates[dim.unit] = price_sheet[dim.rate] ?? 0;
+    rates[dim.unit] = to_num(price_sheet[dim.rate] ?? 0);
 }
 
 for (value, vi) in consumed_inputs.invoice_payloads {
@@ -102,7 +106,7 @@ for (value, vi) in consumed_inputs.invoice_payloads {
         for (log, li) in payload.logs {
             for dim in dims {
                 // absent count => "0" (indexing a missing object-map key yields ())
-                host_counts[dim.unit] = host_counts[dim.unit] + parse_float(log[dim.count] ?? "0");
+                host_counts[dim.unit] = host_counts[dim.unit] + to_num(log[dim.count] ?? "0");
             }
         }
 
@@ -115,12 +119,14 @@ for (value, vi) in consumed_inputs.invoice_payloads {
 
         total_payment_expected = total_payment_expected + exp_amt;
 
-        if able_to_pay {
-            // Find a customer allocation whose base-unit amount covers this invoice.
-            let customer_index =
-                customer_alloc.index_of(|a| parse_float(a.data.amount[BASE] ?? "0") >= exp_amt);
-            if customer_index >= 0 {
-                let customer_amount_used = customer_alloc[customer_index];
+        if able_to_pay && exp_amt > 0.0 {
+            // Draw the invoice from as many customer allocations as needed, in
+            // parked order (exact fuel arithmetic in the host): split funding —
+            // e.g. 5 + 5 parked covering a 7 invoice — settles, where a
+            // single-source match refused the run despite a sufficient total.
+            // When even the total can't cover, nothing is drawn.
+            let consume = customer_alloc.consume_allocations(BASE, exp_amt.to_string());
+            if consume.covered {
                 // Build with an indexed assignment: `#{ BASE: x }` would use the
                 // literal key "BASE", not the value of BASE.
                 let invoice_amount = #{};
@@ -128,17 +134,17 @@ for (value, vi) in consumed_inputs.invoice_payloads {
                 final_unyt_allocation.push(#{
                     "receiver": payload.host_pub_key,
                     "amounts": invoice_amount,
-                    "sources": [customer_amount_used.data.source]
+                    "sources": consume.sources
                 });
-                // Subtract the spent amount from that source, in place.
-                let remaining_amount = sub_units(customer_amount_used.data.amount, invoice_amount);
-                customer_alloc[customer_index].data.amount = remaining_amount;
             } else {
                 // Can't cover this invoice — keep tallying the total so the error
                 // reports the full outstanding amount, then stop allocating.
                 able_to_pay = false;
             }
         }
+        // exp_amt == 0 (all counts zero, or priced 0): emit no payment — a zero
+        // MonetaryUnit allocation is uncollectable at the ledger, and nothing
+        // was drawn so there is no source to name.
     }
 }
 
@@ -151,12 +157,15 @@ if able_to_pay {
     // payments; the carried lock rides forward as the predecessor's running balance
     // and needs no naming). They are named on the executor's dimension allocation
     // below.
-    let remaining_customer_alloc = 0.0;
+    // Exact fuel arithmetic (add_fuel), floats only for the >0 branch: the
+    // remainder becomes the committed lock, and an f64 sum that rounds even a
+    // micro-unit below the exact inputs fails Rule 7 conservation.
+    let remaining_customer_alloc = "0";
     let remaining_sources = [];
     for (alloc, i) in customer_alloc {
-        let amt = parse_float(alloc.data.amount[BASE] ?? "0");
-        if amt > 0.0 {
-            remaining_customer_alloc = remaining_customer_alloc + amt;
+        let amt = alloc.data.amount[BASE] ?? "0";
+        if to_num(amt) > 0.0 {
+            remaining_customer_alloc = add_fuel(remaining_customer_alloc, amt);
             remaining_sources.push(alloc.data.source);
         }
     }
@@ -171,20 +180,15 @@ if able_to_pay {
         }
     }
     // Name the invoice sources plus the lock-funding remainder sources on the
-    // executor's (non-zero) dimension credit, so the remainder stays conserved
-    // without a dedicated `{ BASE: "0" }` allocation, which the ledger rejects at
-    // settlement (a zero MonetaryUnit amount is uncollectable).
-    //
-    // KNOWN LIMITATION (deferred): the remainder sources are named only when there
-    // is metered host work to credit. A lock with no metered work at all (empty
-    // invoices, or logs whose counts are all zero) has no non-zero allocation to
-    // carry the names, so those sources go unnamed and Rule 7 rejects the run — one
-    // facet of the broader "a zero MonetaryUnit amount is uncollectable at
-    // settlement" issue (a pure hold cannot name its sources with a `{ BASE: "0" }`
-    // allocation either). Deferred to that follow-up rather than worked around here
-    // with an empty-amount allocation, which would settle but emit a phantom
-    // zero-value deposit to the executor.
-    if has_dimension_totals {
+    // executor's dimension credit. With no metered work at all (empty invoices,
+    // or logs whose counts are all zero) the credit is EMPTY — a NAME-ONLY
+    // allocation: its sources still count as conserved input, so a lock with
+    // no metered work settles instead of failing Rule 7 with unnamed sources.
+    // Empty amounts, never `{ BASE: "0" }` — a zero MonetaryUnit amount is
+    // uncollectable at the ledger, while an empty-amounts allocation is
+    // recognized engine-side as carrying no deposit at all (no phantom
+    // zero-value deposit to the executor).
+    if has_dimension_totals || remaining_sources.len() > 0 {
         let executor_sources = consumed_inputs.invoice_payloads.map(|p| p.link_hash);
         for s in remaining_sources {
             executor_sources.push(s);
@@ -197,9 +201,9 @@ if able_to_pay {
     }
 
     let output = #{ "unyt_allocation": final_unyt_allocation };
-    if remaining_customer_alloc > 0.0 {
+    if to_num(remaining_customer_alloc) > 0.0 {
         let locked = #{};
-        locked[BASE] = remaining_customer_alloc.to_string();
+        locked[BASE] = remaining_customer_alloc;
         output.locked = locked;
     }
     return #{ "output": output };
