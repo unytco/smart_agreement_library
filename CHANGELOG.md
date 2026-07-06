@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `lockbox` + `holo_hosting_proof_of_service`: a hold names its funding with a name-only (empty `amounts`) allocation, so it settles and collects instead of stranding an uncollectable deposit; the holo-hosting no-metered-work lock now settles too.
+- `holo_hosting_proof_of_service`: a host invoice draws from as many customer allocations as needed (split funding settles); a zero-priced invoice emits no payment.
+- `holo_hosting_proof_of_service` + `lockbox`: numeric reads go through the engine's `to_num` — accepts a number or numeric string, refuses garbage loudly instead of silently pricing at 0.
+- These three changes need an engine carrying `to_num` + `consume_allocations` (rave_engine > 0.6.0).
 - `holo_hosting_proof_of_service`: lock the unspent base-unit funding instead of returning it to the executor, auto-apply the carried lock on the next run (spend-down), and add an `unlock` executor input to reclaim it; `input_rules` gain `previous_execution` and `unlock` (both declared in the runtime input signature).
 - `holo_hosting_proof_of_service`: the EdgeNode Customer (executor) role's `comment` now notes it must be the sole `AuthorizedExecutor`, not `Any` — the agreement locks funds, which the DNA rejects under `ExecutorRules::Any` (the `lockbox` Locker role already documents this in its description).
 - `holo_hosting_proof_of_service`: pay EdgeNode Hosts for both Holo services through one agreement instance.
