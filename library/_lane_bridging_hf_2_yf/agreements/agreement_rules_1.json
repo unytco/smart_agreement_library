@@ -1,0 +1,64 @@
+{
+  "title": "Lane: holofuel network bridging",
+  "input_rules": [
+    {
+      "name": "bridging_agent_allocations",
+      "instruction": {
+        "ProvidedBy": "bridging_agent"
+      }
+    },
+    {
+      "name": "proof_of_deposit",
+      "instruction": {
+        "ProvidedBy": "bridging_agent"
+      }
+    },
+    {
+      "name": "withdrawer_allocations",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "withdraw_contract_address",
+      "instruction": {
+        "ProvidedBy": "withdrawer"
+      }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
+    },
+    {
+      "name": "call_method",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
+      "name": "cool_down_period",
+      "instruction": {
+        "Fixed": "2"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "bridging_agent",
+      "display_name": "Bridging Agent",
+      "description": "The bridging agent role",
+      "qualification": { "Any": null }
+    },
+    {
+      "ct_role_id": "withdrawer",
+      "display_name": "Withdrawer",
+      "description": "The withdrawer role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Lane": "bridging" }],
+  "permissions": { "Global": null }
+}

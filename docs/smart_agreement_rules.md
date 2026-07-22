@@ -4,7 +4,7 @@
 
 Currently, Smart Agreement Execution Code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
 
-The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED that the Rhai engine is expecting for the code to return.
+The key to writing Agreement Code Templates and Smart Agreements is understanding the [RAVEOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/rave/rave_output/struct.RAVEOutput.html) struct. That is the structure of output the Rhai engine is expecting for the code to return.
 
 Read the Rules for the output section to understand how to return the correct output.
 
@@ -33,18 +33,18 @@ An array of objects, where each object defines a role required by the agreement.
 Each role object must have:
 
 - `id`: A string identifier for the role.
-- `consumed_link`: A boolean indicating if a link is consumed upon execution for this role.
+- `parked_link_type`: A string indicating the type of link parked upon execution for this role.
 
 #### Example:
 
 ```json
- "expected_roles": {
-   "type": "array",
-   "items": [
-     { "const": { "id": "admin", "consumed_link": false } },
-     { "const": { "id": "user", "consumed_link": true } }
-   ]
- }
+"expected_roles": {
+  "type": "array",
+  "items": [
+    { "const": { "id": "admin", "parked_link_type": "ParkedSpendCredit" } },
+    { "const": { "id": "user", "parked_link_type": { "ParkedData": true } } }
+  ]
+}
 ```
 
 ### `api_calls` (Optional)
@@ -90,12 +90,12 @@ Note: You won't set the particular input sources in the template. Instead, you w
 
 ### Execution Code
 
-The code template is the Rhai code that implements the logic of your SAVED. It is the code that, when executed takes the set of inputs, transforms them, and produces a set of outputs.
+The code template is the Rhai code that implements the logic of your RAVE. It is the code that, when executed takes the set of inputs, transforms them, and produces a set of outputs.
 
 ### Output Schema
 
 - The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
-- Look at the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
+- Look at the [RAVEOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/rave/rave_output/struct.RAVEOutput.html) struct to understand the expected output.
 
 ## Smart Agreement
 
@@ -111,7 +111,7 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
 
 ### Input Rules
 
-- The Input Rules are a JSON Schema that defines how the Executor will fetch the inputs when executing the Smart Agreement to produce a SAVED (Smart Agreement Verifiable Execution Doc).
+- The Input Rules are a JSON Schema that defines how the Executor will fetch the inputs when executing the Smart Agreement to produce a RAVE (Smart Agreement Verifiable Execution Doc).
 
 ## Rules for the Output
 
@@ -125,7 +125,7 @@ A Smart Agreement borrows from a specific Agreement Code Template, and adds addi
       {
         "receiver": "receiver_agent_pubkey",
         "amount": ["100", "0"],
-        "source": "source_hash"
+        "sources": ["source_hash"]
       }
     ]
   }

@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "consumed_inputs": {
+      "type": "object",
+      "properties": {
+        "spender_allocations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        },
+        "requestor_allocations_invoice": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
+              "source": { "type": "string" }
+            },
+            "required": ["amount", "source"]
+          }
+        },
+        "receiver": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["spender_allocations", "requestor_allocations_invoice", "receiver"]
+    }
+  },
+  "required": ["consumed_inputs"]
+}

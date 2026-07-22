@@ -36,16 +36,18 @@ for (log, i) in consumed_inputs.logs {
     }
     unyt_allocation.push(#{
       "receiver": l.owner_address,
-      "amount": [total, "0", "0"],
-      "source": allocation.source
+      "amounts": [total, "0", "0"],
+      "sources": [allocation.source]
     });
     total_rec_amount = add_fuel(total_rec_amount, total);
   }
 }
 
 return #{
-  "unyt_allocation": unyt_allocation,
-  "computed_values": #{
-    "total_rec_amount": total_rec_amount
+  "output": #{
+    "unyt_allocation": unyt_allocation,
+    "computed_values": #{
+        "total_rec_amount": total_rec_amount
+     }
   }
 }

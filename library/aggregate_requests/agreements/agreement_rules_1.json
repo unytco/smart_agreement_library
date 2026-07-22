@@ -1,0 +1,40 @@
+{
+  "title": "Example: Collect requests then pay",
+  "input_rules": [
+    {
+      "name": "spender_allocations",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "requestor_allocations_invoice",
+      "instruction": {
+        "ProvidedBy": "requestor"
+      }
+    },
+    {
+      "name": "receiver",
+      "instruction": {
+        "ProvidedBy": "requestor"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "spender",
+      "display_name": "Spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    },
+    {
+      "ct_role_id": "requestor",
+      "display_name": "Requestor",
+      "description": "The requestor role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Public": "hosting" }, { "Public": "example" }],
+  "permissions": { "Default": null }
+}

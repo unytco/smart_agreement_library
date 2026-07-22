@@ -1,17 +1,21 @@
 {
-  "title": "credit check",
+  "title": "Global: credit check",
   "input_rules": [
     {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
+      "name": "credit_limit",
+      "instruction": {
+        "Fixed": {
+          "0": "10000"
+        }
+      }
     },
     {
-      "name": "credit_limit",
-      "instruction": { "Fixed": "10000" }
+      "name": "credit_adjustment_execution",
+      "instruction": { "Custom": "GetCreditAdjustment" }
     }
   ],
   "executor_rules": { "Any": null },
   "roles": [],
-  "one_time_run": false,
-  "aggregate_execution": false
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
 }

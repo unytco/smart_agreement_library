@@ -7,10 +7,10 @@
         "type": "object",
         "properties": {
           "receiver": { "type": "string" },
-          "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-          "source": { "type": "string" }
+          "amounts": { "type": "object", "additionalProperties": { "type": "string" } },
+          "sources": { "type": "array", "items": { "type": "string" } }
         },
-        "required": ["amount", "receiver", "source"]
+        "required": ["amounts", "receiver", "sources"]
       }
     },
     "computed_values": {

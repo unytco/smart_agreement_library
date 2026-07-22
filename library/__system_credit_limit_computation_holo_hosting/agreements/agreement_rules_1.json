@@ -1,0 +1,35 @@
+{
+  "title": "Global: credit check (Holo Hosting)",
+  "input_rules": [
+    {
+      "name": "credit_limit",
+      "instruction": {
+        "Fixed": {
+          "0": "0"
+        }
+      }
+    },
+    {
+      "name": "special_agent",
+      "instruction": {
+        "Fixed": "SHOULD_BE_REPLACED_WITH_SPECIAL_AGENT_PUBKEY"
+      }
+    },
+    {
+      "name": "special_credit_limit",
+      "instruction": {
+        "Fixed": {
+          "0": "9999999"
+        }
+      }
+    },
+    {
+      "name": "credit_adjustment_execution",
+      "instruction": { "Custom": "GetCreditAdjustment" }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
+}
