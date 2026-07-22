@@ -4,7 +4,7 @@
 
 ## Purpose
 
-`library` — a content library of **RAVE** (Recorded Agreement Verifiably Executed) templates (pure template/data, no code of its own): each is a Rhai execution script plus JSON Schemas for inputs, outputs, and agreement-definition form, loaded at runtime by the `rave_engine` crate in the parent [`unyt-sandbox/unyt`](../) app. Nested git submodule of `unyt-sandbox/unyt`.
+`library` — a content library of **Smart Agreement** code templates (pure template/data, no code of its own): each is a Rhai execution script plus JSON Schemas for inputs, outputs, and agreement-definition form, plus `other_options.json`, loaded at runtime by the `rave_engine` crate in the parent [`unyt-sandbox/unyt`](../) app. Executing one produces a **RAVE** (Record of Agreement Verifiably Executed) — the validated record of that execution. Nested git submodule of `unyt-sandbox/unyt`.
 
 ## Stack
 
@@ -31,6 +31,6 @@ n/a (library) — ships as part of the parent `unyt` app.
 ## Repo-specific rules
 
 - **Rhai runs sandboxed.** Only the helper functions registered by `rave_engine` are callable — no arbitrary Rust. Don't author scripts assuming host access.
-- **Outputs are a typed contract.** A RAVE returns `unyt_allocation`, `credit_limit`, and/or `computed_values`; match the `output_signature.json` exactly or `rave_engine` validation rejects it.
+- **Outputs are a typed contract.** A script returns `#{ "output": … }` holding any of `unyt_allocation`, `credit_limit`, `locked`, `carryover`, `computed_values`; match the `output_signature.json` exactly or `rave_engine` validation rejects it. Amounts are unit maps (`{ "<unit index>": "<amount>" }`) of exact strings — never floats.
 - **Each role declares a `parked_link_type`** used by the UI for link creation; keep it in sync with the agreement definition.
 - **Changing a template's output shape is a breaking change for consumers** — coordinate with the parent app and run its sweettests before merging.
