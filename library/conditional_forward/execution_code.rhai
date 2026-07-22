@@ -7,16 +7,19 @@
 /// Summary:
 ///
 
-if !inputs.condition.data {
-  receiver = consumed_inputs.return_address.data;
+let receiver = consumed_inputs.return_address.data;
+if inputs.condition_met.data {
+  receiver = consumed_inputs.receiver.data;
 }
 
 return #{
-  "unyt_allocation": [
-    #{
-      "receiver": consumed_inputs.receiver.data,
-      "amount": consumed_inputs.spender_allocations.data.amount,
-      "source": consumed_inputs.spender_allocations.data.source
-    }
-  ]
-}
+  "output": #{
+    "unyt_allocation": [
+      #{
+        "receiver": receiver,
+        "amounts": consumed_inputs.spender_allocations.data.amount,
+        "sources": [consumed_inputs.spender_allocations.data.source]
+      }
+    ]
+  }
+};

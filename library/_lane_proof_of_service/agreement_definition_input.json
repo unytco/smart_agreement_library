@@ -7,18 +7,12 @@
         {
           "const": {
             "id": "spender",
-            "consumed_link": true
-          }
-        },
-        {
-          "const": {
-            "id": "invoice_gateway",
-            "consumed_link": true
+            "parked_link_type": "ParkedSpendCredit"
           }
         }
       ],
-      "minItems": 2,
-      "maxItems": 2,
+      "minItems": 1,
+      "maxItems": 1,
       "uniqueItems": true
     }
   },

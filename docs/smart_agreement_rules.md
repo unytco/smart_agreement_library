@@ -2,59 +2,55 @@
 
 ## Overview
 
-Currently, Smart Agreement Execution Code is written in Rhai, so you need to follow the [Rhai language](https://rhai.rs/) rules
+Smart Agreement Execution Code is written in Rhai, so it follows the [Rhai language](https://rhai.rs/) rules.
 
-The key to writing Agreement Code Templates and Smart Agreements is understanding the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct. This is the structure of output the SAVED that the Rhai engine is expecting for the code to return.
+The key to writing one is the [RAVEOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/rave/rave_output/struct.RAVEOutput.html) struct — the structure the engine expects your code to return. See [Rules for the Output](#rules-for-the-output).
 
-Read the Rules for the output section to understand how to return the correct output.
+Three terms, often confused:
+
+- **Agreement Code Template** — the reusable logic: execution code plus its input and output schemas. One directory under [`library/`](../library) is one template.
+- **Smart Agreement** — a template plus who may execute it, who fills each role, and where each input comes from. One template backs many Smart Agreements.
+- **RAVE** (Record of Agreement Verifiably Executed) — the record of one execution, which every peer re-runs to validate.
 
 ## Agreement Code Template
 
-An Agreement Code template is a combination of 4 parts:
+A template has 4 parts, plus [Other Options](#other-options) for the remaining [CodeTemplate](https://docs.rs/rave_engine/latest/rave_engine/types/entries/code_template/struct.CodeTemplate.html) fields:
 
 1. The Agreement Definition Input
 2. The Runtime Input Schema
 3. The Execution Code
 4. The Output Schema
 
+[CONTRIBUTING.md](../CONTRIBUTING.md) maps each part to its file.
+
 ### Agreement Definition Input
 
-The `agreement_definition_input` is a JSON schema that defines the inputs required for creating a smart agreement. UIs can use this to dynamically render forms for creating and configuring agreements. The schema should be a JSON object with a `properties` field.
-
-This struct wraps a JSON schema (`serde_json::Value`) that defines the inputs required for a smart agreement.
-It is intended to be used by UIs to dynamically render forms for creating and configuring agreements.
-The schema should be a JSON object with a `properties` field.
-
-The standard defines an initial set of properties, but it can be extended by the UI.
+`agreement_definition_input` is a JSON schema defining the inputs needed to create a Smart Agreement. UIs render it as a form, so it must be a JSON object with a `properties` field. The standard defines an initial set of properties; the UI may extend it.
 
 ### `expected_roles`
 
-An array of objects, where each object defines a role required by the agreement. This is a mandatory property.
-Each role object must have:
+Mandatory. An array of objects, one per role the agreement requires. Each needs:
 
-- `id`: A string identifier for the role.
-- `consumed_link`: A boolean indicating if a link is consumed upon execution for this role.
-
-#### Example:
+- `id` — a string identifier for the role.
+- `parked_link_type` — the link parked on execution for this role, one of [`PossibleParkedLinks`](https://docs.rs/rave_engine/latest/rave_engine/types/entries/code_template/enum.PossibleParkedLinks.html): `"ParkedSpendBalance"`, `"ParkedSpendCredit"`, or `{ "ParkedData": <bool> }` where the boolean says whether the data is consumed.
 
 ```json
- "expected_roles": {
-   "type": "array",
-   "items": [
-     { "const": { "id": "admin", "consumed_link": false } },
-     { "const": { "id": "user", "consumed_link": true } }
-   ]
- }
+"expected_roles": {
+  "type": "array",
+  "items": [
+    { "const": { "id": "admin", "parked_link_type": "ParkedSpendCredit" } },
+    { "const": { "id": "user", "parked_link_type": { "ParkedData": true } } }
+  ]
+}
 ```
+
+#### Naming a role that spends
+
+The UI reads role behaviour from a **substring** of the `id`. An id containing `spender` parks a spend instead of data — so a log harvester that creates a spend link is `log_harvester_spender`, not `log_harvester`. The same matching sorts roles into send actions (`sender`, `spender`, `sender_agent`, `withdrawer`, `oracle`) and collect actions (`receiver`, `payee`, `depositor`, `receiver_agent`). Keep the `id` in step with the `ct_role_id` the Smart Agreement uses.
 
 ### `api_calls` (Optional)
 
-An object that defines external API calls required by the agreement.
-This can be used for services like oracles or timestamping servers.
-Each key represents an API, and its value is a JSON schema for its input (e.g., a URL).
-The UI can use this to prompt the user for URLs or other parameters.
-
-#### Example:
+Defines external API calls the agreement requires — oracles, timestamping servers. Each key is an API; its value is a JSON schema for that API's input. The UI uses this to prompt for URLs or other parameters, and may add properties of its own.
 
 ```json
  "api_calls": {
@@ -75,80 +71,145 @@ The UI can use this to prompt the user for URLs or other parameters.
  }
 ```
 
-The UI can be designed to allow users to add more properties to this schema,
-so the the UI of creating an agreement can use it to help out users autofilling the inputs or certain fields.
-
 ### Runtime Input Schema
 
-The runtime input schema is a JSON Schema that defines the expected inputs into your code.
+A JSON Schema defining the inputs your code expects. Think through how each will be supplied at execution time — the [Instruction](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html) enum lists the ways.
 
-For this, you also should think through how you expect to pass the input when the Smart Agreement is Executed.
-
-Here are the ways you can pass the input to the Smart Agreement [Instructions](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html)
-
-Note: You won't set the particular input sources in the template. Instead, you will have to set these Input Source instructions when creating a Smart Agreement (which will adhere to this Agreement Code Template).
+Note: input sources are not set in the template. They are set as Input Rules when creating a Smart Agreement against it.
 
 ### Execution Code
 
-The code template is the Rhai code that implements the logic of your SAVED. It is the code that, when executed takes the set of inputs, transforms them, and produces a set of outputs.
+The Rhai code that takes the inputs, transforms them, and produces the outputs.
+
+It runs sandboxed: only the [helper functions](https://docs.rs/rave_engine/latest/rave_engine/rhai_engine/rhai_functions/prelude/index.html) the engine registers are callable, and it must be deterministic — every validating peer re-runs it and compares.
 
 ### Output Schema
 
-- The output schema is a JSON Schema that defines the expected structure of outputs resulting from execution of the Execution Code.
-- Look at the [SAVEDOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/saved/saved_output/struct.SAVEDOutput.html) struct to understand the expected output.
+A JSON Schema for the execution's output. It describes the contents of the `output` map your code returns, not the whole return value. See [RAVEOutput](https://docs.rs/rave_engine/latest/rave_engine/types/entries/rave/rave_output/struct.RAVEOutput.html).
+
+### Other Options
+
+`other_options.json` carries the [CodeTemplate](https://docs.rs/rave_engine/latest/rave_engine/types/entries/code_template/struct.CodeTemplate.html) fields the four schemas don't:
+
+- `one_time_run` — when `true`, an agreement using this template executes once only.
+- `aggregate_execution` — when `true`, an input rule returns values from **all** matching parked links; when `false`, only the latest.
+- `tags` (optional, defaults to empty) — the tag filters the template is discoverable under.
+- `permissions` (optional, defaults to `{ "Default": null }`) — the template's permission space.
+
+```json
+{
+  "one_time_run": false,
+  "aggregate_execution": true,
+  "tags": [{ "Public": "lockbox" }],
+  "permissions": { "Default": null }
+}
+```
 
 ## Smart Agreement
 
-A Smart Agreement borrows from a specific Agreement Code Template, and adds additional definitions of Execution Rules, Roles and Input rules.
+A Smart Agreement borrows a template and adds Execution Rules, Roles, and Input Rules.
 
 ### Execution Rules
 
-- For execution rules we have two options
-  - `Any` - this will allow anyone to execute the agreement
-    - you would pass `{ "Any": null }`
-  - `AuthorizedExecutors` - this will require a list of authorized executors to execute the agreement
-    - you would pass `{ "AuthorizedExecutors": ["executor_pubkey_1", "executor_pubkey_2"] }`
+Two options ([`ExecutorRules`](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.ExecutorRules.html)):
+
+- `{ "Any": null }` — anyone may execute.
+- `{ "AuthorizedExecutor": "executor_pubkey" }` — one named agent may execute.
+
+An agreement that **locks funds** must use `AuthorizedExecutor`. The DNA rejects a lock under `Any`, since the lock has to name the agent who can release it.
+
+### Roles
+
+Each role names a `ct_role_id` matching an `id` in the template's `expected_roles`, plus a [`RoleQualification`](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/enum.RoleQualification.html):
+
+- `{ "Any": null }` — anyone.
+- `{ "Authorized": ["agent_pubkey_1", "agent_pubkey_2"] }` — always an array, even for one agent.
 
 ### Input Rules
 
-- The Input Rules are a JSON Schema that defines how the Executor will fetch the inputs when executing the Smart Agreement to produce a SAVED (Smart Agreement Verifiable Execution Doc).
+How the Executor fetches each input. Each entry names an input from the runtime input schema and gives the [Instruction](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html) for where its value comes from:
+
+```json
+{ "name": "spender_allocations", "instruction": { "ProvidedBy": "spender" } }
+```
 
 ## Rules for the Output
 
-### when using Smart Agreements to transfer funds
+### The shape your code returns
 
-- The code template must have an Output Schema that contains a `unyt_allocation` field, This unyt_allocation will be a json object
+A map with the result under `output`, plus two optional link lists:
 
-  ```json
-  {
-    "unyt_allocation": [
-      {
-        "receiver": "receiver_agent_pubkey",
-        "amount": ["100", "0"],
-        "source": "source_hash"
-      }
-    ]
-  }
-  ```
+```rhai
+return #{
+    "output": #{ /* the RAVEOutput fields below */ },
+    "rejected_links": [],  // optional
+    "redacted_links": []   // optional
+};
+```
 
-  - This can be used to transfer funds to multiple agents
+- `rejected_links` — parked links dropped from this execution's inputs; they stay on the chain.
+- `redacted_links` — parked links dropped **and** deleted.
+- Each entry is `#{ "hash": <parked link ActionHash>, "reason": <string> }`. Both fields required.
 
-### When using Smart Agreements to set a credit limit
+Every field inside `output` is optional — return only what your agreement produces:
 
-- The code template must have a Output Schema that contains a `credit_limit` field, This credit_limit will be a json object
+| Field | Type | Purpose |
+| --- | --- | --- |
+| `unyt_allocation` | array of allocations | transfer funds |
+| `credit_limit` | unit map | credit limit authorized for the receiver |
+| `locked` | unit map | funds held back, carried into the next execution |
+| `carryover` | any JSON | data carried into the next execution |
+| `computed_values` | any JSON | anything else the agreement returns |
 
-  ```json
-  {
-    "credit_limit": {
-      "agent": "uhCAk0iWcAxNXcgZ7-URnYkTYOBUrgmwmXdQ7rkAzWsVLJz4bd-pa",
-      "amount": "100"
+**Amounts are unit maps, and they are exact.** A unit map is a JSON object keyed by unit index *as a string*, amount *as a string*: `{ "0": "100.5" }`. Never route an amount through a float — use the fuel helpers (`add_fuel`, `sub_fuel`, `add_units`), and `to_num` only for comparisons. A float round-trip loses precision and the RAVE then fails peer validation.
+
+### Transferring funds
+
+`unyt_allocation` is an array of allocation objects. All three fields are required:
+
+```json
+{
+  "unyt_allocation": [
+    {
+      "receiver": "receiver_agent_pubkey",
+      "amounts": { "0": "100" },
+      "sources": ["source_action_hash"]
     }
-  }
-  ```
+  ]
+}
+```
 
-### When using Smart Agreements to compute values
+- `receiver` — the agent being paid. One object per receiver.
+- `amounts` — a unit map.
+- `sources` — the parked links this allocation draws from. A parked source counts as a conserved input only once an allocation names it.
 
-- for anything else that the Smart Agreement needs to return, the code template must have an output signature that contains a `computed_values` field, This computed_values will be a json object
+To name a source without paying for it (a pure hold), give it empty `amounts` (`{}`), not a zero amount. A zero amount is uncollectable at the ledger and strands a deposit the receiver can never settle.
+
+### Setting a credit limit
+
+`credit_limit` is a unit map — not an object naming an agent. The limit applies to the agreement's receiver:
+
+```json
+{
+  "credit_limit": { "0": "100" }
+}
+```
+
+### Locking funds
+
+`locked` is a unit map of the funds the agreement holds back:
+
+```json
+{
+  "locked": { "0": "42.5" }
+}
+```
+
+Locked funds carry into the next execution of the same agreement, which spends them down or releases them. The agreement must use `AuthorizedExecutor` — see [Execution Rules](#execution-rules).
+
+### Computing values
+
+`computed_values` is a JSON object for anything else the agreement returns:
 
 ```json
 {

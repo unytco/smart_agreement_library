@@ -1,0 +1,34 @@
+{
+  "title": "default lane redemption of units",
+  "input_rules": [
+    {
+      "name": "redemption_price",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "sales_agent_pubkey",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "sales_agent_balance",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "spender_allocations",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "spender",
+      "display_name": "Spender",
+      "description": "The redeeming agent",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Lane": "redemption-of-units" }],
+  "permissions": { "Lane": null }
+}

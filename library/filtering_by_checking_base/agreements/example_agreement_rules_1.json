@@ -1,0 +1,34 @@
+{
+  "title": "filter by checking base",
+  "input_rules": [
+    {
+      "name": "spender_allocations",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "receiver",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "return_address",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "spender",
+      "display_name": "Spender",
+      "description": "The spender role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Public": "conditional" }],
+  "permissions": { "Default": null }
+}

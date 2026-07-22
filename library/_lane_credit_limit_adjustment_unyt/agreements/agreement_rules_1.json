@@ -1,0 +1,34 @@
+{
+  "title": "Lane: credit limit adjustment",
+  "input_rules": [
+    {
+      "name": "proof_of_deposit",
+      "instruction": {
+        "ProvidedBy": "oracle"
+      }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
+    },
+    {
+      "name": "unyt_index",
+      "instruction": {
+        "Fixed": "1"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "oracle",
+      "display_name": "oracle",
+      "description": "The oracle role",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Lane": "credit-adjustment" }],
+  "permissions": { "Lane": null }
+}

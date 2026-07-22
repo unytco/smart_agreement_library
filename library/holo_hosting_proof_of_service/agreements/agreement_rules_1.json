@@ -1,0 +1,66 @@
+{
+  "title": "Holo.Host proof of service (sample)",
+  "input_rules": [
+    {
+      "name": "log_harvester_spender_allocations",
+      "instruction": {
+        "ProvidedBy": "log_harvester_spender"
+      }
+    },
+    {
+      "name": "edge_node_customer_spender_allocations",
+      "instruction": {
+        "ProvidedBy": "edge_node_customer_spender"
+      }
+    },
+    {
+      "name": "invoice_payloads",
+      "instruction": {
+        "ProvidedBy": "log_harvester_spender"
+      }
+    },
+    {
+      "name": "price_sheet_data_blob_hash",
+      "instruction": {
+        "Fixed": "<Placeholder: price_sheet_data_blob_hash>"
+      }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": {
+        "Custom": "GetPreviousExecution"
+      }
+    },
+    {
+      "name": "unlock",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "log_harvester_spender",
+      "display_name": "Log Harvester",
+      "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role needs to be authorized to the log_harvester_pubkey",
+        "Authorized": "<Placeholder: log_harvester_pubkey>"
+      }
+    },
+    {
+      "ct_role_id": "edge_node_customer_spender",
+      "display_name": "EdgeNode Customer",
+      "description": "The agent that funds the agreement and is its executor; pays the hosts for the service they provide",
+      "qualification": { "Any": null },
+      "comment": {
+        "text": "This role is the agreement's executor and must be authorized to the edge_node_customer_pubkey as the sole AuthorizedExecutor (not Any) — the agreement locks its unspent funding, which the DNA rejects under ExecutorRules::Any.",
+        "Authorized": "<Placeholder: edge_node_customer_pubkey>"
+      }
+    }
+  ],
+  "tags": [{ "Public": "holo-hosting" }, { "Public": "example" }],
+  "permissions": { "Default": null }
+}

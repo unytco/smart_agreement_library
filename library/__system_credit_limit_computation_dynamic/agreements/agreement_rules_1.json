@@ -1,19 +1,41 @@
 {
-  "title": "circulo credit check",
+  "title": "Global: credit check (dynamic)",
   "input_rules": [
-    {
-      "name": "claiming_agent_pubkey",
-      "instruction": { "ExecutorProvided": null }
-    },
     {
       "name": "agent_spend_records",
       "instruction": {
         "Query": {
           "MustGetSelfActivity": {
             "chain_top": null,
-            "filters": "ToGenesis",
+            "limit_conditions": "ToGenesis",
             "include_cached_entries": true,
-            "into_record": true
+            "transformer": {
+              "hdk_queries": [
+                {
+                  "sequence_range": "Unbounded",
+                  "entry_type": [
+                    { "App": { "entry_index": 1, "zome_index": 0, "visibility": "Public" } },
+                    { "App": { "entry_index": 2, "zome_index": 0, "visibility": "Public" } }
+                  ],
+                  "action_type": ["Create"],
+                  "entry_hashes": null,
+                  "action_hashes": null,
+                  "include_entries": true,
+                  "order_descending": false
+                },
+                {
+                  "sequence_range": "Unbounded",
+                  "entry_type": null,
+                  "action_type": ["CreateLink"],
+                  "entry_hashes": null,
+                  "action_hashes": null,
+                  "include_entries": true,
+                  "order_descending": false
+                }
+              ],
+              "filter_entry_type": ["Commitment", "Accept", "ParkedSpend"],
+              "return_type": { "Count": null }
+            }
           }
         }
       }
@@ -21,6 +43,6 @@
   ],
   "executor_rules": { "Any": null },
   "roles": [],
-  "one_time_run": false,
-  "aggregate_execution": false
+  "tags": [{ "System": "credit" }],
+  "permissions": { "Global": null }
 }

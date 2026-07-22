@@ -1,0 +1,32 @@
+{
+  "title": "default lane purchase of units",
+  "input_rules": [
+    {
+      "name": "proof_of_deposit_hash",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    },
+    {
+      "name": "service_fee_wallet_address",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "spender_allocations",
+      "instruction": {
+        "ProvidedBy": "spender"
+      }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [
+    {
+      "ct_role_id": "spender",
+      "display_name": "Spender",
+      "description": "The sales agent",
+      "qualification": { "Any": null }
+    }
+  ],
+  "tags": [{ "Lane": "purchase-of-units" }],
+  "permissions": { "Lane": null }
+}
