@@ -14,13 +14,13 @@
       }
     }
   ],
-  "executor_rules": { "Authorized": "executors pub key" },
+  "executor_rules": { "AuthorizedExecutor": "executor_agent_pubkey" },
   "roles": [
     {
       "ct_role_id": "spender",
       "display_name": "Spender",
       "description": "The log harvester",
-      "qualification": { "Authorized": "spender pub key" }
+      "qualification": { "Authorized": ["log_harvester_agent_pubkey"] }
     }
   ],
   "tags": [{ "Public": "ioen" }, { "Public": "hosting" }],
