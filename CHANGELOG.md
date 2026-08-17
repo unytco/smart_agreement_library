@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ioen_rec`: emit `amounts` as a unit map (`#{ "0": total }`), not an array — the array shape does not deserialize into `UnitMap` and contradicted the template's own `output_signature.json`. Its example agreement now uses the real `AuthorizedExecutor` variant and an array-valued `Authorized` qualification.
 - Docs: the output contract had allocations as `amount` arrays and `credit_limit` as an `{ agent, amount }` object; both are unit maps. Executor rules are `AuthorizedExecutor` with one key, not `AuthorizedExecutors` with a list.
 - Docs: dead links — `docs/rave_rules.md` and `unytco/unyt-releases` in `README.md`, the `RAVEOutput` docs.rs path in `CONTRIBUTING.md`.
+- `__system_credit_limit_computation_holo_hosting`: declare `special_agent` and `special_credit_limit` in `runtime_input_signature.json` — the script reads both, but the signature was a copy of the generic template's, which has neither.
 
 ### Changed
 
