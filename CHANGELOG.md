@@ -33,4 +33,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
 - `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
 - `holo_hosting_proof_of_service`: rename the paying role Happ Provider → EdgeNode Customer.
-- `__system_credit_limit_computation_holo_hosting`: narrow the special agent's elevated `special_credit_limit` to the HoloFuel unit only (`{0: 9999999}`), dropping the stale, over-broad second index.
+- `__system_credit_limit_computation_holo_hosting`: narrow the special agent's elevated `special_credit_limit` to the HoloFuel unit only (index `0`), dropping the stale, over-broad second index, and set it to `177619433541.14`.
