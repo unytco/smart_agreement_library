@@ -8,7 +8,7 @@
 ///
 ///
 /// A total amount is passed back as the computed_values
-let total_amount = 0;
+let total_amount = "0";
 let merged_allocations = [];
         
 for a in consumed_inputs.spender_allocations {
@@ -17,7 +17,12 @@ for a in consumed_inputs.spender_allocations {
         "amounts": a.data.amount,
         "sources": [a.data.source]
     });
-    total_amount += parse_float(a.data.amount["0"]);
+    // Fees accrue per unit, so every unit in the allocation counts toward the
+    // total. Summed with exact fuel arithmetic (add_fuel) — an f64 accumulation
+    // drifts on the fractional amounts a percentage produces.
+    for unit_amount in a.data.amount.values() {
+        total_amount = add_fuel(total_amount, unit_amount);
+    }
 }
 
 return #{
