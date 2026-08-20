@@ -1,30 +1,33 @@
-/// Subject: Example of an aggregate receive
-/// 
+/// Subject: Transaction fee collection
+///
 /// Inputs:
-/// allocation: a list of allocations
-/// 
+/// consumed_inputs.spender_allocations: the parked fee spends being swept
+/// inputs.receiver: the fee collector, who receives all of them
+///
 /// Summary:
-/// Here the input expected is a list of allocations attaches the receiver for the fees
-///
-///
-/// A total amount is passed back as the computed_values
-let total_amount = 0;
-let merged_allocations = [];
-        
+/// One allocation to the collector: the amounts of every parked spend summed per
+/// unit, and every one of their sources.
+let amounts = #{};
+let sources = [];
+
 for a in consumed_inputs.spender_allocations {
-    merged_allocations.push(#{
+    amounts = add_units(amounts, a.data.amount);
+    sources.push(a.data.source);
+}
+
+// Nothing parked is nothing to collect, and an allocation of nothing would still
+// be written.
+let unyt_allocation = [];
+if !sources.is_empty() {
+    unyt_allocation.push(#{
         "receiver": inputs.receiver.data,
-        "amounts": a.data.amount,
-        "sources": [a.data.source]
+        "amounts": amounts,
+        "sources": sources
     });
-    total_amount += parse_float(a.data.amount["0"]);
 }
 
 return #{
-  "output": #{
-        "unyt_allocation": merged_allocations,
-        "computed_values": #{
-            "total_amount": total_amount,
-        }
+    "output": #{
+        "unyt_allocation": unyt_allocation
     }
 };

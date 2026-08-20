@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `__system_transaction_fee_collection`: one allocation to the collector, its amounts summed per unit across every parked spend it sweeps and its `sources` naming all of them. It returns no `computed_values`.
 - `ioen_rec`: emit `amounts` as a unit map (`#{ "0": total }`), not an array — the array shape does not deserialize into `UnitMap` and contradicted the template's own `output_signature.json`. Its example agreement now uses the real `AuthorizedExecutor` variant and an array-valued `Authorized` qualification.
 - Docs: the output contract had allocations as `amount` arrays and `credit_limit` as an `{ agent, amount }` object; both are unit maps. Executor rules are `AuthorizedExecutor` with one key, not `AuthorizedExecutors` with a list.
 - Docs: dead links — `docs/rave_rules.md` and `unytco/unyt-releases` in `README.md`, the `RAVEOutput` docs.rs path in `CONTRIBUTING.md`.
