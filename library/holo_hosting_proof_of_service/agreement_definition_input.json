@@ -15,10 +15,16 @@
             "id": "edge_node_customer_spender",
             "parked_link_type": "ParkedSpendCredit"
           }
+        },
+        {
+          "const": {
+            "id": "list_publisher",
+            "parked_link_type": { "ParkedData": true }
+          }
         }
       ],
-      "minItems": 2,
-      "maxItems": 2,
+      "minItems": 3,
+      "maxItems": 3,
       "uniqueItems": true
     }
   },

@@ -13,7 +13,14 @@
         "required": ["receiver", "amounts", "sources"]
       }
     },
-    "locked": { "type": "object", "additionalProperties": { "type": "string" } }
+    "locked": { "type": "object", "additionalProperties": { "type": "string" } },
+    "carryover": {
+      "type": "object",
+      "properties": {
+        "allow_list": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["allow_list"]
+    }
   },
   "required": ["unyt_allocation"]
 }
