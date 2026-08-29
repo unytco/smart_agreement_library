@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "expected_roles": {
+      "type": "array",
+      "items": [
+        {
+          "const": {
+            "id": "spender",
+            "parked_link_type": "ParkedSpendCredit",
+            "description": "Brand or buyer who parks Base Units to fund producer attestation credits"
+          }
+        },
+        {
+          "const": {
+            "id": "executor",
+            "parked_link_type": "ParkedData",
+            "description": "Economy3 Gateway — automated agent that harvests SignedFact logs and executes this agreement"
+          }
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    }
+  },
+  "required": ["expected_roles"],
+  "additionalProperties": false
+}
