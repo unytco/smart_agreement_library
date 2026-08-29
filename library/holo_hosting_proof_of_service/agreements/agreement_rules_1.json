@@ -20,9 +20,27 @@
       }
     },
     {
+      "name": "allow_list_deltas",
+      "instruction": {
+        "ProvidedBy": "list_publisher"
+      }
+    },
+    {
       "name": "price_sheet_data_blob_hash",
       "instruction": {
         "Fixed": "<Placeholder: price_sheet_data_blob_hash>"
+      }
+    },
+    {
+      "name": "funds_owner_pubkey",
+      "instruction": {
+        "Fixed": "<Placeholder: edge_node_customer_pubkey>"
+      }
+    },
+    {
+      "name": "initial_allow_list",
+      "instruction": {
+        "Fixed": []
       }
     },
     {
@@ -36,31 +54,67 @@
       "instruction": {
         "ExecutorProvided": null
       }
+    },
+    {
+      "name": "discard_unpayable",
+      "instruction": {
+        "ExecutorProvided": null
+      }
     }
   ],
-  "executor_rules": { "Any": null },
+  "executor_rules": {
+    "AuthorizedExecutor": "uhCAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ9h_C"
+  },
   "roles": [
     {
       "ct_role_id": "log_harvester_spender",
       "display_name": "Log Harvester",
-      "description": "The agent that will collect the logs from the hosts and create the payment-invoice",
-      "qualification": { "Any": null },
+      "description": "The agent that collects the logs from the hosts, creates the payment-invoice, and canonically executes the settlement",
+      "qualification": {
+        "Authorized": [
+          "uhCAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ9h_C"
+        ]
+      },
       "comment": {
-        "text": "This role needs to be authorized to the log_harvester_pubkey",
-        "Authorized": "<Placeholder: log_harvester_pubkey>"
+        "text": "REPLACE the placeholder with the log harvester's agent key — the one its `init` prints. It is also the sole AuthorizedExecutor below: the agreement locks unspent funding (carry-forward), which the DNA rejects under ExecutorRules::Any."
       }
     },
     {
       "ct_role_id": "edge_node_customer_spender",
       "display_name": "EdgeNode Customer",
-      "description": "The agent that funds the agreement and is its executor; pays the hosts for the service they provide",
-      "qualification": { "Any": null },
+      "description": "The agent that funds the agreement and receives the metering record; pays the hosts for the service they provide",
+      "qualification": {
+        "Authorized": [
+          "uhCAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ9h_C"
+        ]
+      },
       "comment": {
-        "text": "This role is the agreement's executor and must be authorized to the edge_node_customer_pubkey as the sole AuthorizedExecutor (not Any) — the agreement locks its unspent funding, which the DNA rejects under ExecutorRules::Any.",
-        "Authorized": "<Placeholder: edge_node_customer_pubkey>"
+        "text": "REPLACE the placeholder with the EdgeNode Customer's agent key. `funds_owner_pubkey` MUST be that same key: nothing cross-checks the two, and a mismatch redirects unlock and the metering credit while causing every real customer delta to be ignored."
+      }
+    },
+    {
+      "ct_role_id": "list_publisher",
+      "display_name": "Allow-List Publisher",
+      "description": "The customer's role for maintaining the host allow-list: parks consumable data links whose payload carries allow_list_deltas {add, remove}; the standing list carries forward in each RAVE's carryover",
+      "qualification": {
+        "Authorized": [
+          "uhCAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZ9h_C"
+        ]
+      },
+      "comment": {
+        "text": "REPLACE the placeholder with the EdgeNode Customer's agent key — the same one qualified on edge_node_customer_spender and fixed as funds_owner_pubkey. Qualifying this role is what makes the DNA refuse a stranger's allow-list park outright; leaving it as Any lets anyone park deltas, which the script's author gate then ignores but which still consumes the engine's collected-link budget."
       }
     }
   ],
-  "tags": [{ "Public": "holo-hosting" }, { "Public": "example" }],
-  "permissions": { "Default": null }
+  "tags": [
+    {
+      "Public": "holo-hosting"
+    },
+    {
+      "Public": "example"
+    }
+  ],
+  "permissions": {
+    "Default": null
+  }
 }

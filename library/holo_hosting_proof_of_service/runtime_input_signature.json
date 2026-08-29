@@ -9,10 +9,20 @@
           "items": {
             "type": "object",
             "properties": {
-              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-              "source": { "type": "string" }
+              "amount": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "type": "string"
+              }
             },
-            "required": ["amount", "source"]
+            "required": [
+              "amount",
+              "source"
+            ]
           }
         },
         "edge_node_customer_spender_allocations": {
@@ -20,10 +30,20 @@
           "items": {
             "type": "object",
             "properties": {
-              "amount": { "type": "object", "additionalProperties": { "type": "string" } },
-              "source": { "type": "string" }
+              "amount": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "type": "string"
+              }
             },
-            "required": ["amount", "source"]
+            "required": [
+              "amount",
+              "source"
+            ]
           }
         },
         "invoice_payloads": {
@@ -33,37 +53,103 @@
             "items": {
               "type": "object",
               "properties": {
-                "host_pub_key": { "type": "string" },
+                "host_pub_key": {
+                  "type": "string"
+                },
                 "logs": {
                   "type": "array",
                   "items": {
                     "type": "object",
                     "properties": {
-                      "s": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
-                      "g": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
-                      "gt": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
-                      "wt1": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" },
-                      "wt2": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$" }
+                      "s": {
+                        "type": "string",
+                        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+                      },
+                      "g": {
+                        "type": "string",
+                        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+                      },
+                      "wt1": {
+                        "type": "string",
+                        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+                      },
+                      "wt2": {
+                        "type": "string",
+                        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+                      }
                     }
                   }
                 }
               },
-              "required": ["host_pub_key", "logs"]
+              "required": [
+                "host_pub_key",
+                "logs"
+              ]
+            }
+          }
+        },
+        "allow_list_deltas": {
+          "type": "array",
+          "description": "One entry per consumed list_publisher park. Each park's payload is {add: [agent pubkeys], remove: [agent pubkeys]}; both members are optional. Deliberately unconstrained: entries are shape-checked in the script instead, because a schema violation fails validation before the script runs and one malformed park would then deadlock every settlement.",
+          "items": {
+            "properties": {
+              "add": {
+                "description": "agent pubkeys to add to the allow-list"
+              },
+              "remove": {
+                "description": "agent pubkeys to remove from the allow-list"
+              }
             }
           }
         }
       },
-      "required": ["log_harvester_spender_allocations", "edge_node_customer_spender_allocations", "invoice_payloads"]
+      "required": [
+        "log_harvester_spender_allocations",
+        "edge_node_customer_spender_allocations",
+        "invoice_payloads",
+        "allow_list_deltas"
+      ]
     },
     "inputs": {
       "type": "object",
       "properties": {
-        "previous_execution": { "type": ["object", "null"] },
-        "price_sheet_data_blob_hash": { "type": "string" },
-        "unlock": { "type": "boolean" }
+        "previous_execution": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "price_sheet_data_blob_hash": {
+          "type": "string"
+        },
+        "funds_owner_pubkey": {
+          "type": "string",
+          "pattern": "^uhCAk[A-Za-z0-9_-]{48}$"
+        },
+        "initial_allow_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^uhCAk[A-Za-z0-9_-]{48}$"
+          },
+          "uniqueItems": true
+        },
+        "unlock": {
+          "type": "boolean"
+        },
+        "discard_unpayable": {
+          "type": "boolean"
+        }
       },
-      "required": ["price_sheet_data_blob_hash"]
+      "required": [
+        "price_sheet_data_blob_hash",
+        "funds_owner_pubkey",
+        "initial_allow_list"
+      ]
     }
   },
-  "required": ["consumed_inputs", "inputs"]
+  "required": [
+    "consumed_inputs",
+    "inputs"
+  ]
 }
