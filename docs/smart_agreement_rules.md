@@ -125,6 +125,8 @@ Each role names a `ct_role_id` matching an `id` in the template's `expected_role
 - `{ "Any": null }` — anyone.
 - `{ "Authorized": ["agent_pubkey_1", "agent_pubkey_2"] }` — always an array, even for one agent.
 
+`{ "Authorized": [] }` admits nobody. The credit limit adjustment templates ship their `oracle` this way because its deposit proofs raise credit, so whoever publishes the agreement names the oracle.
+
 ### Input Rules
 
 How the Executor fetches each input. Each entry names an input from the runtime input schema and gives the [Instruction](https://docs.rs/rave_engine/latest/rave_engine/types/entries/smart_agreement/rules/enum.Instruction.html) for where its value comes from:
