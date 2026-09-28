@@ -126,6 +126,7 @@ Each role names a `ct_role_id` matching an `id` in the template's `expected_role
 - `{ "Authorized": ["agent_pubkey_1", "agent_pubkey_2"] }` — always an array, even for one agent.
 
 `{ "Authorized": [] }` admits nobody. The credit limit adjustment templates ship their `oracle` this way because its deposit proofs raise credit, so whoever publishes the agreement names the oracle.
+The bridging templates ship their `bridging_agent` this way because the bridge takes every deposit proof that role parks as a chain deposit.
 
 ### Input Rules
 
