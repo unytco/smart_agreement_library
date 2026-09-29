@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `holo_hosting_proof_of_service`: gossip is credited to unit `2` and storage to unit `3`.
 - Docs: documented the previously undocumented — the `#{ "output": … }` return shape with `rejected_links` / `redacted_links`, the `locked` and `carryover` outputs, `other_options.json`, which template files are required, and the `spender` role-naming rule (folded in from `docs/rough_rules.md`, now removed).
 
 ### Added

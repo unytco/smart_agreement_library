@@ -21,8 +21,8 @@
 /// Prices each host's logged work against the Fixed price sheet and settles it from
 /// the customer's base-unit credit. The metered dimensions are pinned to FIXED unit
 /// indices — the lane's service units and the price-sheet rate keys line up:
-///   "0" base payment (HoloFuel — the network's base fuel unit) · "2" storage
-///   · "3" gossip · "4" gets · "5" wt1 · "6" wt2 (the WindTunnel placeholders)
+///   "0" base payment (HoloFuel — the network's base fuel unit) · "2" gossip
+///   · "3" storage · "4" gets · "5" wt1 · "6" wt2 (the WindTunnel placeholders)
 /// Index "1" is a lane-specific unit (HOT on the live Holo Hosting lane) that this
 /// agreement does not touch. Every dimension is independent and optional: a log
 /// count or price-sheet rate that is absent counts as 0, so one code path settles
@@ -34,8 +34,8 @@ let BASE = "0"; // base fuel unit (HoloFuel) that funds host payment
 // Per dimension: the executor unit index it credits, the price-sheet rate key,
 // and the invoice log-count key.
 let dims = [
-    #{ unit: "2", rate: "base_per_st",  count: "s"   },
-    #{ unit: "3", rate: "base_per_gsp", count: "g"   },
+    #{ unit: "2", rate: "base_per_gsp", count: "g"   },
+    #{ unit: "3", rate: "base_per_st",  count: "s"   },
     #{ unit: "4", rate: "base_per_get", count: "gt"  },
     #{ unit: "5", rate: "base_per_wt1", count: "wt1" },
     #{ unit: "6", rate: "base_per_wt2", count: "wt2" },
