@@ -9,14 +9,14 @@
           "items": {
             "type": "array",
             "items": {
+              "type": "object",
               "properties": {
-                "method_fn": { "type": "string" },
-                "name": { "type": "string" },
+                "method": { "type": "string" },
                 "contract_address": { "type": "string" },
                 "amount": { "type": "string" },
                 "depositor_wallet_address": { "type": "string" }
               },
-              "required": ["method_fn", "name", "contract_address", "amount", "depositor_wallet_address"]
+              "required": ["method", "contract_address", "amount", "depositor_wallet_address"]
             }
           }
         }
