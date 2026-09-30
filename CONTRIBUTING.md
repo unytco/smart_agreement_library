@@ -80,6 +80,8 @@ A JSON Schema for the inputs your code expects:
 }
 ```
 
+In both signatures, a node holding `properties`, `required`, `items`, `minItems`, `maxItems`, `uniqueItems`, `minLength`, `maxLength`, `pattern`, `minimum`, `maximum` or `multipleOf` names its `type`. A template with one that does not is refused when it is published.
+
 ### output_signature.json Requirements
 
 A JSON Schema for the output. Amounts are unit maps — an object keyed by unit index with string amounts — not arrays or numbers:
@@ -113,6 +115,8 @@ A JSON Schema for the output. Amounts are unit maps — an object keyed by unit 
   "required": ["unyt_allocation"]
 }
 ```
+
+A run's `computed_values` are checked against the `computed_values` node under `properties`, so that node names one type and, as an object, lists its `properties`.
 
 ### other_options.json Requirements
 
