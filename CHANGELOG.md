@@ -16,10 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ioen_rec`: emit `amounts` as a unit map (`#{ "0": total }`), not an array — the array shape does not deserialize into `UnitMap` and contradicted the template's own `output_signature.json`. Its example agreement now uses the real `AuthorizedExecutor` variant and an array-valued `Authorized` qualification.
 - Docs: the output contract had allocations as `amount` arrays and `credit_limit` as an `{ agent, amount }` object; both are unit maps. Executor rules are `AuthorizedExecutor` with one key, not `AuthorizedExecutors` with a list.
 - Docs: dead links — `docs/rave_rules.md` and `unytco/unyt-releases` in `README.md`, the `RAVEOutput` docs.rs path in `CONTRIBUTING.md`.
-- `__system_credit_limit_computation_holo_hosting`: declare `special_agent` and `special_credit_limit` in `runtime_input_signature.json` — the script reads both, but the signature was a copy of the generic template's, which has neither.
+- `__system_credit_limit_computation_holofuel`: declare `special_agent` and `special_credit_limit` in `runtime_input_signature.json` — the script reads both, but the signature was a copy of the generic template's, which has neither.
 
 ### Changed
 
+- `__system_credit_limit_computation_holo_hosting` is now `__system_credit_limit_computation_holofuel`, and its agreement is titled "Global: credit check (Holofuel)".
 - `holo_hosting_proof_of_service`: gossip is credited to unit `2` and storage to unit `3`.
 - Docs: documented the previously undocumented — the `#{ "output": … }` return shape with `rejected_links` / `redacted_links`, the `locked` and `carryover` outputs, `other_options.json`, which template files are required, and the `spender` role-naming rule (folded in from `docs/rough_rules.md`, now removed).
 
@@ -39,4 +40,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
 - `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
 - `holo_hosting_proof_of_service`: rename the paying role Happ Provider → EdgeNode Customer.
-- `__system_credit_limit_computation_holo_hosting`: narrow the special agent's elevated `special_credit_limit` to the HoloFuel unit only (index `0`), dropping the stale, over-broad second index, and set it to `177619433541.14`.
+- `__system_credit_limit_computation_holofuel`: narrow the special agent's elevated `special_credit_limit` to the HoloFuel unit only (index `0`), dropping the stale, over-broad second index, and set it to `177619433541.14`.
