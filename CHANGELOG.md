@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `__system_credit_limit_computation_holo_hosting` is `__system_credit_limit_computation_holofuel`, its agreement titled "Global: credit check (Holofuel)".
 - `holo_hosting_proof_of_service`: gossip is credited to unit `2` and storage to unit `3`.
 - Docs: documented the previously undocumented — the `#{ "output": … }` return shape with `rejected_links` / `redacted_links`, the `locked` and `carryover` outputs, `other_options.json`, which template files are required, and the `spender` role-naming rule (folded in from `docs/rough_rules.md`, now removed).
 
