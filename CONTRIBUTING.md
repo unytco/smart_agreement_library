@@ -80,7 +80,7 @@ A JSON Schema for the inputs your code expects:
 }
 ```
 
-In both signatures, every schema node is an object that names its `type`, and uses only the keywords the DNA checks: `type`, `properties`, `required`, `additionalProperties`, `items`, `minItems`, `maxItems`, `uniqueItems`, `minLength`, `maxLength`, `pattern`, `minimum`, `maximum`, `multipleOf`, `enum` (at most 256 values), `const` and `anyOf` (at most 8 schemas), plus the annotations `title`, `description` and `$comment`. Each keyword sits on a type that reads it, for example `minItems` on an `array`, and holds a value of the right shape. A template that breaks any of these is refused when it is published.
+In both signatures, every schema node is an object that uses only the keywords the DNA checks: `type`, `properties`, `required`, `additionalProperties`, `items`, `minItems`, `maxItems`, `uniqueItems`, `minLength`, `maxLength`, `pattern`, `minimum`, `maximum`, `multipleOf`, `enum` (at most 256 values), `const` and `anyOf` (at most 8 schemas), plus the annotations `title`, `description` and `$comment`. A node holding a keyword that depends on its type names that `type`, and the type reads the keyword, for example `minItems` on an `array`. `enum`, `const` and `anyOf` check a value of any type, so a node holding only those may leave out `type`. Every keyword holds a value of the right shape. A template that breaks any of these is refused when it is published.
 
 ### output_signature.json Requirements
 
