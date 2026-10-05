@@ -48,6 +48,12 @@
       "instruction": {
         "Fixed": "2"
       }
+    },
+    {
+      "name": "lock_vault_address",
+      "instruction": {
+        "Fixed": "SHOULD_BE_REPLACED_WITH_LOCK_VAULT_ADDRESS"
+      }
     }
   ],
   "executor_rules": { "Any": null },

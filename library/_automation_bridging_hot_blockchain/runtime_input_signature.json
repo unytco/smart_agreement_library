@@ -61,9 +61,10 @@
       "properties": {
         "previous_execution": { "type": ["object", "null"] },
         "coupons": { "type": "object", "additionalProperties": { "type": "string" } },
-        "cool_down_period": { "type": "string" }
+        "cool_down_period": { "type": "string" },
+        "lock_vault_address": { "type": "string" }
       },
-      "required": ["coupons"]
+      "required": ["coupons", "lock_vault_address"]
     }
   },
   "required": ["consumed_inputs", "inputs"]

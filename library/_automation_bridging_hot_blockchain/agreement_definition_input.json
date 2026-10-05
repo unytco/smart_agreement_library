@@ -26,26 +26,26 @@
       "properties": {
         "transfer_out": {
           "type": "blockchain_bridging",
-          "description": "This is used to transfer Mirror HOT into the Sepolia Blockchain (Eth TestNet)",
-          "network_name": "Sepolia Blockchain (Eth TestNet)",
+          "description": "SHOULD_BE_REPLACED_WITH_TRANSFER_OUT_DESCRIPTION",
+          "network_name": "SHOULD_BE_REPLACED_WITH_ETH_NETWORK_NAME",
           "ct_role_id": "withdrawer",
-          "contract_address": "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6",
+          "contract_address": "SHOULD_BE_REPLACED_WITH_LOCK_VAULT_ADDRESS",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
             "index": 1,
-            "name": "Mock Hot Token",
+            "name": "SHOULD_BE_REPLACED_WITH_BRIDGING_UNIT_NAME",
             "symbol": "HOT"
           }
         },
         "transfer_in": {
           "type": "blockchain_bridging",
-          "description": "This is used to request HOT from the Sepolia Blockchain (Eth TestNet)",
-          "network_name": "Sepolia Blockchain (Eth TestNet)",
-          "source_bridging_link": "https://hot-bridge.unyt.dev/lock",
+          "description": "SHOULD_BE_REPLACED_WITH_TRANSFER_IN_DESCRIPTION",
+          "network_name": "SHOULD_BE_REPLACED_WITH_ETH_NETWORK_NAME",
+          "source_bridging_link": "SHOULD_BE_REPLACED_WITH_LOCK_PAGE_URL",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
             "index": 1,
-            "name": "Mock Hot Token",
+            "name": "SHOULD_BE_REPLACED_WITH_BRIDGING_UNIT_NAME",
             "symbol": "HOT"
           }
         }

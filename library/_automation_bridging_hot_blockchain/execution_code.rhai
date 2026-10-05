@@ -1,16 +1,10 @@
 let unyt_index = "1";
-let state = #{
-    "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6": "0",
-    "0xeth_mainnet": "0",
-    "0xpolygon_mainnet": "0"
-};
-// Function definitions first
+let state = #{};
+state[inputs.lock_vault_address.data] = "0";
 fn deposit_logic(consumed_inputs, state, unyt_index) {
     let unyt_allocation = [];
-    // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
         for pod in pod_link.data {
-            // find the contract this is going to touch
             let contract_address = pod.contract_address;
             let amount = state[contract_address];
             if pod.method == "deposit" {
