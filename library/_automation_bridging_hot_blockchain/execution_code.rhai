@@ -1,6 +1,7 @@
 let unyt_index = "1";
+let lock_vault = inputs.lock_vault_address.data;
 let state = #{};
-state[inputs.lock_vault_address.data] = "0";
+state[lock_vault] = "0";
 fn deposit_logic(consumed_inputs, state, unyt_index) {
     let unyt_allocation = [];
     for pod_link in consumed_inputs.proof_of_deposit {
@@ -99,6 +100,9 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
 
 if type_of(inputs.previous_execution.data) == "map" {
     state = inputs.previous_execution.data.output.carryover;
+    if !(lock_vault in state) {
+        throw "The carried state holds no balance for the configured lock vault " + lock_vault;
+    }
 }
 
 let deposit_result = deposit_logic(consumed_inputs, state, unyt_index);

@@ -62,7 +62,7 @@
         "previous_execution": { "type": ["object", "null"] },
         "coupons": { "type": "object", "additionalProperties": { "type": "string" } },
         "cool_down_period": { "type": "string" },
-        "lock_vault_address": { "type": "string" }
+        "lock_vault_address": { "type": "string", "pattern": "^0x[0-9a-f]{40}$" }
       },
       "required": ["coupons", "lock_vault_address"]
     }
