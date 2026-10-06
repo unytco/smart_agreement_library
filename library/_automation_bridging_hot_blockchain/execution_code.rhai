@@ -1,16 +1,11 @@
 let unyt_index = "1";
-let state = #{
-    "0xe3e064e3c2eef66cb93da8d8114f5084e92f48d6": "0",
-    "0xeth_mainnet": "0",
-    "0xpolygon_mainnet": "0"
-};
-// Function definitions first
+let lock_vault = inputs.lock_vault_address.data;
+let state = #{};
+state[lock_vault] = "0";
 fn deposit_logic(consumed_inputs, state, unyt_index) {
     let unyt_allocation = [];
-    // use the output of this agreement to update it based on the input
     for pod_link in consumed_inputs.proof_of_deposit {
         for pod in pod_link.data {
-            // find the contract this is going to touch
             let contract_address = pod.contract_address;
             let amount = state[contract_address];
             if pod.method == "deposit" {
@@ -48,52 +43,32 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             });
             continue;
         }
-        // if  check_cool_down_period(
-        //     allocation.link_hash,
-        //     ea_id,
-        //     executed_timestamp,
-        //     cool_down_period, // in seconds
-        //     unyt_index,
-        // ) {
-            let found_contract_address = false;
-            let contract_address;
-            for addresses in consumed_inputs.withdraw_contract_address {
-                if addresses.link_hash == allocation.link_hash {
-                    found_contract_address = true;
-                    contract_address = addresses.data;
-                    break;
-                }
+        let found_contract_address = false;
+        let contract_address;
+        for addresses in consumed_inputs.withdraw_contract_address {
+            if addresses.link_hash == allocation.link_hash {
+                found_contract_address = true;
+                contract_address = addresses.data;
+                break;
             }
-            let amount = state[contract_address];
-            if type_of(amount) == "string" {
-                let spent_amount = allocation.data.amount;
-                amount = sub_fuel(amount, spent_amount[unyt_index]);
-                // if is_greater_than_eq(amount, "0") {
-                    state[contract_address] = amount;
-                    unyt_allocation.push(#{
-                        "receiver": executor_pub_key,
-                        "amounts": spent_amount,
-                        "sources": [allocation.link_hash]
-                    });
-                    processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
-                // } else {
-                //     rejected_links.push(#{
-                //         "hash": allocation.link_hash,
-                //         "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
-                //     });
-                // }
-            } else {
-                rejected_links.push(#{
-                    "hash": allocation.link_hash,
-                    "reason": "Failed to withdraw: contract_address does not have any balance"
-                });
-            }
-        // } else {
-        //     rejected_links.push(#{
-        //         "hash": allocation.link_hash,
-        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period of " + cool_down_period + " seconds, " 
-        //     });           
-        // }
+        }
+        let amount = state[contract_address];
+        if type_of(amount) == "string" {
+            let spent_amount = allocation.data.amount;
+            amount = sub_fuel(amount, spent_amount[unyt_index]);
+            state[contract_address] = amount;
+            unyt_allocation.push(#{
+                "receiver": executor_pub_key,
+                "amounts": spent_amount,
+                "sources": [allocation.link_hash]
+            });
+            processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
+        } else {
+            rejected_links.push(#{
+                "hash": allocation.link_hash,
+                "reason": "Failed to withdraw: contract_address does not have any balance"
+            });
+        }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
@@ -105,6 +80,9 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
 
 if type_of(inputs.previous_execution.data) == "map" {
     state = inputs.previous_execution.data.output.carryover;
+    if !(lock_vault in state) {
+        throw "The carried state holds no balance for the configured lock vault " + lock_vault;
+    }
 }
 
 let deposit_result = deposit_logic(consumed_inputs, state, unyt_index);
