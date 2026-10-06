@@ -43,52 +43,32 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             });
             continue;
         }
-        // if  check_cool_down_period(
-        //     allocation.link_hash,
-        //     ea_id,
-        //     executed_timestamp,
-        //     cool_down_period, // in seconds
-        //     unyt_index,
-        // ) {
-            let found_contract_address = false;
-            let contract_address;
-            for addresses in consumed_inputs.withdraw_contract_address {
-                if addresses.link_hash == allocation.link_hash {
-                    found_contract_address = true;
-                    contract_address = addresses.data;
-                    break;
-                }
+        let found_contract_address = false;
+        let contract_address;
+        for addresses in consumed_inputs.withdraw_contract_address {
+            if addresses.link_hash == allocation.link_hash {
+                found_contract_address = true;
+                contract_address = addresses.data;
+                break;
             }
-            let amount = state[contract_address];
-            if type_of(amount) == "string" {
-                let spent_amount = allocation.data.amount;
-                amount = sub_fuel(amount, spent_amount[unyt_index]);
-                // if is_greater_than_eq(amount, "0") {
-                    state[contract_address] = amount;
-                    unyt_allocation.push(#{
-                        "receiver": executor_pub_key,
-                        "amounts": spent_amount,
-                        "sources": [allocation.link_hash]
-                    });
-                    processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
-                // } else {
-                //     rejected_links.push(#{
-                //         "hash": allocation.link_hash,
-                //         "reason": "Failed to withdraw: the contract needs to hold a balance for the expected amount"
-                //     });
-                // }
-            } else {
-                rejected_links.push(#{
-                    "hash": allocation.link_hash,
-                    "reason": "Failed to withdraw: contract_address does not have any balance"
-                });
-            }
-        // } else {
-        //     rejected_links.push(#{
-        //         "hash": allocation.link_hash,
-        //         "reason": "Failed to withdraw: the users needs to hold a balance for the unyt for the cool down period of " + cool_down_period + " seconds, " 
-        //     });           
-        // }
+        }
+        let amount = state[contract_address];
+        if type_of(amount) == "string" {
+            let spent_amount = allocation.data.amount;
+            amount = sub_fuel(amount, spent_amount[unyt_index]);
+            state[contract_address] = amount;
+            unyt_allocation.push(#{
+                "receiver": executor_pub_key,
+                "amounts": spent_amount,
+                "sources": [allocation.link_hash]
+            });
+            processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
+        } else {
+            rejected_links.push(#{
+                "hash": allocation.link_hash,
+                "reason": "Failed to withdraw: contract_address does not have any balance"
+            });
+        }
     }
     return #{
         "unyt_allocation": unyt_allocation, 
