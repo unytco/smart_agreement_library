@@ -32,7 +32,7 @@
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 0",
             "index": 0,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         },
@@ -46,7 +46,7 @@
           "bridging_unit": {
             "description": "Since the units are from the infrastructure network, the index is 1 where hf is at index 0",
             "index": 1,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         }

@@ -30,7 +30,7 @@
           "contract_address": "0xyolofuel_testnet",
           "bridging_unit": {
             "index": 0,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         },
