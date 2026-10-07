@@ -22,8 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: each takes its one lock vault from the Fixed input `lock_vault_address`, and their network values ship as placeholders.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: a vault that is not a lower case address, or that the carried state does not hold, stops the run.
-- `__system_credit_limit_computation_holo_hosting` is now `__system_credit_limit_computation_holofuel`, and its agreement is titled "Global: credit check (Holofuel)".
+- `__system_credit_limit_computation_holo_hosting` is now `__system_credit_limit_computation_holofuel`, and its agreement is titled "Global: credit check (HoloFuel)".
 - `holo_hosting_proof_of_service`: gossip is credited to unit `2` and storage to unit `3`.
+- The bridging and credit limit adjustment definitions name the unit HoloFuel and the network HoloFuel Network.
 - Docs: documented the previously undocumented — the `#{ "output": … }` return shape with `rejected_links` / `redacted_links`, the `locked` and `carryover` outputs, `other_options.json`, which template files are required, and the `spender` role-naming rule (folded in from `docs/rough_rules.md`, now removed).
 
 ### Added

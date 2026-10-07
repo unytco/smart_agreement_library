@@ -26,19 +26,19 @@
       "properties": {
         "transfer_out": {
           "description": "This is used to transfer hf from the infrastructure network to the holofuel network",
-          "network_name": "Holofuel Network",
+          "network_name": "HoloFuel Network",
           "ct_role_id": "withdrawer",
           "contract_address": "0xholofuel_testnet",
           "bridging_unit": {
             "description": "Since the units are from this network, the index is 1",
             "index": 1,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         },
         "transfer_in": {
           "description": "This is used to request hf from the holofuel network to the infrastructure network",
-          "network_name": "Holofuel Network",
+          "network_name": "HoloFuel Network",
           "ct_role_id": "withdrawer",
           "contract_address": "0xholofuel_testnet",
           "source_bridging_agent": "0xhf_bridgeing_agent",
@@ -46,7 +46,7 @@
           "bridging_unit": {
             "description": "Since the units are from the holofuel network, the index is 0 where hf is at index 0",
             "index": 0,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         }

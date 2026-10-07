@@ -25,7 +25,7 @@
       "type": "object",
       "properties": {
         "transfer_out": {
-          "network_name": "Holofuel Network",
+          "network_name": "HoloFuel Network",
           "ct_role_id": "withdrawer",
           "contract_address": "0xholofuel_testnet",
           "bridging_unit": {
@@ -35,14 +35,14 @@
           }
         },
         "transfer_in": {
-          "network_name": "Holofuel Network",
+          "network_name": "HoloFuel Network",
           "ct_role_id": "withdrawer",
           "contract_address": "0xyolofuel_testnet",
           "source_bridging_agent": "0xhf_bridgeing_agent",
           "source_dna_hash": "0xhf_network_id",
           "bridging_unit": {
             "index": 0,
-            "name": "Holofuel",
+            "name": "HoloFuel",
             "symbol": "HF"
           }
         }
