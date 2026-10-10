@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "carryover": {
+      "type": "object",
+      "properties": {
+        "recovered": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "required": ["recovered"]
+    },
+    "computed_values": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string" },
+        "victim": { "type": "string" },
+        "recovered": { "type": "object", "additionalProperties": { "type": "string" } },
+        "counterparty": { "type": "string" },
+        "commitment": { "type": "string" },
+        "close": { "type": "string" }
+      },
+      "required": ["method", "victim", "recovered"]
+    }
+  },
+  "required": ["credit_limit"]
+}

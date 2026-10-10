@@ -1,0 +1,21 @@
+{
+  "title": "Global: unit recovery",
+  "input_rules": [
+    {
+      "name": "call_method",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "evidence",
+      "instruction": { "ExecutorProvided": null }
+    },
+    {
+      "name": "previous_execution",
+      "instruction": { "Custom": "GetPreviousExecution" }
+    }
+  ],
+  "executor_rules": { "Any": null },
+  "roles": [],
+  "tags": [{ "System": "recovery" }],
+  "permissions": { "Global": null }
+}
