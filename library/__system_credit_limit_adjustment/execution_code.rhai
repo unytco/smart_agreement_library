@@ -17,7 +17,7 @@ for pod in consumed_inputs.proof_of_deposit {
             amount = sub_fuel(amount, new_amount);
         } 
         else {
-            error("Invalid method");
+            throw "Invalid method: " + proof.method;
         }
     }
 }
