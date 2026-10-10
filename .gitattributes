@@ -1,0 +1,2 @@
+# The app embeds a shipped script byte for byte, and its DNA hash with it.
+*.rhai text eol=lf
