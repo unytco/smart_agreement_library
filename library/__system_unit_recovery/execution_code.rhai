@@ -20,8 +20,7 @@
 /// proves dead. `stranded_commitment` proves a commitment dead when its
 /// counterparty closed their chain without accepting or rejecting it, the close
 /// directly after their closing summary. `not_an_agent_key` proves it dead when
-/// no private key matches its counterparty: by an action whose hash core, or
-/// whose public app entry's hash core, is the counterparty's, or because the
+/// no private key matches its counterparty: by `record`, or because the
 /// counterparty is no point of Ed25519's curve.
 /// A run recovers what the commitment debited, not its fee, which the fee
 /// collector already took. A commitment is recovered once, by either method.
