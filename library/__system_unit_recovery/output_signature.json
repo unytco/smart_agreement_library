@@ -20,7 +20,8 @@
         "recovered": { "type": "object", "additionalProperties": { "type": "string" } },
         "counterparty": { "type": "string" },
         "commitment": { "type": "string" },
-        "close": { "type": "string" }
+        "close": { "type": "string" },
+        "record": { "type": "string" }
       },
       "required": ["method", "victim", "recovered"]
     }
