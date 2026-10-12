@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "call_method": { "type": "string" },
+        "evidence": { "type": "object", "additionalProperties": { "type": "string" } },
+        "previous_execution": { "type": ["object", "null"] }
+      },
+      "required": ["call_method", "evidence"]
+    }
+  },
+  "required": ["inputs"]
+}

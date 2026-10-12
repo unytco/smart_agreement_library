@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a deposit proof whose method is neither `deposit` nor `withdraw` stops the run with "Invalid method", naming it.
 - `_lane_bridging_*`, `_automation_bridging_*` and both credit limit adjustments: a deposit proof missing `method`, `contract_address`, `amount` or `depositor_wallet_address`, or holding one that is not a string, is refused.
 - `_lane_credit_limit_adjustment_unyt` and `__system_credit_limit_adjustment`: the `oracle` role admits nobody until the agreement's publisher authorizes one.
 - `_lane_bridging_*` and `_automation_bridging_*`: the `bridging_agent` role admits nobody until the agreement's publisher authorizes one.
@@ -29,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `__system_unit_recovery`: the network's recovery agent raises its own credit limit by what a stranded commitment debited, once per commitment, and names the victim to pay.
+- `__system_unit_recovery`: a second method, `not_an_agent_key`, recovers a commitment to a counterparty no private key matches.
 - `lockbox`: a minimal AuthorizedExecutor agreement that holds conserved base-unit funds — parks and locks the remainder, carries the lock forward, spends it down, and unlocks it back to the creator. The proving ground for the locked-funds primitive.
 
 ### Changed
