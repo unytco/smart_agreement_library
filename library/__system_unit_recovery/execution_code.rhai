@@ -21,10 +21,10 @@
 /// `not_an_agent_key` proves it dead when no private key matches its
 /// counterparty: by `record`, or because the counterparty is no point of
 /// Ed25519's curve. A run recovers what the commitment debited, not the fee the
-/// fee collector already took, and each commitment once, by either method. The
-/// 1 unit minimum keeps dust out of the recovered set. `credit_limit` is the
-/// running total, `carryover.recovered` the recovered hashes, and
-/// `computed_values` the victim and what customer service pays them.
+/// fee collector already took, and each commitment once per agreement, by either
+/// method. The 1 unit minimum keeps dust out of the recovered set.
+/// `credit_limit` is the running total, `carryover.recovered` the recovered
+/// hashes, and `computed_values` the victim and what customer service pays them.
 /// The engine holds at most 2048 map entries, so name a new recovery agent, with
 /// its own agreement, before about 1000 recoveries. A new agreement starts with
 /// none of the old one's credit.
