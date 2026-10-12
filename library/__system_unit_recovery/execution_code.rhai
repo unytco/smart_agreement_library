@@ -1,31 +1,29 @@
 /// Subject: Global unit recovery
 ///
-/// Executor: `unyt_cli progenitor global set-recovery` binds it to the
-/// network's recovery agent as it publishes the agreement. The template ships
-/// `Any`, and the global definition refuses any other executor.
+/// Executor: the template ships `Any`. `unyt_cli progenitor global
+/// set-recovery` binds it to the network's recovery agent, and the global
+/// definition refuses any other executor.
 ///
 /// Inputs:
-/// inputs.call_method: the method to run, `stranded_commitment` or
-/// `not_an_agent_key`.
-/// inputs.evidence: the hashes the method reads, by name. Both read
-/// `commitment`, the victim's Commitment. `stranded_commitment` also reads
-/// `close`, its counterparty's CloseChain. `not_an_agent_key` also reads
-/// `record`, if given, an action whose hash core, or whose public app entry's
-/// hash core, is the counterparty's 32 bytes.
+/// inputs.call_method: `stranded_commitment` or `not_an_agent_key`.
+/// inputs.evidence: hashes by name. Both methods read `commitment`, the
+/// victim's Commitment. `stranded_commitment` also reads `close`, the
+/// counterparty's CloseChain. `not_an_agent_key` also reads an optional
+/// `record`, an action whose hash core, or whose public app entry's hash core,
+/// is the counterparty's 32 bytes.
 /// inputs.previous_execution: this agreement's latest run on the executor's
 /// chain, or null before the first.
 ///
 /// Summary:
-/// The network's recovery agent raises its own credit limit by units a run
-/// proves dead. `stranded_commitment` proves a commitment dead when its
-/// counterparty closed their chain without accepting or rejecting it, the close
-/// directly after their closing summary. `not_an_agent_key` proves it dead when
-/// no private key matches its counterparty: by `record`, or because the
-/// counterparty is no point of Ed25519's curve.
-/// A run recovers what the commitment debited, not its fee, which the fee
-/// collector already took. A commitment is recovered once, by either method.
-/// The 1 unit minimum keeps dust out of the recovered set, and the 1024 cap
-/// bounds what each run carries. `credit_limit` is the running total,
+/// The recovery agent raises its own credit limit by units a run proves dead.
+/// `stranded_commitment` proves a commitment dead when its counterparty closed
+/// their chain, directly after their closing summary, without answering it.
+/// `not_an_agent_key` proves it dead when no private key matches its
+/// counterparty: by `record`, or because the counterparty is no point of
+/// Ed25519's curve. A run recovers what the commitment debited, not the fee the
+/// fee collector already took, and each commitment once, by either method. The
+/// 1 unit minimum keeps dust out of the recovered set, and the 1024 cap bounds
+/// what a run carries. `credit_limit` is the running total,
 /// `carryover.recovered` the recovered hashes, and `computed_values` the victim
 /// and what customer service pays them.
 
