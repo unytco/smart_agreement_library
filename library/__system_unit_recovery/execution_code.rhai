@@ -1,8 +1,8 @@
 /// Subject: Global unit recovery
 ///
 /// Executor: the template ships `Any`. `unyt_cli progenitor global
-/// set-recovery` binds it to the network's recovery agent, and the global
-/// definition refuses any other executor.
+/// set-recovery` binds it to the network's recovery agent, and the DNA refuses
+/// a run by anyone else.
 ///
 /// Inputs:
 /// inputs.call_method: `stranded_commitment` or `not_an_agent_key`.
@@ -21,11 +21,13 @@
 /// `not_an_agent_key` proves it dead when no private key matches its
 /// counterparty: by `record`, or because the counterparty is no point of
 /// Ed25519's curve. A run recovers what the commitment debited, not the fee the
-/// fee collector already took, and each commitment once, by either method. The
-/// 1 unit minimum keeps dust out of the recovered set, and the 1024 cap bounds
-/// what a run carries. `credit_limit` is the running total,
-/// `carryover.recovered` the recovered hashes, and `computed_values` the victim
-/// and what customer service pays them.
+/// fee collector already took, and each commitment once per agreement, by either
+/// method. The 1 unit minimum keeps dust out of the recovered set.
+/// `credit_limit` is the running total, `carryover.recovered` the recovered
+/// hashes, and `computed_values` the victim and what customer service pays them.
+/// The engine holds at most 2048 map entries, so name a new recovery agent, with
+/// its own agreement, before about 1000 recoveries. A new agreement starts with
+/// none of the old one's credit.
 
 fn evidence_hash(evidence, key) {
     if type_of(evidence) != "map" {
@@ -90,9 +92,6 @@ if type_of(previous) == "map" {
 let commitment = get_commitment(read.commitment);
 if commitment.id in recovered {
     throw "The commitment " + commitment.id + " is already recovered";
-}
-if recovered.len() >= 1024 {
-    throw "The recovered set is full: it holds 1024 commitments";
 }
 if commitment.debited.len() == 0 {
     throw "The commitment " + commitment.id + " debited nothing";
