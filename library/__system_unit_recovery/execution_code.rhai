@@ -56,7 +56,7 @@ fn not_an_agent_key_evidence(evidence) {
 }
 
 fn stranded_commitment(commitment, read) {
-    let answer = find_answer_before_close(commitment.id, read.close);
+    let answer = find_accept_or_reject_before_close(commitment.id, read.close);
     if answer != () {
         throw "The commitment " + commitment.id + " was answered: " + answer.kind + " " + answer.id;
     }
@@ -65,10 +65,10 @@ fn stranded_commitment(commitment, read) {
 
 fn not_an_agent_key(commitment, read) {
     if "record" in read {
-        let proof = prove_unowned_by_record(commitment.counterparty, read.record);
-        return #{ "record": proof.id };
+        let checked = check_key_is_hash_of_record(commitment.counterparty, read.record);
+        return #{ "record": checked.id };
     }
-    prove_unowned_off_curve(commitment.counterparty);
+    check_key_is_not_a_public_key(commitment.counterparty);
     #{}
 }
 
