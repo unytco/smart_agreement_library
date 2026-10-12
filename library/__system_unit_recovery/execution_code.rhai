@@ -1,8 +1,8 @@
 /// Subject: Global unit recovery
 ///
 /// Executor: the template ships `Any`. `unyt_cli progenitor global
-/// set-recovery` binds it to the network's recovery agent, and the global
-/// definition refuses any other executor.
+/// set-recovery` binds it to the network's recovery agent, and the DNA refuses
+/// a run by anyone else.
 ///
 /// Inputs:
 /// inputs.call_method: `stranded_commitment` or `not_an_agent_key`.
@@ -25,8 +25,9 @@
 /// 1 unit minimum keeps dust out of the recovered set. `credit_limit` is the
 /// running total, `carryover.recovered` the recovered hashes, and
 /// `computed_values` the victim and what customer service pays them.
-/// The engine holds at most 2048 map entries, so a new agreement should replace
-/// this one before about 1000 recoveries.
+/// The engine holds at most 2048 map entries, so name a new recovery agent, with
+/// its own agreement, before about 1000 recoveries. A new agreement starts with
+/// none of the old one's credit.
 
 fn evidence_hash(evidence, key) {
     if type_of(evidence) != "map" {
