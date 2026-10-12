@@ -26,5 +26,5 @@
       "required": ["method", "victim", "recovered"]
     }
   },
-  "required": ["credit_limit"]
+  "required": ["credit_limit", "carryover", "computed_values"]
 }
