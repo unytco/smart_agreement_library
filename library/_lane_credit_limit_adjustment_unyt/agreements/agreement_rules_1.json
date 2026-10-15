@@ -2,9 +2,21 @@
   "title": "Lane: credit limit adjustment",
   "input_rules": [
     {
+      "name": "call_method",
+      "instruction": {
+        "ExecutorProvided": null
+      }
+    },
+    {
       "name": "proof_of_deposit",
       "instruction": {
         "ProvidedBy": "oracle"
+      }
+    },
+    {
+      "name": "commitment",
+      "instruction": {
+        "ExecutorProvided": null
       }
     },
     {
@@ -17,6 +29,18 @@
       "name": "unyt_index",
       "instruction": {
         "Fixed": "1"
+      }
+    },
+    {
+      "name": "reserve_units",
+      "instruction": {
+        "Fixed": { "debit_unit_index": "1", "credit_unit_index": "0" }
+      }
+    },
+    {
+      "name": "reserve_window_seconds",
+      "instruction": {
+        "Fixed": "10800"
       }
     }
   ],

@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a run must name `call_method`, `bridge` or `reserve`.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: each takes its one lock vault from the Fixed input `lock_vault_address`, and their network values ship as placeholders.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: a vault that is not a lower case address, or that the carried state does not hold, stops the run.
 - `__system_credit_limit_computation_holo_hosting` is now `__system_credit_limit_computation_holofuel`, and its agreement is titled "Global: credit check (HoloFuel)".
@@ -30,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: `reserve` raises the executor's credit by what a swap commitment to it pays, once per commitment, within three hours of it.
 - `__system_unit_recovery`: the network's recovery agent raises its own credit limit by what a stranded commitment debited, once per commitment, and names the victim to pay.
 - `__system_unit_recovery`: a second method, `not_an_agent_key`, recovers a commitment to a counterparty no private key matches.
 - `lockbox`: a minimal AuthorizedExecutor agreement that holds conserved base-unit funds — parks and locks the remainder, carries the lock forward, spends it down, and unlocks it back to the creator. The proving ground for the locked-funds primitive.
