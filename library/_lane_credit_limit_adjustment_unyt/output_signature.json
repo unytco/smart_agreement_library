@@ -4,7 +4,24 @@
     "credit_limit": {
       "type": "object",
       "additionalProperties": { "type": "string" }
+    },
+    "carryover": {
+      "type": "object",
+      "properties": {
+        "reserved": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "committed_at": { "type": "string" }
+            },
+            "required": ["id", "committed_at"]
+          }
+        }
+      },
+      "required": ["reserved"]
     }
   },
-  "required": ["credit_limit"]
+  "required": ["credit_limit", "carryover"]
 }

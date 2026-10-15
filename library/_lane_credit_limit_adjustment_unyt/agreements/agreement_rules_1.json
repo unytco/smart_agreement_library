@@ -36,6 +36,12 @@
       "instruction": {
         "Fixed": { "debit_unit_index": "1", "credit_unit_index": "0" }
       }
+    },
+    {
+      "name": "reserve_window_seconds",
+      "instruction": {
+        "Fixed": "10800"
+      }
     }
   ],
   "executor_rules": { "Any": null },

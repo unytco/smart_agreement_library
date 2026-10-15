@@ -37,7 +37,8 @@
             "credit_unit_index": { "type": "string" }
           },
           "required": ["debit_unit_index", "credit_unit_index"]
-        }
+        },
+        "reserve_window_seconds": { "type": "string" }
       },
       "required": ["call_method"]
     }
