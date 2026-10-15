@@ -8,13 +8,12 @@
 /// consumed_inputs.proof_of_deposit: the oracle's proofs, for `bridge`.
 /// inputs.commitment: a commitment's action hash, for `reserve`.
 /// inputs.previous_execution: this agreement's latest run on the executor's
-/// chain, or null before the first. A state carried across a migration has no
-/// `id`.
+/// chain, or null before the first.
 /// inputs.unyt_index: the unit `bridge` adjusts.
 /// inputs.reserve_units: `debit_unit_index` and `credit_unit_index`, from the
 /// committing agent's side.
-/// inputs.reserve_window_seconds: how long after its time a commitment can be
-/// reserved.
+/// inputs.reserve_window_seconds: how long after its `committed_at` a
+/// commitment can be reserved.
 ///
 /// Summary:
 /// `credit_limit` is a running total: a run keeps every unit of the previous
@@ -23,9 +22,9 @@
 /// commitment to the executor, dated before the run and inside the window
 /// before it, that pays `x` of the debit unit, a conserved one, for `x` of the
 /// credit unit, and adds `x` to the credit unit. `carryover.reserved` names
-/// each commitment reserved inside the window, so `reserve` takes one once. A
-/// run writes about a thousand of them at most, and past that `reserve` refuses
-/// until one leaves the window.
+/// each reserved commitment dated inside the window, so `reserve` takes each
+/// once. A run writes about a thousand of them at most, and past that `reserve`
+/// refuses until one leaves the window.
 
 fn equal(a, b) {
     is_greater_than_eq(a, b) && is_greater_than_eq(b, a)
