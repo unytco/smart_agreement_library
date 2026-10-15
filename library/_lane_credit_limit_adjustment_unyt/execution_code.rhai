@@ -19,9 +19,10 @@
 /// run's and changes one. `bridge` adds each `deposit` proof's amount to
 /// `unyt_index` and subtracts each `withdraw` proof's. `reserve` takes one
 /// commitment to the executor, dated before the run, that pays `x` of the debit
-/// unit for `x` of the credit unit, and adds `x` to the credit unit. It reserves
-/// a commitment once, by walking back from the previous run to the commitment's
-/// time, so it refuses one with more than about a thousand runs after it.
+/// unit, a conserved one, for `x` of the credit unit, and adds `x` to the credit
+/// unit. It reserves a commitment once, by walking back from the previous run to
+/// the commitment's time, so it refuses one with more than about a thousand
+/// runs, of any agreement, after it on the executor's chain.
 
 fn equal(a, b) {
     is_greater_than_eq(a, b) && is_greater_than_eq(b, a)
