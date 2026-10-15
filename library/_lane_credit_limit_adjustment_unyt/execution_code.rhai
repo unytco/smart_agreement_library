@@ -23,7 +23,9 @@
 /// commitment to the executor, dated before the run and inside the window
 /// before it, that pays `x` of the debit unit, a conserved one, for `x` of the
 /// credit unit, and adds `x` to the credit unit. `carryover.reserved` names
-/// each commitment reserved inside the window, so `reserve` takes one once.
+/// each commitment reserved inside the window, so `reserve` takes one once. A
+/// run writes about a thousand of them at most, and past that `reserve` refuses
+/// until one leaves the window.
 
 fn equal(a, b) {
     is_greater_than_eq(a, b) && is_greater_than_eq(b, a)
