@@ -26,9 +26,20 @@
     "inputs": {
       "type": "object",
       "properties": {
+        "call_method": { "type": "string" },
+        "commitment": { "type": "string" },
         "previous_execution": { "type": "object" },
-        "unyt_index": { "type": "string" }
-      }
+        "unyt_index": { "type": "string" },
+        "reserve_units": {
+          "type": "object",
+          "properties": {
+            "debit_unit_index": { "type": "string" },
+            "credit_unit_index": { "type": "string" }
+          },
+          "required": ["debit_unit_index", "credit_unit_index"]
+        }
+      },
+      "required": ["call_method"]
     }
   },
   "required": ["consumed_inputs", "inputs"]
