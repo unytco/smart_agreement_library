@@ -19,13 +19,13 @@
 /// Summary:
 /// `credit_limit` is a running total: a run keeps every unit of the previous
 /// run's and changes one. `bridge` adds each `deposit` proof's amount to
-/// `unyt_index` and subtracts each `withdraw` proof's, and refuses a negative
-/// amount. `reserve` takes one commitment to the executor, dated before the
-/// run and inside the window before it, that pays `x` of the debit unit, a
-/// conserved one, for `x` of the credit unit, and adds `x` to the credit unit.
-/// It reserves a commitment once, by walking back from the previous run to the
-/// commitment's time, so it refuses one with more than about 990 runs, of any
-/// agreement, after it on the executor's chain.
+/// `unyt_index`, subtracts each `withdraw` proof's, and refuses a proof with a
+/// negative amount. `reserve` takes one commitment to the executor, dated
+/// before the run and inside the window before it, that pays `x` of the debit
+/// unit, a conserved one, for `x` of the credit unit, and adds `x` to the
+/// credit unit. It reserves a commitment once, by walking back from the
+/// previous run to the commitment's time, so it refuses one with more than
+/// about 990 runs, of any agreement, after it on the executor's chain.
 
 fn equal(a, b) {
     is_greater_than_eq(a, b) && is_greater_than_eq(b, a)
