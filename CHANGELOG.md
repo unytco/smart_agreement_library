@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a deposit proof whose method is neither `deposit` nor `withdraw` stops the run with "Invalid method", naming it.
+- `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: `bridge` refuses a deposit proof with a negative amount.
 - `_lane_bridging_*`, `_automation_bridging_*` and both credit limit adjustments: a deposit proof missing `method`, `contract_address`, `amount` or `depositor_wallet_address`, or holding one that is not a string, is refused.
 - `_lane_credit_limit_adjustment_unyt` and `__system_credit_limit_adjustment`: the `oracle` role admits nobody until the agreement's publisher authorizes one.
 - `_lane_bridging_*` and `_automation_bridging_*`: the `bridging_agent` role admits nobody until the agreement's publisher authorizes one.
