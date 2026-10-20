@@ -10,9 +10,9 @@
       }
     },
     {
-      "name": "special_agent",
+      "name": "special_agents",
       "instruction": {
-        "Fixed": "SHOULD_BE_REPLACED_WITH_SPECIAL_AGENT_PUBKEY"
+        "Fixed": ["SHOULD_BE_REPLACED_WITH_SPECIAL_AGENT_PUBKEY"]
       }
     },
     {
