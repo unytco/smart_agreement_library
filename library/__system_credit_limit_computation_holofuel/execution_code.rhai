@@ -1,4 +1,4 @@
-// A ZFuel amount is a whole number of millionths, so a share rounds down to one
+// An amount is a whole number of millionths, so a share rounds down to one
 // and the remainder goes to nobody.
 fn millionths(amount) {
     let parts = amount.split(".");
