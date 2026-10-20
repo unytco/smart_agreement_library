@@ -1,6 +1,6 @@
 // if there is a credit adjustment add it to the fixed credit limit
 let amount = inputs.credit_limit.data;
-let special_agent = inputs.special_agent.data;
+let special_agents = inputs.special_agents.data;
 let executor_pub_key = executor_pub_key;
 for credit_adjustment_execution in inputs.credit_adjustment_execution.data {
     if type_of(credit_adjustment_execution) == "map" {
@@ -8,8 +8,8 @@ for credit_adjustment_execution in inputs.credit_adjustment_execution.data {
     }
 }
 
-if special_agent == executor_pub_key {
-    amount = add_units(amount, inputs.special_credit_limit.data);
+if executor_pub_key in special_agents {
+    amount = add_units(amount, special_agents[executor_pub_key]);
 }
 
 return  #{

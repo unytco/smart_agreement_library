@@ -5,10 +5,13 @@
       "type": "object",
       "properties": {
         "credit_limit": { "type": "object", "additionalProperties": { "type": "string" } },
-        "special_agent": { "type": "string" },
-        "special_credit_limit": { "type": "object", "additionalProperties": { "type": "string" } },
+        "special_agents": {
+          "type": "object",
+          "additionalProperties": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
         "credit_adjustment_execution": { "type": "array", "items": { "type": "object" } }
-      }
+      },
+      "required": ["special_agents"]
     }
   },
   "required": ["inputs"]

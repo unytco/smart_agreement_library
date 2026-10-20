@@ -10,16 +10,12 @@
       }
     },
     {
-      "name": "special_agent",
-      "instruction": {
-        "Fixed": "SHOULD_BE_REPLACED_WITH_SPECIAL_AGENT_PUBKEY"
-      }
-    },
-    {
-      "name": "special_credit_limit",
+      "name": "special_agents",
       "instruction": {
         "Fixed": {
-          "0": "177619433541.14"
+          "SHOULD_BE_REPLACED_WITH_SPECIAL_AGENT_PUBKEY": {
+            "0": "0"
+          }
         }
       }
     },
