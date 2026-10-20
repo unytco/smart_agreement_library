@@ -17,11 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ioen_rec`: emit `amounts` as a unit map (`#{ "0": total }`), not an array — the array shape does not deserialize into `UnitMap` and contradicted the template's own `output_signature.json`. Its example agreement now uses the real `AuthorizedExecutor` variant and an array-valued `Authorized` qualification.
 - Docs: the output contract had allocations as `amount` arrays and `credit_limit` as an `{ agent, amount }` object; both are unit maps. Executor rules are `AuthorizedExecutor` with one key, not `AuthorizedExecutors` with a list.
 - Docs: dead links — `docs/rave_rules.md` and `unytco/unyt-releases` in `README.md`, the `RAVEOutput` docs.rs path in `CONTRIBUTING.md`.
-- `__system_credit_limit_computation_holofuel`: declare `special_agents` and `special_credit_limit` in `runtime_input_signature.json`: the script reads both, but the signature was a copy of the generic template's, which has neither.
 
 ### Changed
 
-- `__system_credit_limit_computation_holofuel`: takes the Fixed list `special_agents`, at least one, in place of `special_agent`, and gives each entry an equal share of `special_credit_limit`, rounded down to a millionth.
+- `__system_credit_limit_computation_holofuel`: takes the Fixed map `special_agents`, from an agent key to the HF credit added to that agent's limit, and its signature requires it.
 - `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a run must name `call_method`, `bridge` or `reserve`.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: each takes its one lock vault from the Fixed input `lock_vault_address`, and their network values ship as placeholders.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: a vault that is not a lower case address, or that the carried state does not hold, stops the run.
@@ -49,4 +48,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `holo_hosting_proof_of_service`: price five optional dimensions (storage, gossip, gets, 2 WindTunnel); absent ⇒ 0.
 - `holo_hosting_proof_of_service`: fix the gossip/storage unit-index swap so each dimension credits its own index.
 - `holo_hosting_proof_of_service`: rename the paying role Happ Provider → EdgeNode Customer.
-- `__system_credit_limit_computation_holofuel`: narrow the elevated `special_credit_limit` to the HoloFuel unit only (index `0`), dropping the stale, over-broad second index, and set it to `177619433541.14`.
