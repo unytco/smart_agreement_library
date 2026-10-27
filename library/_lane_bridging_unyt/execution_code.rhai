@@ -35,17 +35,12 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     let unyt_allocation = [];
     let rejected_links = [];
     let processed_coupons = #{};
+    let coupon_of = #{};
+    for provided in coupons {
+        coupon_of[provided.link_hash] = provided.data;
+    }
     for allocation in consumed_inputs.withdrawer_allocations {
-        let found_coupon = false;
-        let coupon;
-        for provided in coupons {
-            if provided.link_hash == allocation.link_hash {
-                found_coupon = true;
-                coupon = provided.data;
-                break;
-            }
-        }
-        if !found_coupon {
+        if !(allocation.link_hash in coupon_of) {
             rejected_links.push(#{
                 "hash": allocation.link_hash,
                 "reason": "No coupon provided for this withdrawal"
@@ -71,7 +66,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                 "amounts": spent_amount,
                 "sources": [allocation.link_hash]
             });
-            processed_coupons[allocation.link_hash] = coupon;
+            processed_coupons[allocation.link_hash] = coupon_of[allocation.link_hash];
         } else {
             rejected_links.push(#{
                 "hash": allocation.link_hash,
