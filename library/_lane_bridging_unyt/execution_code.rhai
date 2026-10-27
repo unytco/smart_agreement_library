@@ -35,23 +35,23 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     let unyt_allocation = [];
     let rejected_links = [];
     let processed_coupons = #{};
+    let coupon_of = #{};
+    for provided in coupons {
+        coupon_of[provided.link_hash] = provided.data;
+    }
+    let contract_address_of = #{};
+    for address in consumed_inputs.withdraw_contract_address {
+        contract_address_of[address.link_hash] = address.data;
+    }
     for allocation in consumed_inputs.withdrawer_allocations {
-        if !(allocation.link_hash in coupons) {
+        if !(allocation.link_hash in coupon_of) {
             rejected_links.push(#{
                 "hash": allocation.link_hash,
                 "reason": "No coupon provided for this withdrawal"
             });
             continue;
         }
-        let found_contract_address = false;
-        let contract_address;
-        for addresses in consumed_inputs.withdraw_contract_address {
-            if addresses.link_hash == allocation.link_hash {
-                found_contract_address = true;
-                contract_address = addresses.data;
-                break;
-            }
-        }
+        let contract_address = contract_address_of[allocation.link_hash];
         let amount = state[contract_address];
         if type_of(amount) == "string" {
             let spent_amount = allocation.data.amount;
@@ -62,7 +62,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
                 "amounts": spent_amount,
                 "sources": [allocation.link_hash]
             });
-            processed_coupons[allocation.link_hash] = coupons[allocation.link_hash];
+            processed_coupons[allocation.link_hash] = coupon_of[allocation.link_hash];
         } else {
             rejected_links.push(#{
                 "hash": allocation.link_hash,
@@ -92,7 +92,7 @@ let unyt_allocation = deposit_result.unyt_allocation;
 let withdraw_result = withdraw_logic(
     consumed_inputs, state, ea_id, unyt_index,
     executed_timestamp, inputs.cool_down_period.data,
-    executor_pub_key, inputs.coupons.data
+    executor_pub_key, inputs.coupons
 );
 state = withdraw_result.state;
 for alloc in withdraw_result.unyt_allocation {

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: a run pays 256 withdrawals within its operation budget.
 - `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a deposit proof whose method is neither `deposit` nor `withdraw` stops the run with "Invalid method", naming it.
 - `_lane_bridging_*`, `_automation_bridging_*` and both credit limit adjustments: a deposit proof missing `method`, `contract_address`, `amount` or `depositor_wallet_address`, or holding one that is not a string, is refused.
 - `_lane_credit_limit_adjustment_unyt` and `__system_credit_limit_adjustment`: the `oracle` role admits nobody until the agreement's publisher authorizes one.
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: `coupons` is provided per link, so a run records the coupon of each withdrawal it consumes and no other.
 - `__system_credit_limit_computation_holofuel`: takes the Fixed map `special_agents`, from an agent key to the HF credit added to that agent's limit, and its signature requires it.
 - `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a run must name `call_method`, `bridge` or `reserve`.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: each takes its one lock vault from the Fixed input `lock_vault_address`, and their network values ship as placeholders.

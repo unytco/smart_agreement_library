@@ -40,7 +40,7 @@
     {
       "name": "coupons",
       "instruction": {
-        "ExecutorProvided": null
+        "ExecutorProvidedPerLink": null
       }
     },
     {
