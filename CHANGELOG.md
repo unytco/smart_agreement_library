@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: `coupons` is provided per link, so a run records the coupon of each withdrawal it consumes and no other.
 - `__system_credit_limit_computation_holofuel`: takes the Fixed map `special_agents`, from an agent key to the HF credit added to that agent's limit, and its signature requires it.
 - `__system_credit_limit_adjustment` and `_lane_credit_limit_adjustment_unyt`: a run must name `call_method`, `bridge` or `reserve`.
 - `_automation_bridging_hot_blockchain` and `_lane_bridging_unyt`: each takes its one lock vault from the Fixed input `lock_vault_address`, and their network values ship as placeholders.
