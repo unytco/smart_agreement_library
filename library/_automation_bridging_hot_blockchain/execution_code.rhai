@@ -39,6 +39,10 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
     for provided in coupons {
         coupon_of[provided.link_hash] = provided.data;
     }
+    let contract_address_of = #{};
+    for address in consumed_inputs.withdraw_contract_address {
+        contract_address_of[address.link_hash] = address.data;
+    }
     for allocation in consumed_inputs.withdrawer_allocations {
         if !(allocation.link_hash in coupon_of) {
             rejected_links.push(#{
@@ -47,15 +51,7 @@ fn withdraw_logic(consumed_inputs, state, ea_id, unyt_index, executed_timestamp,
             });
             continue;
         }
-        let found_contract_address = false;
-        let contract_address;
-        for addresses in consumed_inputs.withdraw_contract_address {
-            if addresses.link_hash == allocation.link_hash {
-                found_contract_address = true;
-                contract_address = addresses.data;
-                break;
-            }
-        }
+        let contract_address = contract_address_of[allocation.link_hash];
         let amount = state[contract_address];
         if type_of(amount) == "string" {
             let spent_amount = allocation.data.amount;
